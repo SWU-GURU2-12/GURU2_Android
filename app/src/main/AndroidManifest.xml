@@ -13,10 +13,16 @@
         android:theme="@style/Theme.WhatsinmyLuggage"
         tools:targetApi="31">
         <activity
-            android:name=".HomePage"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

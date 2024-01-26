@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "578849671866",
+    "project_id": "what-s-in-my-luggage",
+    "storage_bucket": "what-s-in-my-luggage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578849671866:android:d495d032d55721c8f6d083",
+        "android_client_info": {
+          "package_name": "com.example.what_s_in_my_luggage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAE2xONaxFzI16fewbaIOJ-y5ypbMxbCb0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
