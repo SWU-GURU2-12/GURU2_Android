@@ -1,53 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyRoomActivity"
-    android:background="#CCCCCC"
-    >
+    android:clipToOutline="true"
+    android:background="#FFFFFF"
+    tools:context=".MyRoomActivity">
 
-    <!-- 별명 입력 그룹 -->
-    <!-- 비밀번호 입력 그룹 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!-- 확인 버튼 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="55dp"
+            android:text="템플릿을 둘러보세요"
+            android:textSize="22sp"
+            android:gravity="center_vertical" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout4"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        <ImageView
+            android:id="@+id/co1"
+            android:layout_width="312dp"
+            android:layout_height="312dp"
+            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="37dp" />
 
-        android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="152dp"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_margin="16dp"
-
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="-4dp" />
-
-    <Button
-        android:id="@+id/btnSignOk"
-        android:layout_width="173dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="300dp"
-        android:text="->"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -18,9 +18,11 @@ class LoginActivity : AppCompatActivity() {
     //데이터 베이스 참조
     private val databaseReference = Firebase.database.getReference("users")
 
+    lateinit var btnBack: Button
     lateinit var etUserNickname: EditText
     lateinit var etUserPw: EditText
     lateinit var btnSignOk: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -28,6 +30,12 @@ class LoginActivity : AppCompatActivity() {
         etUserNickname = findViewById(R.id.userNickName)
         etUserPw = findViewById(R.id.userPw)
         btnSignOk = findViewById(R.id.btnSignOk)
+        btnBack = findViewById(R.id.btnBack)
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
 
         btnSignOk.setOnClickListener {
             val userNickName = etUserNickname.text.toString()

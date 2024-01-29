@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 class SignUpActivity : AppCompatActivity() {
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
+    lateinit var btnBack: Button
     lateinit var etMakeId: EditText
     lateinit var etMakePw: EditText
     lateinit var btnNicknameCd: Button
@@ -30,6 +31,14 @@ class SignUpActivity : AppCompatActivity() {
         etMakePw = findViewById(R.id.makePw)
         btnNicknameCd = findViewById(R.id.btnNicNameCd)
         btnSignOk = findViewById(R.id.btnSignOk)
+        btnBack = findViewById(R.id.btnBack)
+
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
 
         btnNicknameCd.setOnClickListener {
             val userNickName = etMakeId.text.toString()
