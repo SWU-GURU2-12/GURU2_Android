@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#56ACF6</color>
+    <color name="colorPrimary">#56ACF6</color>
+    <color name="colorPrimaryDark">#56ACF6</color>
+    <color name="colorAccent">#56ACF6</color>
+    <color name="editTextSelected">#56ACF6</color>
 </resources>
