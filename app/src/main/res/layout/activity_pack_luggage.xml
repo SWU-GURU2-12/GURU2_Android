@@ -7,153 +7,222 @@
     tools:context=".PackLuggage"
     android:id="@+id/constraintLayout">
 
-    <ImageButton
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_arrow_back_24" />
-
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="저장"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/constaintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/listBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="리스트"
-        app:layout_constraintEnd_toStartOf="@+id/saveBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/luggageCardView"
-        android:layout_width="360dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="64dp"
-        app:cardBackgroundColor="@color/gray"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="18dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/btnBackground"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/free_icon_backward_arrow_81037" />
+
+        <TextView
+            android:id="@+id/packLuggageTextView"
+            android:layout_width="80dp"
+            android:layout_height="28dp"
+            android:fontFamily="sans-serif"
+            android:text="짐 꾸리기"
+            android:textAlignment="center"
+            android:textColor="@color/bb"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/nextBtn"
+            app:layout_constraintHorizontal_bias="0.552"
+            app:layout_constraintStart_toEndOf="@+id/backBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="38dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/btnBackground"
+            android:fontFamily="sans-serif"
+            android:text="다음"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/bb25"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/constaintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/luggageCardView1"
+            android:layout_width="344dp"
+            android:layout_height="419dp"
+            android:layout_gravity="center"
+            app:cardBackgroundColor="@color/bb25"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp">
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/luggageCardView2"
             android:layout_width="340dp"
-            android:layout_height="170dp"
-            android:layout_gravity="bottom|center"
+            android:layout_height="415dp"
+            android:layout_gravity="center"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="25dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:strokeColor="@color/gray">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/luggageCardView3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/bb25"
+                app:cardElevation="0dp">
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/luggageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/luggageCardView3"
-        android:layout_width="360dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="244dp"
-        app:cardBackgroundColor="@color/gray"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/luggageCardView4"
-            android:layout_width="340dp"
-            android:layout_height="170dp"
-            android:layout_gravity="center|top"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="25dp"
-            app:cardElevation="0dp">
-
-        </androidx.cardview.widget.CardView>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/weightTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="현재 무게: "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/luggageCardView3" />
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
-        android:layout_width="417dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="229dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightTextView"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/constaintLayout">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout7"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/clothesBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#F13A3A"
-                android:clickable="true"
-                android:text="의류"
-                android:textSize="20sp" />
+            <Button
+                android:id="@+id/allBtn"
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="전체"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/electronicsBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#5992E1"
-                android:clickable="true"
-                android:text="전자기기"
-                android:textSize="20sp" />
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="전자"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
 
+            <Button
+                android:id="@+id/allBtn3"
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="기내 필수품"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/clothesBtn"
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="의류"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/allBtn6"
+                android:layout_width="48dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="기타 의류"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/allBtn7"
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="케어"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/allBtn8"
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:background="@color/btnBackground"
+                android:fontFamily="sans-serif"
+                android:text="식품"
+                android:textColor="@color/bb50"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="328dp"
+            android:layout_height="186dp"
             android:clickable="true"
-            android:background="#FFFF00" />
-
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/luggageLayout"
-        android:layout_width="359dp"
-        android:layout_height="359dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/luggageCardView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/luggageCardView">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

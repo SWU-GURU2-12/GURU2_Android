@@ -22,7 +22,7 @@ class ItemListAdapter(var list: List<Items>): RecyclerView.Adapter<ItemListAdapt
 
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
         holder.binding.itemImageView.setImageResource(list[position].image)
-        holder.binding.itemNameTextView.text = list[position].name
+//        holder.binding.itemNameTextView.text = list[position].name
     }
 
     override fun getItemCount(): Int {
