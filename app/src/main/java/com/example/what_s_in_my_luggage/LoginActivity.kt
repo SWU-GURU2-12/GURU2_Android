@@ -3,7 +3,6 @@ package com.example.what_s_in_my_luggage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -53,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                                     // 비밀번호가 일치하는 경우
                                     Toast.makeText(baseContext,"로그인 완료", Toast.LENGTH_SHORT).show()
                                     // 로그인 성공 후 MyRoomActivity 시작
-                                    val intent = Intent(this@LoginActivity, MyRoomActivity::class.java)
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                     startActivity(intent)
                                     finish()
                                     break
