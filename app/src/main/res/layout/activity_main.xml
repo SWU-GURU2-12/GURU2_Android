@@ -26,27 +26,38 @@
             android:textColor="@color/black"
             android:textSize="22sp" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
 
             <ImageButton
                 android:id="@+id/btnGetCarrying"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="35dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline_center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <ImageButton
                 android:id="@+id/btnGetMyroom"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="35dp" />
-        </LinearLayout>
+                app:layout_constraintStart_toEndOf="@id/guideline_center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
         <ImageButton
@@ -57,61 +68,62 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="15dp"
-            android:text="새로운 짐 꾸리기"/>
-
     </LinearLayout>
 
     <!-- 바텀 네비게이션 -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp">
 
         <ImageButton
             android:id="@+id/btnNaviMain"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNaviTemplete"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnNaviTemplete"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintStart_toEndOf="@id/btnNaviMain"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNaviStored"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/btnNaviMain"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnNaviStored"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintStart_toEndOf="@id/btnNaviTemplete"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnNaviMyroom"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/btnNaviTemplete"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btnNaviMyroom"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintStart_toEndOf="@id/btnNaviStored"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/btnNaviStored"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:text="새로운 짐 꾸리기"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        tools:layout_editor_absoluteX="-16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

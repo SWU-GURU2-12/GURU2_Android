@@ -95,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:text="새로운 짐 꾸리기"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="575dp" />
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        tools:layout_editor_absoluteX="18dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
