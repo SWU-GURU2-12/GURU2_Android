@@ -57,6 +57,12 @@ class ItemList : AppCompatActivity() {
                 newImageView.setOnTouchListener { v, event ->
                     handleTouch(event, newImageView, layout)
                 }
+
+                // firebase
+                // 아이템 추가하면 체크리스트 db에 추가됨
+//                val databaseRef = FirebaseDatabase.getInstance().getReference("groupTBL")
+//
+//                val group = Group()
             }
         }
 

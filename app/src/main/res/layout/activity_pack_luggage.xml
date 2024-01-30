@@ -8,7 +8,7 @@
     android:id="@+id/constraintLayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/packLuggageActionBarLayout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:orientation="horizontal"
@@ -73,7 +73,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/packLuggageActionBarLayout">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/luggageCardView1"
