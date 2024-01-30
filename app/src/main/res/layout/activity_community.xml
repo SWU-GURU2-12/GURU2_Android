@@ -28,14 +28,15 @@
                 android:textSize="22sp"
                 android:gravity="center_vertical" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/co1"
                 android:layout_width="312dp"
                 android:layout_height="312dp"
                 android:layout_gravity="center"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="37dp"
-                android:background="@drawable/img1" />
+                android:background="@drawable/img1"
+                android:contentDescription="클릭시 발행된 글로 이동"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,14 +49,15 @@
                 android:textSize="16sp"
                 android:gravity="center_vertical" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/co2"
                 android:layout_width="312dp"
                 android:layout_height="312dp"
                 android:layout_gravity="center"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="37dp"
-                android:background="@drawable/img1" />
+                android:background="@drawable/img1"
+                android:contentDescription="클릭시 발행된 글로 이동"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,18 +66,19 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="11dp"
-                android:text="유럽 에어비앤비 9박10일 짐"
+                android:text="도쿄여행 3박4일 짐"
                 android:textSize="16sp"
                 android:gravity="center_vertical" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/co3"
                 android:layout_width="312dp"
                 android:layout_height="312dp"
                 android:layout_gravity="center"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="37dp"
-                android:background="@drawable/img1" />
+                android:background="@drawable/img1"
+                android:contentDescription="클릭시 발행된 글로 이동"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,7 +87,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="11dp"
-                android:text="유럽 에어비앤비 9박10일 짐"
+                android:text="제주도 한달살기 짐"
                 android:textSize="16sp"
                 android:gravity="center_vertical" />
 
