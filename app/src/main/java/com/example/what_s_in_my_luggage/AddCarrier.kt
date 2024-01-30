@@ -132,7 +132,6 @@ class AddCarrier : AppCompatActivity() {
     // TODO: date picker
     // 년월일~ 년월일 선택하는 date picker 구현
 
-
     // template spinner
         var template: String = ""
         val spinner2 = findViewById<Spinner>(R.id.templateSpin)
