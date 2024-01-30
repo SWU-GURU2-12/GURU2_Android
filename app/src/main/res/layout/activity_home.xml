@@ -11,20 +11,22 @@
     <Button
         android:id="@+id/btnGetLogin"
         android:background="@drawable/btn_h60"
-        android:layout_width="328dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="460dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="로그인하기"
         />
 
     <Button
         android:id="@+id/btnGetSignUp"
         android:background="@drawable/btn_h60"
-        android:layout_width="328dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="새로가입하기" />
 
 
