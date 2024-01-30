@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.edinstudio.app.samples.datepicker.TwoDatePickerDialog">
+
+    <EditText
+        android:id="@+id/start_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:focusable="false"
+        android:hint="Please pick a date" />
+
+    <EditText
+        android:id="@+id/end_date"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/start_date"
+        android:focusable="false"
+        android:hint="Please pick a date" />
+
+</RelativeLayout>
