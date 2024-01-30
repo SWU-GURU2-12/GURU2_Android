@@ -10,7 +10,7 @@
         android:id="@+id/itemImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@android:color/transparent"
         android:scaleType="centerInside"
         android:src="@drawable/free_icon_tshirt_2806248"
         app:layout_constraintBottom_toBottomOf="parent"

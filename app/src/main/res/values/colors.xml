@@ -9,6 +9,8 @@
     <color name="bb70">#B3373C40</color>
     <color name="bb50">#80373C40</color>
     <color name="bb25">#40373C40</color>
+    <color name="cy">#07D9FE</color>
+    <color name="cy20">#3307D9FE</color>
     <color name="colorPrimary">#56ACF6</color>
     <color name="colorPrimaryDark">#56ACF6</color>
     <color name="colorAccent">#56ACF6</color>

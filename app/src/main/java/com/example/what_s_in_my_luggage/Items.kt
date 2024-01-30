@@ -1,3 +1,5 @@
 package com.example.what_s_in_my_luggage
 
-class Items(val image: Int, val name: String)
+import com.google.firebase.storage.StorageReference
+
+class Items(val image: StorageReference, val name: String)

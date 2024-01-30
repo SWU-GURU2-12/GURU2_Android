@@ -40,8 +40,8 @@ class ItemList : AppCompatActivity() {
                 )
 
                 newImageView.layoutParams = layoutParams
-                layoutParams.width = 200
-                layoutParams.height = 200
+                layoutParams.width = 100
+                layoutParams.height = 100
                 layoutParams.startToStart = ConstraintSet.PARENT_ID
                 layoutParams.endToEnd = ConstraintSet.PARENT_ID
                 layoutParams.topToTop = ConstraintSet.PARENT_ID

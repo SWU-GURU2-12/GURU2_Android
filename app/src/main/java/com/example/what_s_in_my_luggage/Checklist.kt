@@ -71,8 +71,7 @@ class Checklist : AppCompatActivity() {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
 
-            // margin 설정 (예: left: 8dp, top: 16dp)
-            layoutParams.leftMargin = resources.getDimensionPixelSize(R.dimen.margin_left)
+            // margin 설정 (top: 16dp)
             layoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top)
 
             // 생성한 LayoutParams를 TextView에 설정
@@ -84,7 +83,7 @@ class Checklist : AppCompatActivity() {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
 
             // 생성한 TextView를 checklistLayout에 추가
-            cBinding.checklistLayout.addView(textView)
+            cBinding.electronicsLayout.addView(textView)
         }
     }
 }
