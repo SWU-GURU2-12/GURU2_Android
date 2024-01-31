@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class Checklist : AppCompatActivity() {
-    lateinit var cBinding: ActivityChecklistBinding
+    private lateinit var cBinding: ActivityChecklistBinding
     private lateinit var databaseRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +34,7 @@ class Checklist : AppCompatActivity() {
 
         // 추가된 아이템을 체크리스트에 표시
         // Firebase에서 데이터 가져오기
+        // checklist 그룹 -> 사용자 이름 그룹 -> 여행 이름 그룹
         databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -57,9 +58,6 @@ class Checklist : AppCompatActivity() {
     }
 
     private fun displayChecklist(itemList: List<String>) {
-        // 기존의 TextView 삭제 (이거 때문에 테스트랑 추가버튼 사라짐)
-//        cBinding.checklistLayout.removeAllViews()
-
         // 가져온 데이터로 동적으로 TextView 생성하여 추가
         for (item in itemList) {
             val textView = TextView(this)
@@ -82,8 +80,27 @@ class Checklist : AppCompatActivity() {
             textView.setTextColor(textColor)
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
 
-            // 생성한 TextView를 checklistLayout에 추가
-            cBinding.electronicsLayout.addView(textView)
+            // 생성한 TextView를 알맞는 Layout에 추가
+            when (item) {
+                "어댑터", "카메라", "보조배터리" -> {
+                    cBinding.electronicsLayout.addView(textView)
+                }
+                "여권", "개인 가방", "유럽 돈" -> {
+                    cBinding.inFlightEssentialsLayout.addView(textView)
+                }
+                "겨울 상의", "겨울 하의" -> {
+                    cBinding.clothesLayout.addView(textView)
+                }
+                "머플러", "모자", "부츠" -> {
+                    cBinding.otherColthesLayout.addView(textView)
+                }
+                "화장품", "칫솔&치약", "스킨케어" -> {
+                    cBinding.careLayout.addView(textView)
+                }
+                "컵라면" -> {
+                    cBinding.foodLayout.addView(textView)
+                }
+            }
         }
     }
 }

@@ -3,14 +3,17 @@ package com.example.what_s_in_my_luggage
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import com.example.what_s_in_my_luggage.databinding.ActivityItemListBinding
 
 class ItemList : AppCompatActivity() {
     lateinit var iBinding: ActivityItemListBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,9 @@ class ItemList : AppCompatActivity() {
         private var offsetX = 0
         private var offsetY = 0
         private var isMoving = false
+        var isItemExist = false
+        val existTextColor = R.color.blue
+        val notExistTextColor = R.color.bb25
 
         fun onImageViewClick(v: View) {
             if (v is ImageView) {
@@ -49,20 +55,17 @@ class ItemList : AppCompatActivity() {
 
                 // ImageView가 luggageLayout에 추가되도록 레이아웃 지정
                 val layout = v.rootView.findViewById<ConstraintLayout>(R.id.luggageLayout)
+                val nextBtn = v.rootView.findViewById<Button>(R.id.nextBtn)
 
                 // ImageView 추가
                 layout.addView(newImageView)
+                isItemExist = true
+                nextBtn.setTextColor(v.resources.getColor(existTextColor))
 
                 // ImageView에 터치 이벤트 리스너 등록
                 newImageView.setOnTouchListener { v, event ->
                     handleTouch(event, newImageView, layout)
                 }
-
-                // firebase
-                // 아이템 추가하면 체크리스트 db에 추가됨
-//                val databaseRef = FirebaseDatabase.getInstance().getReference("groupTBL")
-//
-//                val group = Group()
             }
         }
 

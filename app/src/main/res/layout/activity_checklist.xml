@@ -101,24 +101,25 @@
                     android:layout_height="match_parent">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView3"
+                        android:id="@+id/electronicsCardView"
                         android:layout_width="44dp"
                         android:layout_height="31dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         app:cardBackgroundColor="#CCF6FE"
                         app:cardCornerRadius="40dp"
                         app:cardElevation="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/electronicsLayout"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/electronicsTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="전자"
-                            android:textColor="@color/cy"
+                            android:textColor="#07D8FD"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </androidx.cardview.widget.CardView>
@@ -129,10 +130,192 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/inFlightEssentialsCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/electronicsCardView"></LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/inFlightEssentialsCardView"
+                        android:layout_width="89dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        app:cardBackgroundColor="#FEFED8"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/inFlightEssentialsLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/electronicsLayout">
+
+                        <TextView
+                            android:id="@+id/inFlightEssentialsTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="기내 필수템"
+                            android:textColor="#D3D324"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/inFlightEssentialsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/clothesCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/inFlightEssentialsCardView"></LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/clothesCardView"
+                        android:layout_width="44dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        app:cardBackgroundColor="#DCEDFC"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/clothesLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/inFlightEssentialsLayout">
+
+                        <TextView
+                            android:id="@+id/clothesTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="의류"
+                            android:textColor="#56ABF5"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/clothesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/otherColthesCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clothesCardView"></LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/otherColthesCardView"
+                        android:layout_width="75dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        app:cardBackgroundColor="#FEEAF3"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/otherColthesLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clothesLayout">
+
+                        <TextView
+                            android:id="@+id/otherColthesTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="기타 의류"
+                            android:textColor="#FE98C8"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/otherColthesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/careCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/otherColthesCardView"></LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/careCardView"
+                        android:layout_width="44dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        app:cardBackgroundColor="#E9F6F4"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/careLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/otherColthesLayout">
+
+                        <TextView
+                            android:id="@+id/careTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="케어"
+                            android:textColor="#2CAB92"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/careLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toTopOf="@+id/foodCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/careCardView"></LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/foodCardView"
+                        android:layout_width="44dp"
+                        android:layout_height="31dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        app:cardBackgroundColor="#FEE9E9"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/foodLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/careLayout">
+
+                        <TextView
+                            android:id="@+id/foodTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="식품"
+                            android:textColor="#FD9795"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:id="@+id/foodLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cardView3"></LinearLayout>
+                        app:layout_constraintTop_toBottomOf="@+id/foodCardView"></LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

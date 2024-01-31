@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/constaintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +64,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/progressBar_60"
+        android:layout_width="216dp"
+        android:layout_height="4dp"
+        android:background="@color/blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/packLuggageActionBarLayout" />
+
     <FrameLayout
         android:id="@+id/constaintLayout"
         android:layout_width="match_parent"
@@ -73,12 +80,12 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/packLuggageActionBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_60">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/luggageCardView1"
             android:layout_width="344dp"
-            android:layout_height="419dp"
+            android:layout_height="370dp"
             android:layout_gravity="center"
             app:cardBackgroundColor="@color/bb25"
             app:cardCornerRadius="25dp"
@@ -89,7 +96,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/luggageCardView2"
             android:layout_width="340dp"
-            android:layout_height="415dp"
+            android:layout_height="366dp"
             android:layout_gravity="center"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="25dp"
@@ -137,7 +144,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/allBtn"
+                android:id="@+id/allItemsBtn"
                 android:layout_width="23dp"
                 android:layout_height="16dp"
                 android:layout_marginRight="16dp"
@@ -159,7 +166,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/allBtn3"
+                android:id="@+id/inFlightEssentialsBtn"
                 android:layout_width="23dp"
                 android:layout_height="16dp"
                 android:layout_marginRight="16dp"
@@ -181,7 +188,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/allBtn6"
+                android:id="@+id/otherClothesBtn"
                 android:layout_width="48dp"
                 android:layout_height="16dp"
                 android:layout_marginRight="16dp"
@@ -192,7 +199,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/allBtn7"
+                android:id="@+id/careBtn"
                 android:layout_width="23dp"
                 android:layout_height="16dp"
                 android:layout_marginRight="16dp"
@@ -203,7 +210,7 @@
                 android:textSize="12sp" />
 
             <Button
-                android:id="@+id/allBtn8"
+                android:id="@+id/foodBtn"
                 android:layout_width="23dp"
                 android:layout_height="16dp"
                 android:background="@color/btnBackground"

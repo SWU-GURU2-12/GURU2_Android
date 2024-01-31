@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
-        android:src="@drawable/free_icon_tshirt_2806248"
+        android:src="@drawable/free_icon_loading_6356587"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
