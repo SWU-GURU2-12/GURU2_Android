@@ -74,6 +74,10 @@ class BottomNavigationFragment : Fragment() {
 
     private fun <T> navigateToActivity(activityClass: Class<T>) {
         val intent = Intent(context, activityClass)
+        // MainActivity의 경우 새 인스턴스 생성을 방지
+        if (activityClass == MainActivity::class.java) {
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
         startActivity(intent)
     }
 
