@@ -13,6 +13,8 @@ import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DialogCalFragment : BottomSheetDialogFragment() {
+    private var selectedDate: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,19 +24,22 @@ class DialogCalFragment : BottomSheetDialogFragment() {
 
         val txtDate = view.findViewById<TextView>(R.id.date)
         val calendar = view.findViewById<CalendarView>(R.id.calendarView)
-        val buttonId = arguments?.getInt("button")
 
         calendar?.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var selectedDate = "${year}년 ${month + 1}월 ${dayOfMonth}일"
+            selectedDate = "${year}년 ${month + 1}월 ${dayOfMonth}일"
             txtDate?.text = "출발일: ${selectedDate}"
-
-            setFragmentResult("selectDate", Bundle().apply {
-                putString("date", selectedDate)
-                putInt("button", buttonId!!)
-            })
         }
 
         return view
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        val button = arguments?.getInt("button")
+        setFragmentResult("selectDate", Bundle().apply {
+            putString("date", selectedDate)
+            putInt("button", button!!)
+        })
+    }
 }

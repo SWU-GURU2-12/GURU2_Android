@@ -50,7 +50,10 @@ class AddCarrierFragment : Fragment() {
         }
 
         // 여행지
-
+        travelPlace.setOnClickListener {
+            val dialogTravelPlace = DialogListViewFragment()
+            dialogTravelPlace.show(parentFragmentManager, "travelPlace")
+        }
 
         // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
 

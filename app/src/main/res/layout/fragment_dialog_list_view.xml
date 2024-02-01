@@ -6,27 +6,26 @@
     android:orientation="vertical"
     tools:context=".DialogCalFragment">
 
-    <TextView
-        android:id="@+id/date"
+    <EditText
+        android:id="@+id/editSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        android:text="출발일을 선택해 주세요"
+        android:background="@android:color/transparent"
+        android:hint="여행지를 선택해 주세요"
+        android:textColor="@android:color/black"
         android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
         android:textAlignment="center" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        />
+        android:clickable="true" />
 
 </LinearLayout>
