@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigationMain"
+        android:icon="@drawable/nav_item_main_selector"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigationTemplete"
+        android:icon="@drawable/nav_item_templete_selector"
+        android:title=""/>
+    <item
+        android:id="@+id/navigationLuggage"
+        android:icon="@drawable/nav_item_luggage_selector"
+        android:title=""/>
+    <item
+        android:id="@+id/navigationMyRoom"
+        android:icon="@drawable/nav_item_myroom_selector"
+        android:title=""/>
+</menu>
