@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 
-class MyRoomActivity : AppCompatActivity() {
+class StoredActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_room)
+        setContentView(R.layout.activity_stored)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
         val sharedPrefs = getSharedPreferences("BottomNavPrefs", Context.MODE_PRIVATE)
-        val selectedButtonId = sharedPrefs.getInt("SELECTED_BUTTON_ID", R.id.btnNaviMyroom)
+        val selectedButtonId = sharedPrefs.getInt("SELECTED_BUTTON_ID", R.id.btnNaviStored)
 
         val bottomNavFragment = BottomNavigationFragment.newInstance(selectedButtonId)
         supportFragmentManager.beginTransaction()

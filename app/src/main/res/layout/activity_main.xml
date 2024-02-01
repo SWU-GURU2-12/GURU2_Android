@@ -9,22 +9,25 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:text="어디로든 떠나봐요"
+            android:text="긴 여행을 떠나세요?\n취향을 가득 담아 짐을 꾸려봐요."
             android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -40,90 +43,74 @@
 
             <ImageButton
                 android:id="@+id/btnGetCarrying"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="156dp"
+                android:layout_height="156dp"
+                android:background="@drawable/btn_main1"
                 app:layout_constraintEnd_toStartOf="@id/guideline_center"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btnGetMyroom"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="156dp"
+                android:layout_height="156dp"
+                android:background="@drawable/btn_main2"
                 app:layout_constraintStart_toEndOf="@id/guideline_center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="지금 꾸리고 있는 짐"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="66dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="내가 쓴 글"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnGetSomeones"
-            android:layout_width="292dp"
-            android:layout_height="214dp"
+            android:layout_width="328dp"
+            android:layout_height="240dp"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp" />
-
+            android:layout_marginTop="34dp"
+            android:background="@drawable/btn_main3" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="여행짐 템플릿 구경하기"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- 바텀 네비게이션 -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+    <fragment
+        android:id="@+id/bottomNavigationFragment"
+        android:name="com.example.what_s_in_my_luggage.BottomNavigationFragment"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnNaviMain"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnNaviTemplete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnNaviTemplete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnNaviStored"
-            app:layout_constraintStart_toEndOf="@id/btnNaviMain"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnNaviStored"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnNaviMyroom"
-            app:layout_constraintStart_toEndOf="@id/btnNaviTemplete"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnNaviMyroom"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnNaviStored"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:text="새로운 짐 꾸리기"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-        tools:layout_editor_absoluteX="-16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

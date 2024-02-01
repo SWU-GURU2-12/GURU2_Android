@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원가입"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,9 +36,6 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 별명 입력 그룹 -->
-
-    <!-- 비밀번호 입력 그룹 -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
@@ -69,7 +66,8 @@
                 android:layout_marginTop="16dp"
                 android:text="별명"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,22 +79,24 @@
                 android:layout_marginBottom="4dp"
                 android:hint="나만의 별명을 지어주세요"
                 android:inputType="text"
-                android:textColorHint="#808080"
-                android:textSize="14sp"
+                android:textColorHint="#99373C40"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/btnNicNameCd"
-                android:layout_width="66dp"
-                android:layout_height="53dp"
-                android:layout_marginBottom="4dp"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="12dp"
                 android:background="@color/white"
-                android:text="중복 확인"
+                android:text="중복확인"
                 android:textColor="@color/blue"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardElevation="0dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -135,7 +135,8 @@
                 android:layout_marginTop="16dp"
                 android:text="비밀번호"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,16 +148,16 @@
                 android:layout_marginBottom="4dp"
                 android:hint="비밀번호를 입력해주세요"
                 android:inputType="textPassword"
-                android:textColorHint="#808080"
-                android:textSize="14sp"
+                android:textColorHint="#99373C40"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 확인 버튼 -->
     </androidx.cardview.widget.CardView>
 
+    <!-- 확인 버튼 -->
     <Button
         android:id="@+id/btnSignOk"
         android:layout_width="173dp"

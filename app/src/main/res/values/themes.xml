@@ -8,5 +8,10 @@
         <item name="colorControlActivated">@color/editTextSelected</item> <!-- 이 항목 추가 -->
     </style>
 
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconSize">24dp</item>
+        <item name="itemIconPadding">0dp</item>
+    </style>
+
     <style name="Theme.WhatsinmyLuggage" parent="Base.Theme.WhatsinmyLuggage" />
 </resources>
