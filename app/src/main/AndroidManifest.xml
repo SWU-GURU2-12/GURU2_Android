@@ -14,9 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhatsinmyLuggage"
         tools:targetApi="31">
+
         <activity
             android:name=".PackingFrameActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".MyRoomActivity"
             android:exported="false" />
@@ -25,12 +33,7 @@
             android:exported="true" />
         <activity
             android:name=".AddCarrier"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".SignUpActivity"
@@ -44,18 +47,15 @@
         <activity
             android:name=".HomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".PackLuggage"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
         <activity
             android:name=".Checklist"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

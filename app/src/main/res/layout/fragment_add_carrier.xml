@@ -15,7 +15,7 @@
         android:text="숙박 일정"
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -53,7 +53,7 @@
                     android:text="가는 날 선택"
                     android:textAlignment="textStart"
                     android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -81,7 +81,7 @@
                     android:src="@drawable/ic_calendar" />
 
                 <Button
-                    android:id="@+id/btnArrialCal"
+                    android:id="@+id/btnArrivalCal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -89,7 +89,7 @@
                     android:text="오는 날 선택"
                     android:textAlignment="textStart"
                     android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -97,6 +97,7 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/travelPlace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -120,7 +121,7 @@
                 android:text="여행 장소"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="match_parent"
@@ -131,12 +132,13 @@
                 android:text="나라, 도시, 마을 등 여행지를 알려주세요"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/template"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -160,7 +162,7 @@
                 android:text="짐 꾸리기 템플릿"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -172,7 +174,7 @@
                 android:text="기본 템플릿"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -199,7 +201,7 @@
                 android:text="짐을 담은 캐리어 이름"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -209,11 +211,12 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="30dp"
                 android:background="@android:color/transparent"
+                android:maxLines="1"
                 android:hint="나만의 별명을 지어주세요"
                 android:textColorHint="@color/gray"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
