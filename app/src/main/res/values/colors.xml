@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#FF373C40</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btnBackground">#00FF0000</color>
     <color name="gray">#BDBDBD</color>
@@ -12,7 +12,7 @@
     <color name="cy">#07D9FE</color>
     <color name="cy20">#3307D9FE</color>
     <color name="colorPrimary">#56ACF6</color>
-    <color name="colorPrimaryDark">#56ACF6</color>
+    <color name="colorPrimaryDark">#FFFFFFFF</color>
     <color name="colorAccent">#56ACF6</color>
     <color name="editTextSelected">#56ACF6</color>
 </resources>
