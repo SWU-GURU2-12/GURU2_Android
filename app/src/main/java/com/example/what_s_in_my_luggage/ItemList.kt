@@ -1,6 +1,7 @@
 package com.example.what_s_in_my_luggage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
@@ -8,8 +9,11 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
 import com.example.what_s_in_my_luggage.databinding.ActivityItemListBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ItemList : AppCompatActivity() {
     lateinit var iBinding: ActivityItemListBinding
@@ -28,8 +32,10 @@ class ItemList : AppCompatActivity() {
         var isItemExist = false
         val existTextColor = R.color.blue
         val notExistTextColor = R.color.bb25
+        var itemX = 0f
+        var itemY = 0f
 
-        fun onImageViewClick(v: View) {
+        fun onImageViewClick(v: View, clickedItem: Items) {
             if (v is ImageView) {
                 val clickedDrawable = v.drawable
 
@@ -62,14 +68,24 @@ class ItemList : AppCompatActivity() {
                 isItemExist = true
                 nextBtn.setTextColor(v.resources.getColor(existTextColor))
 
+
                 // ImageView에 터치 이벤트 리스너 등록
                 newImageView.setOnTouchListener { v, event ->
-                    handleTouch(event, newImageView, layout)
+                    handleTouch(event, newImageView, layout, clickedItem)
+//                    if (event.action == MotionEvent.ACTION_UP) {
+//                        updateItemCoordinates(newImageView, clickedItem)
+//                    }
+                    true
+//                    val isTouchHandled = event.action == MotionEvent.ACTION_UP
+//                    if (isTouchHandled) {
+//                        updateItemCoordinates(newImageView, clickedItem)
+//                    }
+//                    isTouchHandled
                 }
             }
         }
 
-        private fun handleTouch(event: MotionEvent, view: View, layout: ConstraintLayout): Boolean {
+        fun handleTouch(event: MotionEvent, view: View, layout: ConstraintLayout, item: Items): Boolean {
             val layoutParams = view.layoutParams as ConstraintLayout.LayoutParams
 
             when (event.action) {
@@ -100,6 +116,24 @@ class ItemList : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     // 터치 업 시의 처리
                     isMoving = false
+                    item.x = view.x
+                    item.y = view.y
+
+                    //Firebase 데이터베이스의 참조 생성
+                    val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
+
+                    //업데이트할 그룹 이름을 찾음
+                    databaseRef.orderByChild("itemName").equalTo(item.name.toString()).addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            for (snapshot in dataSnapshot.children) {
+                                snapshot.ref.child("itemX").setValue(item.x.toString().toFloat())
+                                snapshot.ref.child("itemY").setValue(item.y.toString().toFloat())
+                            }
+                        }
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
+                        }
+                    })
                 }
             }
             return true

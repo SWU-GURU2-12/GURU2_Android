@@ -15,13 +15,15 @@ class ItemListAdapter(var list: List<Items>, private val context: Context): Recy
     inner class ItemListViewHolder(val binding: ActivityItemListBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.itemImageView.setOnClickListener {
-                ItemList.onImageViewClick(it)
-
                 val clickedItem = list[adapterPosition]
-                sendDataToFirebase(clickedItem)
+
+                ItemList.onImageViewClick(it, clickedItem)
+                sendDataToFirebase(clickedItem, ItemList.itemX, ItemList.itemY)
             }
         }
     }
+
+//    data class Items(val name: String, val image: StorageReference, var x: Float = 0f, var y: Float = 0f)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {
         val binding = ActivityItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -44,13 +46,17 @@ class ItemListAdapter(var list: List<Items>, private val context: Context): Recy
         }
     }
 
-    private fun sendDataToFirebase(item: Items) {
+    private fun sendDataToFirebase(item: Items, itemX: Float, itemY: Float) {
         // 클릭된 아이템에 대한 데이터 전송
         val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung")
 
         // 전송할 데이터 생성
         val dataToAdd = mapOf(
             "itemName" to item.name,
+//            "itemX" to ItemList.itemX,
+//            "itemY" to ItemList.itemY
+            "itemX" to item.x,
+            "itemY" to item.y
             // 추가하려는 다른 데이터 필드들을 추가
         )
 
