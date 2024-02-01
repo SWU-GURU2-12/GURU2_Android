@@ -27,7 +27,7 @@ class DialogCalFragment : BottomSheetDialogFragment() {
 
         calendar?.setOnDateChangeListener { view, year, month, dayOfMonth ->
             selectedDate = "${year}년 ${month + 1}월 ${dayOfMonth}일"
-            txtDate?.text = "출발일: ${selectedDate}"
+            txtDate?.text = "${selectedDate}"
         }
 
         return view

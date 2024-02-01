@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
 
 class AddCarrierFragment : Fragment() {
@@ -52,6 +53,7 @@ class AddCarrierFragment : Fragment() {
         // 여행지
         travelPlace.setOnClickListener {
             val dialogTravelPlace = DialogListViewFragment()
+            dialogTravelPlace.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
             dialogTravelPlace.show(parentFragmentManager, "travelPlace")
         }
 
@@ -66,6 +68,7 @@ class AddCarrierFragment : Fragment() {
         val bundle = Bundle()
         bundle.putInt("button", viewid)
         dialogCalendar.arguments = bundle
+        dialogCalendar.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         dialogCalendar.show(parentFragmentManager, "datePicker")
     }
 

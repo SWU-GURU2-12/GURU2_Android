@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ListView
+import android.widget.SearchView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
+    private lateinit var searchView: SearchView
+    private lateinit var listView: ListView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,9 +20,11 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         val view = inflater.inflate(R.layout.fragment_dialog_list_view, container, false)
 
         // 초기화
+        searchView = view.findViewById<SearchView>(R.id.searchView)
+        listView = view.findViewById<ListView>(R.id.listView)
         var test = arrayListOf<ListViewItem>(
-            ListViewItem("서울", "한국"),
-            ListViewItem("도쿄", "일본"),
+            ListViewItem("seoul", "korea"),
+            ListViewItem("tokyo", "japan"),
             ListViewItem("베이징", "중국"),
             ListViewItem("뉴욕", "미국"),
             ListViewItem("런던", "영국"),
@@ -50,17 +54,45 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
             ListViewItem("마닐라", "필리핀"),
             ListViewItem("뉴델리", "인도"),
             ListViewItem("모스크바", "러시아"),
-            ListViewItem("앙코르왓", "캄보디아")
+            ListViewItem("busan", "korea")
         )
 
-        val editSearch = view.findViewById<EditText>(R.id.editSearch)
-        val listView = view.findViewById<ListView>(R.id.listView)
-
-        // listView 구성
-        val listAdapter = DialogListViewAdapter(test)
-        listView.adapter = listAdapter
+        setUpListView(test)
+        setUpSearchView(test)
 
         return view
     }
 
+    fun setUpListView(test: ArrayList<ListViewItem>) {
+        // list view 구성
+        val listAdapter = DialogListViewAdapter(test)
+        listView.adapter = listAdapter
+    }
+
+    fun setUpSearchView(test: ArrayList<ListViewItem>) {
+        // search view 구성
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // 검색 버튼이 눌렸을 때 호출 되는 매소드
+                // 입력된 검색어(query)를 가지고 검색을 실행
+                // 검색 결과를 화면에 표시
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // 검색어가 변결될 때 호출되는 매소드
+                // 입력된 검색어(newText)를 가지고 실시간 검색 기능 구현
+                var filterList = ArrayList<ListViewItem>()
+                if (newText != null) {
+                    for (item in test) {
+                        if (item.title.contains(newText) || item.subTitle.contains(newText)) {
+                            filterList.add(item)
+                        }
+                    }
+                }
+                setUpListView(filterList)
+                return false
+            }
+        })
+    }
 }
