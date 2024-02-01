@@ -1,9 +1,13 @@
 package com.example.what_s_in_my_luggage
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -26,5 +30,31 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.bottomNavigationFragment, bottomNavFragment) // 'bottomNavigationFragment'는 프래그먼트를 배치할 레이아웃의 ID입니다.
             .commit()
+
+        lateinit var btnGetCarrying: ImageButton
+        lateinit var btnGetMyroom: ImageButton
+        lateinit var btnGetSomeones: ImageButton
+
+        btnGetCarrying = findViewById<ImageButton>(R.id.btnGetCarrying)
+        btnGetMyroom = findViewById<ImageButton>(R.id.btnGetMyroom)
+        btnGetSomeones = findViewById<ImageButton>(R.id.btnGetSomeones)
+
+        // btnGetCarrying 버튼에 대한 클릭 리스너 설정
+        btnGetCarrying.setOnClickListener {
+            val intent = Intent(this, PackLuggage::class.java)
+            startActivity(intent)
+        }
+
+        // btnGetMyroom 버튼에 대한 클릭 리스너 설정
+        btnGetMyroom.setOnClickListener {
+            val intent = Intent(this, MyRoomActivity::class.java)
+            startActivity(intent)
+        }
+
+        // btnGetSomeones 버튼에 대한 클릭 리스너 설정
+        btnGetSomeones.setOnClickListener {
+            val intent = Intent(this, CommunityActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
