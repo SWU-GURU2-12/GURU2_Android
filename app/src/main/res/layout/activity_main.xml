@@ -55,10 +55,11 @@
                 android:id="@+id/btnGetMyroom"
                 android:layout_width="156dp"
                 android:layout_height="156dp"
-                android:background="@drawable/btn_main2"
-                app:layout_constraintStart_toEndOf="@id/guideline_center"
+                android:background="@drawable/iv_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.444"
+                app:layout_constraintStart_toEndOf="@id/guideline_center" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
