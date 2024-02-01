@@ -1,16 +1,19 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.SearchView
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
     private lateinit var searchView: SearchView
     private lateinit var listView: ListView
+    var selected: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +70,13 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         // list view 구성
         val listAdapter = DialogListViewAdapter(test)
         listView.adapter = listAdapter
+
+        // item을 클릭햇을 때
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val item = test[position]
+            selected = "${item.title}, ${item.subTitle}"
+            dismiss()
+        }
     }
 
     fun setUpSearchView(test: ArrayList<ListViewItem>) {
@@ -93,6 +103,13 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
                 setUpListView(filterList)
                 return false
             }
+        })
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        setFragmentResult("selectPlace", Bundle().apply {
+            putString("place", selected)
         })
     }
 }

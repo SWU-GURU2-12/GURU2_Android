@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
@@ -25,6 +26,10 @@ class AddCarrierFragment : Fragment() {
             val date = bundle.getString("date")
             val button = bundle.getInt("button")
             setDate(button, date!!)
+        }
+        setFragmentResultListener("selectPlace") { key, bundle ->
+            val place = bundle.getString("place")
+            setTravelPlace(place!!)
         }
     }
 
@@ -84,5 +89,11 @@ class AddCarrierFragment : Fragment() {
                 btnArrivalCal.setTextColor(Color.BLACK)
             }
         }
+    }
+
+    fun setTravelPlace(place: String) {
+        val txtTravelPlace = travelPlace.findViewById<TextView>(R.id.txtTravelPlace)
+        txtTravelPlace.text = place
+        txtTravelPlace.setTextColor(Color.BLACK)
     }
 }
