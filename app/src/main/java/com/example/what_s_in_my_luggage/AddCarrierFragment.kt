@@ -1,5 +1,6 @@
 package com.example.what_s_in_my_luggage
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.setFragmentResultListener
 
 class AddCarrierFragment : Fragment() {
     private lateinit var btnDepartureCal: Button
     private lateinit var btnArrivalCal: Button
+    private lateinit var travelPlace: CardView
+    private lateinit var template: CardView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Fragment Result API
+        setFragmentResultListener("selectDate") { key, bundle ->
+            val date = bundle.getString("date")
+            val button = bundle.getInt("button")
+            setDate(button, date!!)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,8 +38,8 @@ class AddCarrierFragment : Fragment() {
         // 초기화
         btnDepartureCal = view.findViewById<Button>(R.id.btnDepartureCal)
         btnArrivalCal = view.findViewById<Button>(R.id.btnArrivalCal)
-        var travelPlace = view.findViewById<CardView>(R.id.travelPlace)
-        var template = view.findViewById<CardView>(R.id.template)
+        travelPlace = view.findViewById<CardView>(R.id.travelPlace)
+        template = view.findViewById<CardView>(R.id.template)
 
         // 가는 날, 오는 날 -> 달력 다이얼로그 띄우기
         btnDepartureCal.setOnClickListener {
@@ -33,6 +48,11 @@ class AddCarrierFragment : Fragment() {
         btnArrivalCal.setOnClickListener {
             showDatePickerDialog(btnArrivalCal.id)
         }
+
+        // 여행지
+
+
+        // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
 
         return view
     }
@@ -51,9 +71,11 @@ class AddCarrierFragment : Fragment() {
         when (viewid) {
             R.id.btnDepartureCal -> {
                 btnDepartureCal.text = date
+                btnDepartureCal.setTextColor(Color.BLACK)
             }
             R.id.btnArrivalCal -> {
                 btnArrivalCal.text = date
+                btnArrivalCal.setTextColor(Color.BLACK)
             }
         }
     }
