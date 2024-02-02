@@ -37,20 +37,39 @@ class MainActivity : AppCompatActivity() {
 
         // btnGetCarrying 버튼에 대한 클릭 리스너 설정
         btnGetCarrying.setOnClickListener {
-            val intent = Intent(this, PackingFrameActivity::class.java)
+            val intent = Intent(this, PackingFrameActivity::class.java).apply {
+                // SharedPreferences에서 유저 키 값을 가져옵니다.
+                val userKey = getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
+                    .getString("USER_KEY", null)
+                // Intent에 유저 키 값을 추가합니다.
+                putExtra("USER_KEY", userKey)
+            }
             startActivity(intent)
         }
 
         // btnGetMyroom 버튼에 대한 클릭 리스너 설정
         btnGetMyroom.setOnClickListener {
-            val intent = Intent(this, MyRoomActivity::class.java)
+            val intent = Intent(this, MyRoomActivity::class.java).apply {
+                // SharedPreferences에서 유저 키 값을 가져오기
+                val userKey = getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
+                    .getString("USER_KEY", "")
+                // Intent에 유저 키 값을 추가
+                putExtra("USER_KEY", userKey)
+            }
             startActivity(intent)
         }
 
         // btnGetSomeones 버튼에 대한 클릭 리스너 설정
         btnGetSomeones.setOnClickListener {
-            val intent = Intent(this, CommunityActivity::class.java)
+            val intent = Intent(this, CommunityActivity::class.java).apply {
+                // SharedPreferences에서 유저 키 값을 가져오기
+                val userKey = getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
+                    .getString("USER_KEY", "")
+                // Intent에 유저 키 값을 추가
+                putExtra("USER_KEY", userKey)
+            }
             startActivity(intent)
         }
+
     }
 }
