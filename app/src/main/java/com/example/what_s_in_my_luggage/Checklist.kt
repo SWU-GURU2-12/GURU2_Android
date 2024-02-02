@@ -1,6 +1,5 @@
 package com.example.what_s_in_my_luggage
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +30,8 @@ class Checklist : AppCompatActivity() {
         setContentView(cBinding.root)
 
         val nextBtn = findViewById<Button>(R.id.nextBtn)
+//        var dataManager = UserDataManager.getInstance(this)
+
 
         // 액션바 숨기기
         supportActionBar?.hide()
@@ -63,9 +64,9 @@ class Checklist : AppCompatActivity() {
             alertDialog.show()
         }
 
-        // 저장 버튼 누르면 짐꾸리기 페이지로 이동
+        // 저장 버튼 누르면 발행하기 페이지로 이동
         cBinding.nextBtn.setOnClickListener {
-            // 발행하기 페이지랑 연결
+
 //            val intent = Intent(this, PackLuggage::class.java)
 //            startActivity(intent)
 //            ItemList.isItemsLoaded = false
@@ -85,7 +86,6 @@ class Checklist : AppCompatActivity() {
                         itemList.add(it)
                     }
                 }
-
                 // TextView 동적으로 생성하여 추가
                 displayChecklist(itemList)
             }
@@ -94,27 +94,6 @@ class Checklist : AppCompatActivity() {
                 // 오류 처리
             }
         })
-    }
-
-    private fun removeLuggageAndScreenshotFromFirebase() {
-        val captureFileName = intent.getStringExtra("captureFileName")
-
-        // Remove "luggage1" data from Firebase
-        databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
-        databaseRef.removeValue()
-
-        // Remove screenshot from Firebase Storage
-        val storage = FirebaseStorage.getInstance()
-        val storageRef = storage.reference
-        val imagesRef = storageRef.child("captures/$captureFileName.jpg")
-
-        imagesRef.delete().addOnSuccessListener {
-            // Deletion success
-            Log.d("Firebase", "Screenshot deleted successfully")
-        }.addOnFailureListener {
-            // Deletion failed
-            Log.e("Firebase", "Failed to delete screenshot: $it")
-        }
     }
 
     private fun displayChecklist(itemList: List<String>) {
