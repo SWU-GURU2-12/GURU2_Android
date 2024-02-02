@@ -16,6 +16,7 @@ class CommunityActivity : AppCompatActivity() {
         val imageButton1: ImageButton = findViewById(R.id.co1)
         val imageButton2: ImageButton = findViewById(R.id.co2)
         val imageButton3: ImageButton = findViewById(R.id.co3)
+        val imageButton4: ImageButton = findViewById(R.id.co4)
 
         // ImageButton에 클릭 리스너 추가
         imageButton1.setOnClickListener(View.OnClickListener {
@@ -31,6 +32,12 @@ class CommunityActivity : AppCompatActivity() {
         })
 
         imageButton3.setOnClickListener(View.OnClickListener {
+            // 새로운 액티비티로 이동하는 코드
+            val intent = Intent(this@CommunityActivity, PostActivity::class.java)
+            startActivity(intent)
+        })
+
+        imageButton4.setOnClickListener(View.OnClickListener {
             // 새로운 액티비티로 이동하는 코드
             val intent = Intent(this@CommunityActivity, PostActivity::class.java)
             startActivity(intent)
