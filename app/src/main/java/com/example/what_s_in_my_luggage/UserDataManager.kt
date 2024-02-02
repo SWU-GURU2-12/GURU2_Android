@@ -1,13 +1,12 @@
 package com.example.what_s_in_my_luggage
 
 import android.content.Context
+import android.util.Log
 import com.example.what_s_in_my_luggage.model.ListViewItem
 import com.example.what_s_in_my_luggage.model.Luggage
 import com.example.what_s_in_my_luggage.model.SavedTemplate
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 // TODO: 코루틴
 class UserDataManager constructor() {
@@ -33,15 +32,15 @@ class UserDataManager constructor() {
     // user와 관련된 데이터 리스트
     private var userName = "" // 현재 로그인한 사용자의 이름
     private var travelPlaceList = arrayListOf<ListViewItem>() // 여행지 리스트
-    private var savedTemplateList = arrayListOf<ListViewItem>() // 내가 저장한 템플릿 (북마크)
+    private var savedTemplateList = arrayListOf<String>() // 내가 저장한 템플릿 (북마크)
     private var luggageList = arrayListOf<String>() // 나의 짐 목록 (마이룸) - LuggageID 저장
     private var postList = arrayListOf<String>() // 발행한 글 목록 - postID 저장 TODO: 임시
 
     // TODO: 로그인 후 init 할 것.
-    fun init(userName: String = "NaomiWatts"): Boolean {
+    fun init(userName: String = "NaomiWatts") {
         this.userName = userName
         setTravelPlaceList()
-        return true
+        setSavedTemplateList()
     }
 
     fun clear() {
@@ -51,8 +50,12 @@ class UserDataManager constructor() {
         luggageList.clear()
         postList.clear()
     }
+// User
+    fun getUserName(): String {
+        return userName
+    }
 
-    // Travel Place List
+// Travel Place List
     fun setTravelPlaceList() {
         refTravelPlace.get().addOnSuccessListener {
             for (data in it.children) {
@@ -69,30 +72,38 @@ class UserDataManager constructor() {
         return travelPlaceList
     }
 
-    // Saved Template List
-    // TODO: 여기서 뭔가 문제가 나는 것 같은데..
+// Saved Template List
     fun setSavedTemplateList() {
         // savedTemplate 노드의 key 값은 userName
         refSavedTemplate.child(userName).get().addOnSuccessListener {
             val savedTemplate = it.getValue(SavedTemplate::class.java)
-            // savedLuggageIdList에 저장된 luggageID를 가져와서 listView에 추가
             if (savedTemplate != null) {
                 for (luggageID in savedTemplate.SavedLuggageIdList) {
-                    // luggage database에서 title과 userName 가져오기
-                    refLuggage.child(luggageID).get().addOnSuccessListener {
-                        val luggage = it.getValue(Luggage::class.java)
-                        savedTemplateList.add(ListViewItem(luggage!!.title, luggage.userName))
-                    }
+                    savedTemplateList.add(luggageID)
+                    Log.e("SavedTemplate", luggageID)
                 }
             }
         }
     }
 
-    fun getSavedTemplateList(): ArrayList<ListViewItem> {
+    // add carrier fragment에서 ui에 그리기 위한 데이터
+    fun getSavedTemplateListView(): ArrayList<ListViewItem> {
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
-        return savedTemplateList
+        val temp = arrayListOf<ListViewItem>()
+        for (luggageID in savedTemplateList) {
+            refLuggage.child(luggageID).get().addOnSuccessListener {
+                val luggage = it.getValue(Luggage::class.java)
+                val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
+                temp.add(listViewItem)
+            }
+        }
+        return temp
+    }
+
+    fun addSavedTemplate(luggageID: String) {
+        savedTemplateList.add(luggageID)
     }
 
 }

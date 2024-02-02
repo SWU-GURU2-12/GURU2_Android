@@ -7,8 +7,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
+import com.example.what_s_in_my_luggage.model.Luggage
 
 class PackingFrameActivity : AppCompatActivity() {
+
+    var currentLuggage: Luggage? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_packing_frame)
@@ -37,6 +41,21 @@ class PackingFrameActivity : AppCompatActivity() {
         // 버튼
         btnNext.setOnClickListener() {
             if (currentFragment < fragments.size - 1) {
+                when (currentFragment) {
+                    0 -> { // 캐리어 추가 -> 짐 꾸리기
+                        // add carrier fragment에서 선택한 캐리어 정보를 저장
+                        // TODO: 다른 방법?
+                        val addCarrierFragment = fragments[currentFragment] as AddCarrierFragment
+                        currentLuggage = addCarrierFragment.getLuggage()
+
+                    }
+                    1 -> { // 짐 꾸리기 -> 짐 꾸리기 리스트
+
+                    }
+                    2 -> { // 짐 꾸리기 리스트 -> 템플릿 발행하기
+                        btnNext.text = "발행"
+                    }
+                }
                 currentFragment++
                 replaceFragment(fragments[currentFragment])
                 pageTitle.text = titleList[currentFragment]
@@ -49,6 +68,17 @@ class PackingFrameActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener() {
             if (currentFragment > 0) {
+                when (currentFragment) {
+                    3 -> { // 템플릿 발행하기 -> 짐 꾸미기 리스트
+                        btnNext.text = "다음"
+                    }
+                    2 -> { // 짐 꾸미기 리스트 -> 짐 꾸미기
+
+                    }
+                    1 -> { // 짐 꾸리기 -> 캐리어 추가
+
+                    }
+                }
                 currentFragment--
                 supportFragmentManager.popBackStack()
                 pageTitle.text = titleList[currentFragment]
@@ -56,9 +86,7 @@ class PackingFrameActivity : AppCompatActivity() {
             }
         }
 
-        // progressBar
-
-
+        // first fragment
         replaceFragment(fragments[currentFragment])
         pageTitle.text = titleList[currentFragment]
         progressBar.progress = (currentFragment + 1) * (100/fragments.size)
@@ -73,4 +101,5 @@ class PackingFrameActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
 }

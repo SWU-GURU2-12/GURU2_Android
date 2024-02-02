@@ -207,7 +207,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edtCarrierName"
+                android:id="@+id/carrierName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"

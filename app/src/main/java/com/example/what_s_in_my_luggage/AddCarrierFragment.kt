@@ -1,5 +1,6 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,15 +13,19 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
+import com.example.what_s_in_my_luggage.model.Luggage
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 
 class AddCarrierFragment : Fragment() {
+    var packingFrameActivity: PackingFrameActivity? = null
 
     private lateinit var btnDepartureCal: Button
     private lateinit var btnArrivalCal: Button
     private lateinit var travelPlace: CardView
     private lateinit var template: CardView
+    private lateinit var carrierName : EditText
+    private lateinit var txtTravelPlace: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +59,8 @@ class AddCarrierFragment : Fragment() {
         btnArrivalCal = view.findViewById<Button>(R.id.btnArrivalCal)
         travelPlace = view.findViewById<CardView>(R.id.travelPlace)
         template = view.findViewById<CardView>(R.id.template)
+        carrierName = view.findViewById<EditText>(R.id.carrierName)
+        txtTravelPlace = travelPlace.findViewById<TextView>(R.id.txtTravelPlace)
 
         // 가는 날, 오는 날 -> DialogCalFragment
         btnDepartureCal.setOnClickListener {
@@ -74,6 +81,14 @@ class AddCarrierFragment : Fragment() {
         // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
 
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if(context is PackingFrameActivity) {
+            packingFrameActivity = context
+        }
     }
 
     fun showDatePickerDialog(viewid: Int) {
@@ -120,4 +135,13 @@ class AddCarrierFragment : Fragment() {
         txtTemplate.text = temp
         txtTemplate.setTextColor(Color.BLACK)
     }
+
+    fun getLuggage(): Luggage {
+        var userName = UserDataManager.getInstance(requireContext()).getUserName()
+        var title = carrierName.text.toString()
+        var destination = txtTravelPlace.text.toString()
+        var schedule = btnDepartureCal.text.toString() + " - " + btnArrivalCal.text.toString()
+        return Luggage("temp", userName, title, destination, schedule)
+    }
+
 }
