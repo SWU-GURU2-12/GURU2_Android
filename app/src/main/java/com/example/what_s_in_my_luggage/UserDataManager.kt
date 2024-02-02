@@ -9,6 +9,7 @@ import com.google.firebase.database.database
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+// TODO: 코루틴
 class UserDataManager constructor() {
     companion object {     // Singleton
         private var instance: UserDataManager? = null
@@ -69,6 +70,7 @@ class UserDataManager constructor() {
     }
 
     // Saved Template List
+    // TODO: 여기서 뭔가 문제가 나는 것 같은데..
     fun setSavedTemplateList() {
         // savedTemplate 노드의 key 값은 userName
         refSavedTemplate.child(userName).get().addOnSuccessListener {

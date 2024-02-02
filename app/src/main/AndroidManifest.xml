@@ -19,16 +19,17 @@
         <activity
             android:name=".HomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
             android:name=".PackingFrameActivity"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".StoredActivity"
             android:exported="false" />
@@ -39,12 +40,6 @@
             android:name=".MyRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".TwoDatePickerDialog"
-            android:exported="false" />
-        <activity
-            android:name=".AddCarrier"
-            android:exported="false" />
-        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
@@ -52,13 +47,13 @@
             android:exported="false" />
         <activity
             android:name=".PackLuggage"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Checklist"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>
