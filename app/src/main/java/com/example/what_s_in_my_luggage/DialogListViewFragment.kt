@@ -2,19 +2,14 @@ package com.example.what_s_in_my_luggage
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.setFragmentResult
 import com.example.what_s_in_my_luggage.model.ListViewItem
-import com.example.what_s_in_my_luggage.model.SavedTemplate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
 
