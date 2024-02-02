@@ -11,8 +11,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class AddCarrierFragment : Fragment() {
+    private val databaseReference = Firebase.database.getReference("Luggage")
+
     private lateinit var btnDepartureCal: Button
     private lateinit var btnArrivalCal: Button
     private lateinit var travelPlace: CardView
@@ -61,6 +65,9 @@ class AddCarrierFragment : Fragment() {
             dialogTravelPlace.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
             dialogTravelPlace.show(parentFragmentManager, "travelPlace")
         }
+
+        // 템플릿
+
 
         // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
 
