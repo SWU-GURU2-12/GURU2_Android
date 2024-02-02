@@ -1,16 +1,46 @@
 package com.example.what_s_in_my_luggage
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResultListener
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class AddCarrierFragment : Fragment() {
+    private val databaseReference = Firebase.database.getReference("Luggage")
+
     private lateinit var btnDepartureCal: Button
     private lateinit var btnArrivalCal: Button
+    private lateinit var travelPlace: CardView
+    private lateinit var template: CardView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Fragment Result API
+        setFragmentResultListener("selectDate") { key, bundle ->
+            val date = bundle.getString("date")
+            val button = bundle.getInt("button")
+            setDate(button, date!!)
+        }
+        setFragmentResultListener("selectPlace") { key, bundle ->
+            val place = bundle.getString("place")
+            setTravelPlace(place!!)
+        }
+        setFragmentResultListener("selectTemplate") { key, bundle ->
+            val template = bundle.getString("luggageID")
+            setTemplate(template!!)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,16 +53,26 @@ class AddCarrierFragment : Fragment() {
         // 초기화
         btnDepartureCal = view.findViewById<Button>(R.id.btnDepartureCal)
         btnArrivalCal = view.findViewById<Button>(R.id.btnArrivalCal)
-        var travelPlace = view.findViewById<CardView>(R.id.travelPlace)
-        var template = view.findViewById<CardView>(R.id.template)
+        travelPlace = view.findViewById<CardView>(R.id.travelPlace)
+        template = view.findViewById<CardView>(R.id.template)
 
-        // 가는 날, 오는 날 -> 달력 다이얼로그 띄우기
+        // 가는 날, 오는 날 -> DialogCalFragment
         btnDepartureCal.setOnClickListener {
             showDatePickerDialog(btnDepartureCal.id)
         }
         btnArrivalCal.setOnClickListener {
             showDatePickerDialog(btnArrivalCal.id)
         }
+
+        // travel place, template -> DialogListViewFragment
+        travelPlace.setOnClickListener {
+            showDialogListView("travelPlace")
+        }
+        template.setOnClickListener {
+            showDialogListView("template")
+        }
+
+        // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
 
         return view
     }
@@ -43,7 +83,17 @@ class AddCarrierFragment : Fragment() {
         val bundle = Bundle()
         bundle.putInt("button", viewid)
         dialogCalendar.arguments = bundle
+        dialogCalendar.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         dialogCalendar.show(parentFragmentManager, "datePicker")
+    }
+
+    fun showDialogListView(tag: String) {
+        val dialogTemplate = DialogListViewFragment()
+        val bundle = Bundle()
+        bundle.putString("tag", tag)
+        dialogTemplate.arguments = bundle
+        dialogTemplate.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        dialogTemplate.show(parentFragmentManager, "template")
     }
 
     fun setDate(viewid: Int, date: String) {
@@ -51,10 +101,24 @@ class AddCarrierFragment : Fragment() {
         when (viewid) {
             R.id.btnDepartureCal -> {
                 btnDepartureCal.text = date
+                btnDepartureCal.setTextColor(Color.BLACK)
             }
             R.id.btnArrivalCal -> {
                 btnArrivalCal.text = date
+                btnArrivalCal.setTextColor(Color.BLACK)
             }
         }
+    }
+
+    fun setTravelPlace(place: String) {
+        val txtTravelPlace = travelPlace.findViewById<TextView>(R.id.txtTravelPlace)
+        txtTravelPlace.text = place
+        txtTravelPlace.setTextColor(Color.BLACK)
+    }
+
+    fun setTemplate(temp: String) {
+        val txtTemplate = template.findViewById<TextView>(R.id.txtTemplate)
+        txtTemplate.text = temp
+        txtTemplate.setTextColor(Color.BLACK)
     }
 }

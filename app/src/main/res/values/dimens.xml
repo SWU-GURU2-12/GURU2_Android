@@ -3,4 +3,5 @@
     // 체크리스트용 마진 크기
     <dimen name="margin_left">8dp</dimen>
     <dimen name="margin_top">16dp</dimen>
+    <dimen name="bottom_sheet_height">300dp</dimen>
 </resources>

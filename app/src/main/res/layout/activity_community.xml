@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/active_community"
     android:layout_width="360dp"
     android:layout_height="800dp"
     android:clipToOutline="true"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".WritePostActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -88,6 +90,27 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="11dp"
                 android:text="제주도 한달살기 짐"
+                android:textSize="16sp"
+                android:gravity="center_vertical" />
+
+            <ImageButton
+                android:id="@+id/co4"
+                android:layout_width="312dp"
+                android:layout_height="312dp"
+                android:layout_gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="37dp"
+                android:background="@drawable/img1"
+                android:contentDescription="클릭시 발행된 글로 이동"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="11dp"
+                android:text="미국 2주여행 짐"
                 android:textSize="16sp"
                 android:gravity="center_vertical" />
 
