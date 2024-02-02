@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+    // 클래스 레벨 변수로 BottomNavigationFragment의 참조를 저장
+    private lateinit var bottomNavFragment: BottomNavigationFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 바텀 네비게이션 프래그먼트 생성 및 초기 선택된 버튼 ID 전달
-        val bottomNavFragment = BottomNavigationFragment.newInstance(R.id.btnNaviMain)
+        bottomNavFragment = BottomNavigationFragment.newInstance(R.id.btnNaviMain)
         supportFragmentManager.beginTransaction()
             .replace(R.id.bottomNavigationFragment, bottomNavFragment)
             .commit()
@@ -38,10 +41,8 @@ class MainActivity : AppCompatActivity() {
         // btnGetCarrying 버튼에 대한 클릭 리스너 설정
         btnGetCarrying.setOnClickListener {
             val intent = Intent(this, PackingFrameActivity::class.java).apply {
-                // SharedPreferences에서 유저 키 값을 가져옵니다.
                 val userKey = getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
                     .getString("USER_KEY", null)
-                // Intent에 유저 키 값을 추가합니다.
                 putExtra("USER_KEY", userKey)
             }
             startActivity(intent)
@@ -50,26 +51,25 @@ class MainActivity : AppCompatActivity() {
         // btnGetMyroom 버튼에 대한 클릭 리스너 설정
         btnGetMyroom.setOnClickListener {
             val intent = Intent(this, MyRoomActivity::class.java).apply {
-                // SharedPreferences에서 유저 키 값을 가져오기
                 val userKey = getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
                     .getString("USER_KEY", "")
-                // Intent에 유저 키 값을 추가
                 putExtra("USER_KEY", userKey)
             }
             startActivity(intent)
+            // 여기에 BottomNavigationFragment 상태 업데이트 로직 추가
+            bottomNavFragment.updateSelectedButton(R.id.btnNaviMyroom)
         }
 
         // btnGetSomeones 버튼에 대한 클릭 리스너 설정
         btnGetSomeones.setOnClickListener {
             val intent = Intent(this, CommunityActivity::class.java).apply {
-                // SharedPreferences에서 유저 키 값을 가져오기
                 val userKey = getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
                     .getString("USER_KEY", "")
-                // Intent에 유저 키 값을 추가
                 putExtra("USER_KEY", userKey)
             }
             startActivity(intent)
+            // 여기에 BottomNavigationFragment 상태 업데이트 로직 추가
+            bottomNavFragment.updateSelectedButton(R.id.btnNaviTemplete)
         }
-
     }
 }
