@@ -71,6 +71,7 @@ class PackLuggage : AppCompatActivity() {
         lBinding.nextBtn.setOnClickListener {
             if(ItemList.isItemExist) {
                 val checklistIntent = Intent(this, Checklist::class.java)
+                checklistIntent.putExtra("captureFileName", "$currentTime\\_capture") // 스크린샷 파일명 전달
                 startActivity(checklistIntent)
 
                 // 짐 꾸린 캐리어 캡쳐
