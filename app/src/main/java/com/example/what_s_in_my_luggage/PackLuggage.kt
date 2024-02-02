@@ -2,10 +2,13 @@ package com.example.what_s_in_my_luggage
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -25,11 +28,15 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PackLuggage : AppCompatActivity() {
     lateinit var lBinding: ActivityPackLuggageBinding
     lateinit var itemAdapter: ItemListAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +61,20 @@ class PackLuggage : AppCompatActivity() {
             lBinding.nextBtn.setTextColor(ContextCompat.getColor(this, ItemList.notExistTextColor))
         }
 
-        // 리스트 버튼을 눌렀을 때
-        // 아이템이 한 개 이상 추가되었다면  체크리스트 페이지로 이동
+        val sdf = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+        val time = Date()
+        val currentTime: String = sdf.format(time)
+
+        // 다음 버튼을 눌렀을 때
+        // 아이템이 한 개 이상 추가되었다면 체크리스트 페이지로 이동 & 캐리어 캡쳐 및 저장
         // 아이템을 추가하지 않았다면 페이지 이동X 및 토스트 메시지 띄움
         lBinding.nextBtn.setOnClickListener {
             if(ItemList.isItemExist) {
                 val checklistIntent = Intent(this, Checklist::class.java)
                 startActivity(checklistIntent)
+
+                // 짐 꾸린 캐리어 캡쳐
+                requestCapture(lBinding.luggageLayout, "$currentTime\\_capture")
             } else {
                 Toast.makeText(applicationContext, "아이템을 한 개 이상 추가해주세요", Toast.LENGTH_SHORT).show()
             }
@@ -69,10 +83,11 @@ class PackLuggage : AppCompatActivity() {
         // 뒤로가기 버튼을 누르면 경고메시지 발생
         lBinding.backBtn.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setMessage("작성을 취소하고 My room으로 돌아가시겠습니까?")
+            builder.setMessage("작성을 취소하고 My Room으로 돌아가시겠습니까?")
                 .setPositiveButton("예",
                     DialogInterface.OnClickListener { dialog, which ->
                         Toast.makeText(applicationContext, "예 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
+
                         // 이후에 MyRoom 페이지 연결
                     })
                 .setNegativeButton("아니요",
@@ -82,6 +97,46 @@ class PackLuggage : AppCompatActivity() {
                     })
             val alertDialog = builder.create()
             alertDialog.show()
+        }
+    }
+
+    private fun requestCapture(view: View, fileName: String) {
+        if (view == null) {
+            println("::::ERROR:::: captureTargetLayout == NULL")
+            return
+        }
+
+        // 캐시 비트맵 만들기
+        view.buildDrawingCache()
+        val bitmap: Bitmap = view.drawingCache
+
+        // Firebase Storage에 이미지 업로드
+        uploadImageToFirebaseStorage(bitmap, fileName)
+    }
+
+    private fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.reference
+        val imagesRef = storageRef.child("captures/$fileName.jpg")
+
+        // ByteArrayOutputStream을 사용하여 Bitmap 이미지를 byte 배열로 변환
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+        val data = baos.toByteArray()
+
+        // Firebase Storage에 이미지 업로드
+        val uploadTask = imagesRef.putBytes(data)
+
+        uploadTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // 업로드 성공
+                Log.d("Firebase", "Image upload successful")
+                Toast.makeText(applicationContext, "이미지가 Firebase Storage에 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                // 업로드 실패
+                Log.e("Firebase", "Image upload failed: ${task.exception}")
+                Toast.makeText(applicationContext, "이미지 업로드에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -158,6 +213,7 @@ class PackLuggage : AppCompatActivity() {
                 Items(imageRefs[14], "컵라면")
             )
 
+            // 짐꾸리기 페이지 로딩되면 전체 메뉴 바로 보여줌
             itemAdapter = ItemListAdapter(allItems, contextForGlide)
             lBinding.itemListRecyclerView.adapter = itemAdapter
 
@@ -166,7 +222,6 @@ class PackLuggage : AppCompatActivity() {
                 lBinding.itemListRecyclerView.adapter = ItemListAdapter(allItems, contextForGlide)
 
             }
-            Log.d("check3","ok")
 
             lBinding.electronicsBtn.setOnClickListener {
                 lBinding.itemListRecyclerView.adapter = ItemListAdapter(electronics, contextForGlide)
@@ -191,91 +246,7 @@ class PackLuggage : AppCompatActivity() {
             lBinding.foodBtn.setOnClickListener {
                 lBinding.itemListRecyclerView.adapter = ItemListAdapter(food, contextForGlide)
             }
-
-            ItemList.isItemsLoaded = true
-
-//            addFirebaseItemsToLayout(allItems)
+//            ItemList.isItemsLoaded = true
         }
     }
-
-    // Firebase에서 불러온 아이템을 동적으로 추가하는 함수
-//    private fun addFirebaseItemsToLayout(items: List<Items>) {
-//        // Firebase 데이터베이스의 참조 생성
-//        val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
-//
-//        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                // 기존의 뷰를 모두 제거
-//                lBinding.luggageLayout.removeAllViews()
-//
-//                for (item in items) {
-//                    // Firebase에서 가져온 아이템의 좌표를 이용하여 ImageView 생성 및 추가
-//                    val imageView = createItemImageView(item, dataSnapshot)
-//                    lBinding.luggageLayout.addView(imageView)
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
-//            }
-//        })
-//    }
-
-    // Firebase에서 가져온 아이템의 좌표를 이용하여 ImageView 생성하는 함수
-//    private fun createItemImageView(item: Items, dataSnapshot: DataSnapshot): ImageView {
-//
-//        val imageView = ImageView(this)
-//
-//        for (itemSnapshot in dataSnapshot.children) {
-//            if (itemSnapshot.child("itemName").getValue(String::class.java) == item.name) {
-//                val x = itemSnapshot.child("itemX").getValue(Float::class.java)
-//                val y = itemSnapshot.child("itemY").getValue(Float::class.java)
-//
-//                // StorageReference에서 Uri로 변환
-//                val imageUri = Uri.parse(item.image.toString())
-//
-//                // LayoutParams 설정
-//                val layoutParams = ConstraintLayout.LayoutParams(
-//                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
-//                    ConstraintLayout.LayoutParams.WRAP_CONTENT
-//                )
-//
-//                layoutParams.startToStart = ConstraintSet.PARENT_ID
-//                layoutParams.topToTop = ConstraintSet.PARENT_ID
-//                layoutParams.marginStart = x!!.toInt()
-//                layoutParams.topMargin = y!!.toInt()
-//
-//                // ImageView에 LayoutParams 적용
-//                imageView.layoutParams = layoutParams
-//
-//                // 이미지 크기를 고정된 크기로 변환하는 RequestOptions 생성
-//                val requestOptions = RequestOptions()
-//                    .override(100, 100) // 원하는 크기로 지정
-//
-//                val storageReference = item.image
-//
-//                // StorageReference에서 downloadUrl 가져오기
-//                storageReference.downloadUrl.addOnSuccessListener { uri ->
-//                    // Glide를 사용하여 이미지 로드
-//                    Glide.with(this)
-//                        .load(uri)
-//                        .apply(requestOptions)
-//                        .into(imageView)
-//                }.addOnFailureListener { exception ->
-//                    // 실패할 경우 처리
-//                    Log.e("glide___", "Error getting download URL: ${exception.message}")
-//                }
-//
-//                // ImageView에 터치 이벤트 리스너 등록
-//                imageView.setOnTouchListener { _, event ->
-//                    ItemList.handleTouch(event, imageView, lBinding.luggageLayout, item)
-//                    true
-//                }
-//
-//                break
-//            }
-//        }
-//
-//        return imageView
-//    }
 }

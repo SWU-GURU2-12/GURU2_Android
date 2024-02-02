@@ -37,11 +37,14 @@ class Checklist : AppCompatActivity() {
 //            ItemList.isItemsLoaded = false
 
             val builder = AlertDialog.Builder(this)
-            builder.setMessage("작성을 취소하고 My room으로 돌아가시겠습니까?")
+            builder.setMessage("짐 꾸리기 페이지로 돌아가시겠습니까?\n(저장되지 않습니다.)")
                 .setPositiveButton("예",
                     DialogInterface.OnClickListener { dialog, which ->
                         Toast.makeText(applicationContext, "예 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
                         // 이후에 MyRoom 페이지 연결
+
+                        // 저장된 luggage와 screenshot 삭제
+
                     })
                 .setNegativeButton("아니요",
                     DialogInterface.OnClickListener { dialog, which ->
