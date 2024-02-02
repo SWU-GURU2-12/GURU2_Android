@@ -3,6 +3,7 @@ package com.example.what_s_in_my_luggage
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
@@ -16,6 +17,7 @@ class PackingFrameActivity : AppCompatActivity() {
         val btnBack = findViewById<Button>(R.id.btnBack)
         val btnNext = findViewById<Button>(R.id.btnNext)
         val pageTitle = findViewById<TextView>(R.id.pageTitle)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         // 4. 짐꾸리기 화면 (PackingFrameActivity)
         val fragments: Array<Fragment> = arrayOf(
@@ -38,6 +40,7 @@ class PackingFrameActivity : AppCompatActivity() {
                 currentFragment++
                 replaceFragment(fragments[currentFragment])
                 pageTitle.text = titleList[currentFragment]
+                progressBar.progress = (currentFragment + 1) * (100/fragments.size)
             }
             else { // 발행하기 activity로 이동
 
@@ -49,6 +52,7 @@ class PackingFrameActivity : AppCompatActivity() {
                 currentFragment--
                 supportFragmentManager.popBackStack()
                 pageTitle.text = titleList[currentFragment]
+                progressBar.progress = (currentFragment + 1) * (100/fragments.size)
             }
         }
 
@@ -57,7 +61,7 @@ class PackingFrameActivity : AppCompatActivity() {
 
         replaceFragment(fragments[currentFragment])
         pageTitle.text = titleList[currentFragment]
-
+        progressBar.progress = (currentFragment + 1) * (100/fragments.size)
     }
 
     fun replaceFragment(fragment: Fragment) {
