@@ -36,6 +36,8 @@ class ItemList : AppCompatActivity() {
         val existTextColor = R.color.blue
         val notExistTextColor = R.color.bb25
 
+//        var isItemsLoaded = false
+
         fun onImageViewClick(v: View, clickedItem: Items) {
             if (v is ImageView) {
                 val clickedDrawable = v.drawable

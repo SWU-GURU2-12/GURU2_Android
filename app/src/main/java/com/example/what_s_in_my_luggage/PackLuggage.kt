@@ -1,5 +1,7 @@
 package com.example.what_s_in_my_luggage
 
+import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +53,7 @@ class PackLuggage : AppCompatActivity() {
         // 아이템을 추가하지 않았다면 페이지 이동X 및 토스트 메시지 띄움
         lBinding.nextBtn.setOnClickListener {
             if(ItemList.isItemExist) {
+
                 // 짐 꾸린 캐리어 캡쳐
                 requestCapture(lBinding.luggageLayout, "$currentTime\\_capture")
 

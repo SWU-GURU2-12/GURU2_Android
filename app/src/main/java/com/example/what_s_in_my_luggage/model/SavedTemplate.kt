@@ -10,8 +10,4 @@ class SavedTemplate { // 하트 누른 템플릿 (북마크)
         this.userName = userName
         this.SavedLuggageIdList = SavedLuggageIdList
     }
-
-    fun addTemplate(luggageID: String) {
-        this.SavedLuggageIdList.add(luggageID)
-    }
 }

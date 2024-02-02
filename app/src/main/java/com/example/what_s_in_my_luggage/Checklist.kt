@@ -2,7 +2,9 @@ package com.example.what_s_in_my_luggage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
@@ -16,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 
 class Checklist : AppCompatActivity() {
     private lateinit var cBinding: ActivityChecklistBinding
@@ -29,6 +32,7 @@ class Checklist : AppCompatActivity() {
         val nextBtn = findViewById<Button>(R.id.nextBtn)
 //        var dataManager = UserDataManager.getInstance(this)
 
+
         // 액션바 숨기기
         supportActionBar?.hide()
 
@@ -37,30 +41,25 @@ class Checklist : AppCompatActivity() {
         cBinding.backBtn.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("짐 꾸리기 페이지로 돌아가시겠습니까?\n(저장되지 않습니다.)")
-                .setPositiveButton("예") { dialog, which ->
+                .setPositiveButton("예",
+                    DialogInterface.OnClickListener { dialog, which ->
+//                        Toast.makeText(applicationContext, "예 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
+                        // 이후에 MyRoom 페이지 연결
+                        val intent = Intent(this, PackLuggage::class.java)
+                        startActivity(intent)
+//                        ItemList.isItemsLoaded = false
 
+                        // 저장된 luggage와 screenshot 삭제
+                        removeLuggageAndScreenshotFromFirebase()
 
-
-                    // 저장된 luggage와 스크린샷 이미지 삭제
-                    val captureFileName = intent.getStringExtra("captureFileName")
-
-                        var dataManager = UserDataManager.getInstance(this)
-                    if (captureFileName != null) {
-                        dataManager.removeLuggageAndScreenshotFromFirebase(captureFileName)
-                    }
-
-                    // 짐 꾸리기 페이지로 연결
-                    val intent = Intent(this, PackLuggage::class.java)
-                    startActivity(intent)
-
-
-                    ItemList.isItemExist = false
-                    nextBtn.setTextColor(ItemList.notExistTextColor)
-                }
-                .setNegativeButton("아니요") { dialog, which ->
-                    Toast.makeText(applicationContext, "아니요 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
-                    // 예 버튼 작성 끝나면 토스트 메시지 코드 삭제
-                }
+                        ItemList.isItemExist = false
+                        nextBtn.setTextColor(ItemList.notExistTextColor)
+                    })
+                .setNegativeButton("아니요",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        Toast.makeText(applicationContext, "아니요 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
+                        // 예 버튼 작성 끝나면 토스트 메시지 코드 삭제
+                    })
             val alertDialog = builder.create()
             alertDialog.show()
         }
@@ -96,8 +95,6 @@ class Checklist : AppCompatActivity() {
             }
         })
     }
-
-
 
     private fun displayChecklist(itemList: List<String>) {
         // 가져온 데이터로 동적으로 TextView 생성하여 추가

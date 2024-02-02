@@ -10,6 +10,11 @@ import android.widget.SearchView
 import androidx.fragment.app.setFragmentResult
 import com.example.what_s_in_my_luggage.model.ListViewItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
 
@@ -38,10 +43,11 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
             setUpListView(test)
             setUpSearchView(test)
         } else if (tag == "template") { // template
-            /* test = dataManager.getSavedTemplateList()
+            test = dataManager.getSavedTemplateListView()
             setUpListView(test)
-            setUpSearchView(test) */
+            setUpSearchView(test)
         }
+
 
         return view
     }
