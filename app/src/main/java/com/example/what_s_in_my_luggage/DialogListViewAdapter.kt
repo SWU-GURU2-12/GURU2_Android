@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-
-data class ListViewItem(val title: String, val subTitle: String)
+import com.example.what_s_in_my_luggage.model.ListViewItem
 
 class DialogListViewAdapter(private val items: MutableList<ListViewItem>) : BaseAdapter() {
     override fun getCount(): Int = items.size

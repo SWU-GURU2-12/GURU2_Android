@@ -1,6 +1,6 @@
 package com.example.what_s_in_my_luggage.model
 
-class Carrier {
+class Luggage {
     var carrierId: Int = 0
     var userName: String = ""
 
