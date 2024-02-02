@@ -2,6 +2,8 @@ package com.example.what_s_in_my_luggage
 
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
@@ -17,12 +19,32 @@ import com.google.firebase.database.ValueEventListener
 
 class ItemList : AppCompatActivity() {
     lateinit var iBinding: ActivityItemListBinding
-
+//    private var clickedImageView: ImageView? = null
+//    val CONTEXT_MENU_REMOVE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         iBinding = ActivityItemListBinding.inflate(layoutInflater)
         setContentView(iBinding.root)
+
+        // 컨텍스트 메뉴 생성
+//        val imageView = ImageView(this)
+//        registerForContextMenu(imageView)
+
+        // 롱클릭 이벤트 처리
+//        imageView.setOnLongClickListener {
+//            openContextMenu(imageView)
+//            true
+//        }
+
+        // Register the newImageView for the context menu
+//        registerForContextMenu(imageView)
+//
+//        // Set the long click listener for the newImageView
+//        imageView.setOnLongClickListener {
+//            openContextMenu(imageView)
+//            true
+//        }
     }
 
     companion object {
@@ -32,8 +54,9 @@ class ItemList : AppCompatActivity() {
         var isItemExist = false
         val existTextColor = R.color.blue
         val notExistTextColor = R.color.bb25
-        var itemX = 0f
-        var itemY = 0f
+        var isItemsLoaded = false
+        private var clickedItem: Items? = null
+//        val CONTEXT_MENU_REMOVE = 1
 
         fun onImageViewClick(v: View, clickedItem: Items) {
             if (v is ImageView) {
@@ -44,6 +67,8 @@ class ItemList : AppCompatActivity() {
 
                 // 새로 추가될 ImageView의 id 설정
                 newImageView.id = View.generateViewId()
+//                newImageView.x = 170.0f
+//                newImageView.y = 183.0f
 
                 // ImageView의 넓이, 높이, 가운데 정렬 등 옵션 추가
                 val layoutParams = ConstraintLayout.LayoutParams(
@@ -59,6 +84,7 @@ class ItemList : AppCompatActivity() {
                 layoutParams.topToTop = ConstraintSet.PARENT_ID
                 layoutParams.bottomToBottom = ConstraintSet.PARENT_ID
 
+
                 // ImageView가 luggageLayout에 추가되도록 레이아웃 지정
                 val layout = v.rootView.findViewById<ConstraintLayout>(R.id.luggageLayout)
                 val nextBtn = v.rootView.findViewById<Button>(R.id.nextBtn)
@@ -72,16 +98,14 @@ class ItemList : AppCompatActivity() {
                 // ImageView에 터치 이벤트 리스너 등록
                 newImageView.setOnTouchListener { v, event ->
                     handleTouch(event, newImageView, layout, clickedItem)
-//                    if (event.action == MotionEvent.ACTION_UP) {
-//                        updateItemCoordinates(newImageView, clickedItem)
-//                    }
+                    this.clickedItem = clickedItem
                     true
-//                    val isTouchHandled = event.action == MotionEvent.ACTION_UP
-//                    if (isTouchHandled) {
-//                        updateItemCoordinates(newImageView, clickedItem)
-//                    }
-//                    isTouchHandled
                 }
+
+//                newImageView.setOnLongClickListener {
+//                    openContextMenu(imageView)
+//                    true
+//                }
             }
         }
 
@@ -116,27 +140,95 @@ class ItemList : AppCompatActivity() {
                 MotionEvent.ACTION_UP -> {
                     // 터치 업 시의 처리
                     isMoving = false
+
+                    // Firebase에 좌표 업데이트
                     item.x = view.x
                     item.y = view.y
 
-                    //Firebase 데이터베이스의 참조 생성
+                    // Firebase 데이터베이스의 참조 생성
                     val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
 
-                    //업데이트할 그룹 이름을 찾음
+                    // 업데이트할 그룹 이름을 찾음
                     databaseRef.orderByChild("itemName").equalTo(item.name.toString()).addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
                             for (snapshot in dataSnapshot.children) {
-                                snapshot.ref.child("itemX").setValue(item.x.toString().toFloat())
-                                snapshot.ref.child("itemY").setValue(item.y.toString().toFloat())
+                                snapshot.ref.child("itemX").setValue(item.x)
+                                snapshot.ref.child("itemY").setValue(item.y)
                             }
                         }
                         override fun onCancelled(databaseError: DatabaseError) {
                             Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
                         }
                     })
+
+//                    val valueEventListener = object : ValueEventListener {
+//                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                            for (snapshot in dataSnapshot.children) {
+//                                if (snapshot.child("itemName")
+//                                        .getValue(String::class.java) == item.name
+//                                ) {
+//                                    // 좌표 업데이트
+//                                    snapshot.ref.child("itemX").setValue(item.x)
+//                                    snapshot.ref.child("itemY").setValue(item.y)
+//                                    break
+//                                }
+//                            }
+//                        }
+//
+//                        override fun onCancelled(databaseError: DatabaseError) {
+//                            Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
+//                        }
+//                    }
                 }
             }
             return true
         }
     }
+
+//    override fun onCreateContextMenu(
+//        menu: ContextMenu?,
+//        v: View?,
+//        menuInfo: ContextMenu.ContextMenuInfo?
+//    ) {
+//        super.onCreateContextMenu(menu, v, menuInfo)
+//        menu?.setHeaderTitle("아이템 동작")
+//        menu?.add(0, CONTEXT_MENU_REMOVE, 0, "아이템 제거")
+//    }
+//
+//    override fun onContextItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            CONTEXT_MENU_REMOVE -> {
+//                // 아이템을 제거하는 코드
+//                if (isMoving && isItemExist) {
+//                    val layout = findViewById<ConstraintLayout>(R.id.luggageLayout)
+//                    clickedImageView?.let {
+//                        layout.removeView(it)
+//                        isItemExist = true
+//                        // Firebase에서도 제거
+//                        clickedItem?.let { it1 -> removeItemFromFirebase(it1) }
+//                    }
+//                }
+//                return true
+//            }
+//        }
+//        return super.onContextItemSelected(item)
+//    }
+//
+//    fun removeItemFromFirebase(item: Items) {
+//        val databaseRef =
+//            FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung")
+//                .child("luggage1")
+//        databaseRef.orderByChild("itemName").equalTo(item.name.toString())
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    for (snapshot in dataSnapshot.children) {
+//                        snapshot.ref.removeValue()
+//                    }
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {
+//                    Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
+//                }
+//            })
+//    }
 }
