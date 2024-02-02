@@ -30,6 +30,7 @@ class Checklist : AppCompatActivity() {
         cBinding.backBtn.setOnClickListener {
             val intent = Intent(this, PackLuggage::class.java)
             startActivity(intent)
+            ItemList.isItemsLoaded = false
         }
 
         // 추가된 아이템을 체크리스트에 표시

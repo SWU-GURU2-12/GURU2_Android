@@ -2,7 +2,6 @@ package com.example.what_s_in_my_luggage
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,10 +22,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PackLuggage : AppCompatActivity() {
     lateinit var lBinding: ActivityPackLuggageBinding
-    lateinit var allItems: List<Items>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,9 @@ class PackLuggage : AppCompatActivity() {
         lBinding.itemListRecyclerView.layoutManager = GridLayoutManager(this, 4)
 
         // 아이템 목록에 들어갈 아이템 객체 생성 및 어댑터 연결
-        GetItemLists()
+        if (!ItemList.isItemsLoaded) {
+            GetItemLists()
+        }
 
         // nextBtn 색상 관리
         if (ItemList.isItemExist) {
@@ -78,122 +81,121 @@ class PackLuggage : AppCompatActivity() {
             val alertDialog = builder.create()
             alertDialog.show()
         }
-
-//        // 저장 버튼을 누르면 경고메시지 발생
-//        lBinding.nextBtn.setOnClickListener {
-//            val builder = AlertDialog.Builder(this)
-//            builder.setMessage("저장하시겠습니까?")
-//                .setPositiveButton("예",
-//                    DialogInterface.OnClickListener { dialog, which ->
-//                        Toast.makeText(applicationContext, "예 선택(저장)", Toast.LENGTH_SHORT).show()
-//                        // 이후에 MyRoom 페이지 연결
-//                    })
-//                .setNegativeButton("아니요",
-//                    DialogInterface.OnClickListener { dialog, which ->
-//                        Toast.makeText(applicationContext, "아니요 선택(저장)", Toast.LENGTH_SHORT).show()
-//                        // 예 버튼 작성 끝나면 토스트 메시지 코드 삭제
-//                    })
-//            val alertDialog = builder.create()
-//            alertDialog.show()
-//        }
     }
 
     fun GetItemLists() {
-        val num = 0
+        // 백그라운드 스레드에서 데이터베이스에서 아이템 정보를 가져오기
+        CoroutineScope(Dispatchers.IO).launch {
 
-        // Firebase Storage 관리 객체 소환
-        val firebaseStorage = FirebaseStorage.getInstance()
+            // Glide에 전달할 Context 저장
+            val contextForGlide = this@PackLuggage
+            Log.d("check1","ok")
 
-        // 저장소의 최상위 참조 객체 얻어오기
-        val rootRef = firebaseStorage.reference
+            val num = 0
 
-        // StorageReference 리스트 생성
-        val imageRefs: List<StorageReference> = (1..15).map { index ->
-            rootRef.child("items/item_image_removebg_${num + index}.png")
-        }
+            // Firebase Storage 관리 객체 소환
+            val firebaseStorage = FirebaseStorage.getInstance()
 
-        // 아이템 목록 생성
-        val allItems: List<Items> = listOf(
-            Items(imageRefs[0], "어댑터"),
-            Items(imageRefs[1], "카메라"),
-            Items(imageRefs[2], "보조배터리"),
-            Items(imageRefs[3], "여권"),
-            Items(imageRefs[4], "개인 가방"),
-            Items(imageRefs[5], "유럽 돈"),
-            Items(imageRefs[6], "겨울 상의"),
-            Items(imageRefs[7], "겨울 하의"),
-            Items(imageRefs[8], "머플러"),
-            Items(imageRefs[9], "모자"),
-            Items(imageRefs[10], "부츠"),
-            Items(imageRefs[11], "화장품"),
-            Items(imageRefs[12], "칫솔&치약"),
-            Items(imageRefs[13], "스킨케어"),
-            Items(imageRefs[14], "컵라면"),
-        )
+            // 저장소의 최상위 참조 객체 얻어오기
+            val rootRef = firebaseStorage.reference
 
-        val electronics: List<Items> = listOf(
-            Items(imageRefs[0], "어댑터"),
-            Items(imageRefs[1], "카메라"),
-            Items(imageRefs[2], "보조배터리")
-        )
+            // StorageReference 리스트 생성
+            val imageRefs: List<StorageReference> = (1..15).map { index ->
+                rootRef.child("items/item_image_removebg_${num + index}.png")
+            }
 
-        val inFlightEssentials: List<Items> = listOf(
-            Items(imageRefs[3], "여권"),
-            Items(imageRefs[2], "보조배터리"),
-            Items(imageRefs[4], "개인 가방"),
-            Items(imageRefs[5], "현금")
-        )
+            // 아이템 목록 생성
+            val allItems: List<Items> = listOf(
+                Items(imageRefs[0], "어댑터"),
+                Items(imageRefs[1], "카메라"),
+                Items(imageRefs[2], "보조배터리"),
+                Items(imageRefs[3], "여권"),
+                Items(imageRefs[4], "개인 가방"),
+                Items(imageRefs[5], "유럽 돈"),
+                Items(imageRefs[6], "겨울 상의"),
+                Items(imageRefs[7], "겨울 하의"),
+                Items(imageRefs[8], "머플러"),
+                Items(imageRefs[9], "모자"),
+                Items(imageRefs[10], "부츠"),
+                Items(imageRefs[11], "화장품"),
+                Items(imageRefs[12], "칫솔&치약"),
+                Items(imageRefs[13], "스킨케어"),
+                Items(imageRefs[14], "컵라면"),
+            )
 
-        val clothes: List<Items> = listOf(
-            Items(imageRefs[6], "겨울 상의"),
-            Items(imageRefs[7], "겨울 하의")
-        )
+            val electronics: List<Items> = listOf(
+                Items(imageRefs[0], "어댑터"),
+                Items(imageRefs[1], "카메라"),
+                Items(imageRefs[2], "보조배터리")
+            )
 
-        val otherClothes: List<Items> = listOf(
-            Items(imageRefs[8], "머플러"),
-            Items(imageRefs[9], "모자"),
-            Items(imageRefs[10], "부츠")
-        )
+            val inFlightEssentials: List<Items> = listOf(
+                Items(imageRefs[3], "여권"),
+                Items(imageRefs[2], "보조배터리"),
+                Items(imageRefs[4], "개인 가방"),
+                Items(imageRefs[5], "현금")
+            )
 
-        val care: List<Items> = listOf(
-            Items(imageRefs[11], "화장품"),
-            Items(imageRefs[12], "칫솔&치약"),
-            Items(imageRefs[13], "스킨케어")
-        )
+            val clothes: List<Items> = listOf(
+                Items(imageRefs[6], "겨울 상의"),
+                Items(imageRefs[7], "겨울 하의")
+            )
 
-        val food: List<Items> = listOf(
-            Items(imageRefs[14], "컵라면")
-        )
+            val otherClothes: List<Items> = listOf(
+                Items(imageRefs[8], "머플러"),
+                Items(imageRefs[9], "모자"),
+                Items(imageRefs[10], "부츠")
+            )
 
-        // 각 아이템 목록을 버튼에 연결
-        lBinding.allItemsBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(allItems, this)
+            val care: List<Items> = listOf(
+                Items(imageRefs[11], "화장품"),
+                Items(imageRefs[12], "칫솔&치약"),
+                Items(imageRefs[13], "스킨케어")
+            )
+
+            val food: List<Items> = listOf(
+                Items(imageRefs[14], "컵라면")
+            )
+            Log.d("check2","ok")
+
+            // 각 아이템 목록을 버튼에 연결
+            lBinding.allItemsBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(allItems, contextForGlide)
+
+            }
+            Log.d("check3","ok")
+
+            lBinding.electronicsBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(electronics, contextForGlide)
+            }
+
+            lBinding.inFlightEssentialsBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(inFlightEssentials, contextForGlide)
+            }
+
+            lBinding.clothesBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(clothes, contextForGlide)
+            }
+
+            lBinding.otherClothesBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(otherClothes, contextForGlide)
+            }
+
+            lBinding.careBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(care, contextForGlide)
+            }
+
+            lBinding.foodBtn.setOnClickListener {
+                lBinding.itemListRecyclerView.adapter = ItemListAdapter(food, contextForGlide)
+            }
+
+            ItemList.isItemsLoaded = true
+
             addFirebaseItemsToLayout(allItems)
-        }
+//            Log.d("check4","ok")
 
-        lBinding.electronicsBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(electronics, this)
         }
-
-        lBinding.inFlightEssentialsBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(inFlightEssentials, this)
-        }
-
-        lBinding.clothesBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(clothes, this)
-        }
-
-        lBinding.otherClothesBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(otherClothes, this)
-        }
-
-        lBinding.careBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(care, this)
-        }
-
-        lBinding.foodBtn.setOnClickListener {
-            lBinding.itemListRecyclerView.adapter = ItemListAdapter(food, this)
-        }
+//        addFirebaseItemsToLayout(allItems)
     }
 
     // Firebase에서 불러온 아이템을 동적으로 추가하는 함수
@@ -201,7 +203,7 @@ class PackLuggage : AppCompatActivity() {
         // Firebase 데이터베이스의 참조 생성
         val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
 
-        // 참조의 데이터 변경 감지
+
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // 기존의 뷰를 모두 제거
@@ -271,7 +273,7 @@ class PackLuggage : AppCompatActivity() {
                     true
                 }
 
-                break // 이미지를 하나만 추가하므로 반복문을 종료합니다.
+                break
             }
         }
 
