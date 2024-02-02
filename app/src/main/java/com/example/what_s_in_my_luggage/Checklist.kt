@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -28,6 +30,8 @@ class Checklist : AppCompatActivity() {
         cBinding = ActivityChecklistBinding.inflate(layoutInflater)
         setContentView(cBinding.root)
 
+        val nextBtn = findViewById<Button>(R.id.nextBtn)
+
         // 액션바 숨기기
         supportActionBar?.hide()
 
@@ -46,6 +50,9 @@ class Checklist : AppCompatActivity() {
 
                         // 저장된 luggage와 screenshot 삭제
                         removeLuggageAndScreenshotFromFirebase()
+
+                        ItemList.isItemExist = false
+                        nextBtn.setTextColor(ItemList.notExistTextColor)
                     })
                 .setNegativeButton("아니요",
                     DialogInterface.OnClickListener { dialog, which ->

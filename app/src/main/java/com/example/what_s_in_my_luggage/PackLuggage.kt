@@ -1,5 +1,6 @@
 package com.example.what_s_in_my_luggage
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
@@ -38,6 +39,7 @@ class PackLuggage : AppCompatActivity() {
     lateinit var lBinding: ActivityPackLuggageBinding
     lateinit var itemAdapter: ItemListAdapter
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lBinding = ActivityPackLuggageBinding.inflate(layoutInflater)
@@ -50,9 +52,9 @@ class PackLuggage : AppCompatActivity() {
         lBinding.itemListRecyclerView.layoutManager = GridLayoutManager(this, 4)
 
         // 아이템 목록에 들어갈 아이템 객체 생성 및 어댑터 연결
-        if (!ItemList.isItemsLoaded) {
+//        if (!ItemList.isItemsLoaded) {
             GetItemLists()
-        }
+//        }
 
         // nextBtn 색상 관리
         if (ItemList.isItemExist) {

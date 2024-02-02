@@ -62,9 +62,7 @@ class ItemList : AppCompatActivity() {
         var isItemExist = false
         val existTextColor = R.color.blue
         val notExistTextColor = R.color.bb25
-        var isItemsLoaded = false
-        private var clickedItem: Items? = null
-//        val CONTEXT_MENU_REMOVE = 1
+//        var isItemsLoaded = false
 
         fun onImageViewClick(v: View, clickedItem: Items) {
             if (v is ImageView) {
@@ -92,8 +90,8 @@ class ItemList : AppCompatActivity() {
                 }
 
                 newImageView.layoutParams = layoutParams
-                layoutParams.width = 100
-                layoutParams.height = 100
+                layoutParams.width = 300
+                layoutParams.height = 300
                 layoutParams.startToStart = ConstraintSet.PARENT_ID
                 layoutParams.endToEnd = ConstraintSet.PARENT_ID
                 layoutParams.topToTop = ConstraintSet.PARENT_ID
