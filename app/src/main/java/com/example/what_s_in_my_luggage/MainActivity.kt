@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         // btnGetCarrying 버튼에 대한 클릭 리스너 설정
         btnGetCarrying.setOnClickListener {
-            val intent = Intent(this, PackLuggage::class.java)
+            val intent = Intent(this, PackingFrameActivity::class.java)
             startActivity(intent)
         }
 
