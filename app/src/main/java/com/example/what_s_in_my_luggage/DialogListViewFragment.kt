@@ -2,15 +2,23 @@ package com.example.what_s_in_my_luggage
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.fragment.app.setFragmentResult
+import com.example.what_s_in_my_luggage.model.ListViewItem
+import com.example.what_s_in_my_luggage.model.SavedTemplate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
+    private val refTravelPlace = Firebase.database.getReference("travelPlace")
+    private val refTemplate = Firebase.database.getReference("savedTemplate")
+
     private lateinit var searchView: SearchView
     private lateinit var listView: ListView
     var selected: String = ""
@@ -25,43 +33,31 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         // 초기화
         searchView = view.findViewById<SearchView>(R.id.searchView)
         listView = view.findViewById<ListView>(R.id.listView)
-        var test = arrayListOf<ListViewItem>(
-            ListViewItem("seoul", "korea"),
-            ListViewItem("tokyo", "japan"),
-            ListViewItem("베이징", "중국"),
-            ListViewItem("뉴욕", "미국"),
-            ListViewItem("런던", "영국"),
-            ListViewItem("파리", "프랑스"),
-            ListViewItem("로마", "이탈리아"),
-            ListViewItem("베를린", "독일"),
-            ListViewItem("모스크바", "러시아"),
-            ListViewItem("캔버라", "호주"),
-            ListViewItem("오클랜드", "뉴질랜드"),
-            ListViewItem("두바이", "아랍에미리트"),
-            ListViewItem("카이로", "이집트"),
-            ListViewItem("앙코르왓", "캄보디아"),
-            ListViewItem("방콕", "태국"),
-            ListViewItem("하노이", "베트남"),
-            ListViewItem("마닐라", "필리핀"),
-            ListViewItem("뉴델리", "인도"),
-            ListViewItem("모스크바", "러시아"),
-            ListViewItem("앙코르왓", "캄보디아"),
-            ListViewItem("방콕", "태국"),
-            ListViewItem("하노이", "베트남"),
-            ListViewItem("마닐라", "필리핀"),
-            ListViewItem("뉴델리", "인도"),
-            ListViewItem("모스크바", "러시아"),
-            ListViewItem("앙코르왓", "캄보디아"),
-            ListViewItem("방콕", "태국"),
-            ListViewItem("하노이", "베트남"),
-            ListViewItem("마닐라", "필리핀"),
-            ListViewItem("뉴델리", "인도"),
-            ListViewItem("모스크바", "러시아"),
-            ListViewItem("busan", "korea")
-        )
 
-        setUpListView(test)
-        setUpSearchView(test)
+        // 데이터 가져오기
+        var test = arrayListOf<ListViewItem>()
+        val tag = arguments?.getString("tag")
+
+        if (tag == "travelPlace") { // travel place
+            refTravelPlace.get().addOnSuccessListener {
+                for (data in it.children) {
+                    val place = data.getValue(ListViewItem::class.java)
+                    test.add(place!!)
+                }
+                // view 구성
+                setUpListView(test)
+                setUpSearchView(test)
+            }
+        } else if (tag == "template") { // template
+            refTemplate.get().addOnSuccessListener {
+                // 현재 userName
+
+
+                // view 구성
+                setUpListView(test)
+                setUpSearchView(test)
+            }
+        }
 
         return view
     }

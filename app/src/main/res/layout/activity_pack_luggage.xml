@@ -116,9 +116,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/luggageLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
 
     </FrameLayout>

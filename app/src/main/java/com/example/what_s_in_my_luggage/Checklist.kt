@@ -1,10 +1,13 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.what_s_in_my_luggage.databinding.ActivityChecklistBinding
@@ -27,9 +30,37 @@ class Checklist : AppCompatActivity() {
         supportActionBar?.hide()
 
         // 뒤로가기 버튼 누르면 짐꾸리기 페이지로 이동
+        // 짐의 구성은 저장되지 않음!!
         cBinding.backBtn.setOnClickListener {
-            val intent = Intent(this, PackLuggage::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, PackLuggage::class.java)
+//            startActivity(intent)
+//            ItemList.isItemsLoaded = false
+
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("짐 꾸리기 페이지로 돌아가시겠습니까?\n(저장되지 않습니다.)")
+                .setPositiveButton("예",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        Toast.makeText(applicationContext, "예 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
+                        // 이후에 MyRoom 페이지 연결
+
+                        // 저장된 luggage와 screenshot 삭제
+
+                    })
+                .setNegativeButton("아니요",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        Toast.makeText(applicationContext, "아니요 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
+                        // 예 버튼 작성 끝나면 토스트 메시지 코드 삭제
+                    })
+            val alertDialog = builder.create()
+            alertDialog.show()
+        }
+
+        // 저장 버튼 누르면 짐꾸리기 페이지로 이동
+        cBinding.nextBtn.setOnClickListener {
+            // 발행하기 페이지랑 연결
+//            val intent = Intent(this, PackLuggage::class.java)
+//            startActivity(intent)
+//            ItemList.isItemsLoaded = false
         }
 
         // 추가된 아이템을 체크리스트에 표시
