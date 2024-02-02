@@ -16,7 +16,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.database.database
 
 class AddCarrierFragment : Fragment() {
-    private val databaseReference = Firebase.database.getReference("Luggage")
 
     private lateinit var btnDepartureCal: Button
     private lateinit var btnArrivalCal: Button

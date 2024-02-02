@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.setFragmentResult
 import com.example.what_s_in_my_luggage.model.ListViewItem
 import com.example.what_s_in_my_luggage.model.SavedTemplate
@@ -16,8 +17,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.database.database
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
-    private val refTravelPlace = Firebase.database.getReference("travelPlace")
-    private val refTemplate = Firebase.database.getReference("savedTemplate")
 
     private lateinit var searchView: SearchView
     private lateinit var listView: ListView
@@ -37,26 +36,16 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         // 데이터 가져오기
         var test = arrayListOf<ListViewItem>()
         val tag = arguments?.getString("tag")
+        var dataManager = UserDataManager.getInstance(requireContext())
 
         if (tag == "travelPlace") { // travel place
-            refTravelPlace.get().addOnSuccessListener {
-                for (data in it.children) {
-                    val place = data.getValue(ListViewItem::class.java)
-                    test.add(place!!)
-                }
-                // view 구성
-                setUpListView(test)
-                setUpSearchView(test)
-            }
+            test = dataManager.getTravelPlaceList()
+            setUpListView(test)
+            setUpSearchView(test)
         } else if (tag == "template") { // template
-            refTemplate.get().addOnSuccessListener {
-                // 현재 userName
-
-
-                // view 구성
-                setUpListView(test)
-                setUpSearchView(test)
-            }
+            /* test = dataManager.getSavedTemplateList()
+            setUpListView(test)
+            setUpSearchView(test) */
         }
 
         return view

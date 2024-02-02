@@ -1,6 +1,6 @@
 package com.example.what_s_in_my_luggage.model
 
-class SavedTemplate {
+class SavedTemplate { // 하트 누른 템플릿 (북마크)
     var userName: String = ""
     var SavedLuggageIdList: ArrayList<String> = arrayListOf()
 
