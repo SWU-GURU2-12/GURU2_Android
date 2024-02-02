@@ -28,6 +28,8 @@ import kotlinx.coroutines.launch
 
 class PackLuggage : AppCompatActivity() {
     lateinit var lBinding: ActivityPackLuggageBinding
+    lateinit var itemAdapter: ItemListAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +91,6 @@ class PackLuggage : AppCompatActivity() {
 
             // Glide에 전달할 Context 저장
             val contextForGlide = this@PackLuggage
-            Log.d("check1","ok")
 
             val num = 0
 
@@ -156,7 +157,9 @@ class PackLuggage : AppCompatActivity() {
             val food: List<Items> = listOf(
                 Items(imageRefs[14], "컵라면")
             )
-            Log.d("check2","ok")
+
+            itemAdapter = ItemListAdapter(allItems, contextForGlide)
+            lBinding.itemListRecyclerView.adapter = itemAdapter
 
             // 각 아이템 목록을 버튼에 연결
             lBinding.allItemsBtn.setOnClickListener {
@@ -191,92 +194,88 @@ class PackLuggage : AppCompatActivity() {
 
             ItemList.isItemsLoaded = true
 
-            addFirebaseItemsToLayout(allItems)
-//            Log.d("check4","ok")
-
+//            addFirebaseItemsToLayout(allItems)
         }
-//        addFirebaseItemsToLayout(allItems)
     }
 
     // Firebase에서 불러온 아이템을 동적으로 추가하는 함수
-    private fun addFirebaseItemsToLayout(items: List<Items>) {
-        // Firebase 데이터베이스의 참조 생성
-        val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
-
-
-        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // 기존의 뷰를 모두 제거
-                lBinding.luggageLayout.removeAllViews()
-
-                for (item in items) {
-                    // Firebase에서 가져온 아이템의 좌표를 이용하여 ImageView 생성 및 추가
-                    val imageView = createItemImageView(item, dataSnapshot)
-                    lBinding.luggageLayout.addView(imageView)
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
-            }
-        })
-    }
+//    private fun addFirebaseItemsToLayout(items: List<Items>) {
+//        // Firebase 데이터베이스의 참조 생성
+//        val databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
+//
+//        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                // 기존의 뷰를 모두 제거
+//                lBinding.luggageLayout.removeAllViews()
+//
+//                for (item in items) {
+//                    // Firebase에서 가져온 아이템의 좌표를 이용하여 ImageView 생성 및 추가
+//                    val imageView = createItemImageView(item, dataSnapshot)
+//                    lBinding.luggageLayout.addView(imageView)
+//                }
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                Log.e("dataChange_cancelled", "Error: ${databaseError.message}")
+//            }
+//        })
+//    }
 
     // Firebase에서 가져온 아이템의 좌표를 이용하여 ImageView 생성하는 함수
-    private fun createItemImageView(item: Items, dataSnapshot: DataSnapshot): ImageView {
-
-        val imageView = ImageView(this)
-
-        for (itemSnapshot in dataSnapshot.children) {
-            if (itemSnapshot.child("itemName").getValue(String::class.java) == item.name) {
-                val x = itemSnapshot.child("itemX").getValue(Float::class.java)
-                val y = itemSnapshot.child("itemY").getValue(Float::class.java)
-
-                // StorageReference에서 Uri로 변환
-                val imageUri = Uri.parse(item.image.toString())
-
-                // LayoutParams 설정
-                val layoutParams = ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT
-                )
-
-                layoutParams.startToStart = ConstraintSet.PARENT_ID
-                layoutParams.topToTop = ConstraintSet.PARENT_ID
-                layoutParams.marginStart = x!!.toInt()
-                layoutParams.topMargin = y!!.toInt()
-
-                // ImageView에 LayoutParams 적용
-                imageView.layoutParams = layoutParams
-
-                // 이미지 크기를 고정된 크기로 변환하는 RequestOptions 생성
-                val requestOptions = RequestOptions()
-                    .override(100, 100) // 원하는 크기로 지정
-
-                val storageReference = item.image
-
-                // StorageReference에서 downloadUrl 가져오기
-                storageReference.downloadUrl.addOnSuccessListener { uri ->
-                    // Glide를 사용하여 이미지 로드
-                    Glide.with(this)
-                        .load(uri)
-                        .apply(requestOptions)
-                        .into(imageView)
-                }.addOnFailureListener { exception ->
-                    // 실패할 경우 처리
-                    Log.e("glide___", "Error getting download URL: ${exception.message}")
-                }
-
-                // ImageView에 터치 이벤트 리스너 등록
-                imageView.setOnTouchListener { _, event ->
-                    ItemList.handleTouch(event, imageView, lBinding.luggageLayout, item)
-                    true
-                }
-
-                break
-            }
-        }
-
-        return imageView
-    }
+//    private fun createItemImageView(item: Items, dataSnapshot: DataSnapshot): ImageView {
+//
+//        val imageView = ImageView(this)
+//
+//        for (itemSnapshot in dataSnapshot.children) {
+//            if (itemSnapshot.child("itemName").getValue(String::class.java) == item.name) {
+//                val x = itemSnapshot.child("itemX").getValue(Float::class.java)
+//                val y = itemSnapshot.child("itemY").getValue(Float::class.java)
+//
+//                // StorageReference에서 Uri로 변환
+//                val imageUri = Uri.parse(item.image.toString())
+//
+//                // LayoutParams 설정
+//                val layoutParams = ConstraintLayout.LayoutParams(
+//                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+//                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+//                )
+//
+//                layoutParams.startToStart = ConstraintSet.PARENT_ID
+//                layoutParams.topToTop = ConstraintSet.PARENT_ID
+//                layoutParams.marginStart = x!!.toInt()
+//                layoutParams.topMargin = y!!.toInt()
+//
+//                // ImageView에 LayoutParams 적용
+//                imageView.layoutParams = layoutParams
+//
+//                // 이미지 크기를 고정된 크기로 변환하는 RequestOptions 생성
+//                val requestOptions = RequestOptions()
+//                    .override(100, 100) // 원하는 크기로 지정
+//
+//                val storageReference = item.image
+//
+//                // StorageReference에서 downloadUrl 가져오기
+//                storageReference.downloadUrl.addOnSuccessListener { uri ->
+//                    // Glide를 사용하여 이미지 로드
+//                    Glide.with(this)
+//                        .load(uri)
+//                        .apply(requestOptions)
+//                        .into(imageView)
+//                }.addOnFailureListener { exception ->
+//                    // 실패할 경우 처리
+//                    Log.e("glide___", "Error getting download URL: ${exception.message}")
+//                }
+//
+//                // ImageView에 터치 이벤트 리스너 등록
+//                imageView.setOnTouchListener { _, event ->
+//                    ItemList.handleTouch(event, imageView, lBinding.luggageLayout, item)
+//                    true
+//                }
+//
+//                break
+//            }
+//        }
+//
+//        return imageView
+//    }
 }

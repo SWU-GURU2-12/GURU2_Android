@@ -55,8 +55,8 @@ class ItemListAdapter(var list: List<Items>, private val context: Context): Recy
             "itemName" to item.name,
 //            "itemX" to ItemList.itemX,
 //            "itemY" to ItemList.itemY
-            "itemX" to item.x,
-            "itemY" to item.y
+//            "itemX" to item.x,
+//            "itemY" to item.y
             // 추가하려는 다른 데이터 필드들을 추가
         )
 
