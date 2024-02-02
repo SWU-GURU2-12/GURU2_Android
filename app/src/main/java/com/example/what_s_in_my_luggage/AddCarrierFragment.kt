@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class AddCarrierFragment : Fragment() {
+    private val databaseReference = Firebase.database.getReference("Luggage")
+
     private lateinit var btnDepartureCal: Button
     private lateinit var btnArrivalCal: Button
     private lateinit var travelPlace: CardView
@@ -31,6 +36,10 @@ class AddCarrierFragment : Fragment() {
             val place = bundle.getString("place")
             setTravelPlace(place!!)
         }
+        setFragmentResultListener("selectTemplate") { key, bundle ->
+            val template = bundle.getString("luggageID")
+            setTemplate(template!!)
+        }
     }
 
     override fun onCreateView(
@@ -47,7 +56,7 @@ class AddCarrierFragment : Fragment() {
         travelPlace = view.findViewById<CardView>(R.id.travelPlace)
         template = view.findViewById<CardView>(R.id.template)
 
-        // 가는 날, 오는 날 -> 달력 다이얼로그 띄우기
+        // 가는 날, 오는 날 -> DialogCalFragment
         btnDepartureCal.setOnClickListener {
             showDatePickerDialog(btnDepartureCal.id)
         }
@@ -55,11 +64,12 @@ class AddCarrierFragment : Fragment() {
             showDatePickerDialog(btnArrivalCal.id)
         }
 
-        // 여행지
+        // travel place, template -> DialogListViewFragment
         travelPlace.setOnClickListener {
-            val dialogTravelPlace = DialogListViewFragment()
-            dialogTravelPlace.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
-            dialogTravelPlace.show(parentFragmentManager, "travelPlace")
+            showDialogListView("travelPlace")
+        }
+        template.setOnClickListener {
+            showDialogListView("template")
         }
 
         // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
@@ -75,6 +85,15 @@ class AddCarrierFragment : Fragment() {
         dialogCalendar.arguments = bundle
         dialogCalendar.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
         dialogCalendar.show(parentFragmentManager, "datePicker")
+    }
+
+    fun showDialogListView(tag: String) {
+        val dialogTemplate = DialogListViewFragment()
+        val bundle = Bundle()
+        bundle.putString("tag", tag)
+        dialogTemplate.arguments = bundle
+        dialogTemplate.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        dialogTemplate.show(parentFragmentManager, "template")
     }
 
     fun setDate(viewid: Int, date: String) {
@@ -95,5 +114,11 @@ class AddCarrierFragment : Fragment() {
         val txtTravelPlace = travelPlace.findViewById<TextView>(R.id.txtTravelPlace)
         txtTravelPlace.text = place
         txtTravelPlace.setTextColor(Color.BLACK)
+    }
+
+    fun setTemplate(temp: String) {
+        val txtTemplate = template.findViewById<TextView>(R.id.txtTemplate)
+        txtTemplate.text = temp
+        txtTemplate.setTextColor(Color.BLACK)
     }
 }
