@@ -8,20 +8,20 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.Firebase
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.database
+import com.google.firebase.database.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private val databaseReference = Firebase.database.getReference("users")
+    private val databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
     lateinit var btnBack: Button
     lateinit var etUserNickname: EditText
     lateinit var etUserPw: EditText
     lateinit var btnSignOk: Button
+
+    companion object {
+        const val PREFS_FILENAME = "com.example.what_s_in_my_luggage.prefs"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,13 +49,16 @@ class LoginActivity : AppCompatActivity() {
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            // 닉네임이 있는 경우, 해당 사용자의 데이터를 검사
                             for (userSnapshot in dataSnapshot.children) {
                                 val dbpassword = userSnapshot.child("password").getValue(String::class.java)
 
                                 if (dbpassword == userPw) {
                                     // 비밀번호가 일치하는 경우
                                     Toast.makeText(baseContext,"로그인 완료", Toast.LENGTH_SHORT).show()
+                                    // 사용자의 고유 키 값을 SharedPreferences에 저장
+                                    val userKey = userSnapshot.key
+                                    saveUserKey(userKey)
+
                                     // 로그인 성공 후 MyRoomActivity 시작
                                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                     startActivity(intent)
@@ -74,6 +77,14 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(baseContext, "데이터베이스 오류: ${databaseError.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
+        }
+    }
+
+    private fun saveUserKey(userKey: String?) {
+        val sharedPrefs = getSharedPreferences(PREFS_FILENAME, MODE_PRIVATE)
+        sharedPrefs.edit().apply {
+            putString("USER_KEY", userKey)
+            apply()
         }
     }
 }

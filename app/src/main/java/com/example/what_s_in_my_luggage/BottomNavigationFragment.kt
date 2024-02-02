@@ -74,15 +74,23 @@ class BottomNavigationFragment : Fragment() {
 
     private fun <T> navigateToActivity(activityClass: Class<T>) {
         val intent = Intent(context, activityClass)
-        // MainActivity의 경우 새 인스턴스 생성을 방지
-        if (activityClass == MainActivity::class.java) {
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+
+        // 공통: 모든 액티비티에 대해 사용자 키 값을 Intent에 추가
+        val sharedPrefs = requireActivity().getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
+        val userKey = sharedPrefs.getString("USER_KEY", null)
+        intent.putExtra("USER_KEY", userKey)
+
         startActivity(intent)
     }
 
     private fun saveSelectedButtonId(buttonId: Int) {
         val sharedPrefs = requireActivity().getSharedPreferences("BottomNavPrefs", Context.MODE_PRIVATE)
         sharedPrefs.edit().putInt("SELECTED_BUTTON_ID", buttonId).apply()
+    }
+}
+
+class AppConstants {
+    companion object {
+        const val PREFS_FILENAME = "com.example.what_s_in_my_luggage.prefs"
     }
 }

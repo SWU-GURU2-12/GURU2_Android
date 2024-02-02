@@ -90,13 +90,12 @@
                 android:layout_height="35dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="12dp"
-                android:background="@color/white"
+                android:background="@color/btnBackground"
                 android:text="중복확인"
                 android:textColor="@color/blue"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:cardElevation="0dp"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
