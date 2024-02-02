@@ -72,10 +72,21 @@ class BottomNavigationFragment : Fragment() {
         }
     }
 
+    fun updateSelectedButton(selectedButtonId: Int) {
+        listOf(btnNaviMain, btnNaviTemplate, btnNaviStored, btnNaviMyroom).forEach {
+            it.isSelected = false
+        }
+
+        val selectedButton: ImageButton? = view?.findViewById(selectedButtonId)
+        selectedButton?.isSelected = true
+
+        saveSelectedButtonId(selectedButtonId)
+    }
+
+
     private fun <T> navigateToActivity(activityClass: Class<T>) {
         val intent = Intent(context, activityClass)
 
-        // 공통: 모든 액티비티에 대해 사용자 키 값을 Intent에 추가
         val sharedPrefs = requireActivity().getSharedPreferences(AppConstants.PREFS_FILENAME, Context.MODE_PRIVATE)
         val userKey = sharedPrefs.getString("USER_KEY", null)
         intent.putExtra("USER_KEY", userKey)
@@ -88,9 +99,9 @@ class BottomNavigationFragment : Fragment() {
         sharedPrefs.edit().putInt("SELECTED_BUTTON_ID", buttonId).apply()
     }
 }
-
 class AppConstants {
     companion object {
         const val PREFS_FILENAME = "com.example.what_s_in_my_luggage.prefs"
     }
 }
+
