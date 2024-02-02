@@ -36,12 +36,6 @@
             android:name=".MyRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".TwoDatePickerDialog"
-            android:exported="true" />
-        <activity
-            android:name=".AddCarrier"
-            android:exported="true" />
-        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
