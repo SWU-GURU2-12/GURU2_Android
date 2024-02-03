@@ -78,7 +78,15 @@ class UserDataManager constructor() {
         postList.clear()
     }
 
-    // User
+// User
+    fun generateUser() {
+        addSavedTemplate("기본 템플릿")
+    }
+
+    fun setUserName(userName: String) {
+        this.userName = userName
+    }
+
     fun getUserName(): String {
         return userName
     }
