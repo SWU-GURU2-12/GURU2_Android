@@ -1,5 +1,7 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -31,8 +33,8 @@ class PackingFrameActivity : AppCompatActivity() {
         // 4. 짐꾸리기 화면 (PackingFrameActivity)
         val fragments: Array<Fragment> = arrayOf(
             AddCarrierFragment(), // 캐리어 추가
-            TestBlankFragment() // 짐 꾸리기
-            // 짐 꾸리기 리스트
+            PackLuggageFragment(), // 짐 꾸리기
+            CheckListFragment()
             // 템플릿 발행하기
         )
         var currentFragment = 0

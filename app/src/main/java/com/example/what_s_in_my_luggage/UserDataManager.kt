@@ -138,24 +138,44 @@ class UserDataManager constructor() {
             "itemName" to item.name
         )
 
-        refLuggage.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//        val userName = "NaomiWatts"
+//        val luggageId = "luggage123"
+//
+//        // 경로 생성 또는 참조
+//        val checklistRef = refChecklist.child(userName).child(luggageId)
+//
+//        // 경로가 없으면 생성
+//        checklistRef.setValue(null)  // 빈 값으로 설정하여 경로 생성
+//
+//        // 데이터 추가
+//        checklistRef.push().setValue(dataToAdd)
+//            .addOnSuccessListener {
+//                Log.d("Firebase", "Data added successfully")
+//            }
+//            .addOnFailureListener { e ->
+//                Log.e("Firebase", "Error adding data: $e")
+//            }
 
-                for (luggageSnapshot in dataSnapshot.children) {
-                    val userNameValue = luggageSnapshot.child("userName").getValue(String::class.java)
+        refChecklist.child("NaomiWatts").child("luggage123").push().setValue(dataToAdd)
 
-                    if (userNameValue == "NaomiWatts") {
-                        luggageId = luggageSnapshot.child("luggageID").getValue(String::class.java)!!
-                        refChecklist.child("NaomiWatts").child("$luggageId").push().setValue(dataToAdd)
-                        break
-                    }
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                println("Error fetching luggage data: ${databaseError.message}")
-            }
-        })
+//        refLuggage.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//
+//                for (luggageSnapshot in dataSnapshot.children) {
+//                    val userNameValue = luggageSnapshot.child("userName").getValue(String::class.java)
+//
+//                    if (userNameValue == "NaomiWatts") {
+//                        luggageId = luggageSnapshot.child("luggageID").getValue(String::class.java)!!
+//                        refChecklist.child("NaomiWatts").child("$luggageId").push().setValue(dataToAdd)
+//                        break
+//                    }
+//                }
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                println("Error fetching luggage data: ${databaseError.message}")
+//            }
+//        })
     }
 
     fun removeLuggageFromFirebase() {

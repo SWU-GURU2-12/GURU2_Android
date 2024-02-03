@@ -10,7 +10,7 @@ import com.example.what_s_in_my_luggage.databinding.ActivityItemListBinding
 
 class ItemListAdapter(var list: List<Items>, private val context: Context): RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder>() {
 
-    var dataManager = UserDataManager.getInstance(context)
+//    var dataManager = UserDataManager.getInstance(context)
 
     inner class ItemListViewHolder(val binding: ActivityItemListBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -18,8 +18,7 @@ class ItemListAdapter(var list: List<Items>, private val context: Context): Recy
             binding.itemImageView.setOnClickListener {
                 val clickedItem = list[adapterPosition]
 
-                ItemList.onImageViewClick(it, clickedItem)
-                dataManager.sendDataToFirebase(clickedItem)
+                ItemList.onImageViewClick(it, clickedItem, context)
             }
         }
     }
