@@ -9,7 +9,6 @@ import com.example.what_s_in_my_luggage.model.SavedTemplate
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.storage.FirebaseStorage
@@ -36,7 +35,7 @@ class UserDataManager constructor() {
     // Database
     private val database = Firebase.database
     private val refUsers = database.getReference("users")
-    private val refLuggage = database.getReference("Luggage")
+    private val refLuggage = database.getReference("luggage")
     private val refTravelPlace = database.getReference("travelPlace")
     private val refSavedTemplate = database.getReference("savedTemplate")
     private val refChecklist = database.getReference("checklist")
@@ -58,6 +57,8 @@ class UserDataManager constructor() {
     var care = arrayListOf<Items>()
     var food = arrayListOf<Items>()
     var itemsInCheckList = arrayListOf<Items>()
+    var luggageNumber = 0
+    var luggageId = ""
 
     // TODO: 로그인 후 init 할 것.
     fun init(userName: String = "NaomiWatts") {
@@ -138,33 +139,42 @@ class UserDataManager constructor() {
     fun sendDataToFirebase(item: Items) {
         // 전송할 데이터 생성
         val dataToAdd = mapOf(
-            "itemName" to item.name,
-            // 추가하려는 다른 데이터 필드들을 추가
+            "itemName" to item.name
         )
 
-        // push 메서드를 사용하여 데이터를 자동 생성된 고유 키에 추가
-        refChecklist.child("seoyoung").child("luggage1").push().setValue(dataToAdd)
+        refLuggage.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                for (luggageSnapshot in dataSnapshot.children) {
+                    val userNameValue = luggageSnapshot.child("userName").getValue(String::class.java)
+
+                    if (userNameValue == "NaomiWatts") {
+                        luggageId = luggageSnapshot.child("luggageID").getValue(String::class.java)!!
+                        refChecklist.child("NaomiWatts").child("$luggageId").push().setValue(dataToAdd)
+                        break
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("Error fetching luggage data: ${databaseError.message}")
+            }
+        })
     }
 
-    fun removeLuggageAndScreenshotFromFirebase(fileName: String) {
-        Log.d(
-            "Firebase_debug",
-            "removeLuggageAndScreenshotFromFirebase called with fileName: $fileName"
-        )
-
-        refChecklist.child("seoyoung").child("luggage1").removeValue()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("Firebase_remove", "Luggage data remove successful")
-                } else {
-                    Log.e("Firebase_remove", "Luggage data remove failed: ${task.exception}")
-                }
-            }.addOnFailureListener { exception ->
+    fun removeLuggageFromFirebase() {
+        refChecklist.child("seoyoung").child("luggage1").removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("Firebase_remove", "Luggage data remove successful")
+            } else {
+                Log.e("Firebase_remove", "Luggage data remove failed: ${task.exception}")
+            }
+        }.addOnFailureListener { exception ->
             Log.e("Firebase_remove_error", "Luggage data remove failed: $exception")
         }
+    }
 
-        // Remove screenshot from Firebase Storage
-//        val storage = FirebaseStorage.getInstance()
+    fun removeScreenshotFromFirebase(fileName: String) {
         val storageRef = storage.reference
         val imagesRef = storageRef.child("captures/$fileName.jpg")
 
@@ -176,9 +186,29 @@ class UserDataManager constructor() {
             }
         }.addOnFailureListener { exception ->
             Log.e("Firebase_delete_error", "Screenshot delete failed: $exception")
-
         }
     }
+
+//    fun removeLuggageAndScreenshotFromFirebase(fileName: String) {
+//
+//
+//
+//        // Remove screenshot from Firebase Storage
+////        val storage = FirebaseStorage.getInstance()
+//        val storageRef = storage.reference
+//        val imagesRef = storageRef.child("captures/$fileName.jpg")
+//
+//        imagesRef.delete().addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                Log.d("Firebase_delete", "Screenshot delete successful")
+//            } else {
+//                Log.e("Firebase_delete", "Screenshot delete failed: ${task.exception}")
+//            }
+//        }.addOnFailureListener { exception ->
+//            Log.e("Firebase_delete_error", "Screenshot delete failed: $exception")
+//
+//        }
+//    }
 
     fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
 //        val storage = FirebaseStorage.getInstance()

@@ -24,7 +24,7 @@ class PackLuggage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         lBinding = ActivityPackLuggageBinding.inflate(layoutInflater)
         setContentView(lBinding.root)
-
+        var dataManager = UserDataManager.getInstance(this)
 
         // 액션바 숨기기
         supportActionBar?.hide()
@@ -65,17 +65,14 @@ class PackLuggage : AppCompatActivity() {
         // 뒤로가기 버튼을 누르면 경고메시지 발생
         lBinding.backBtn.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setMessage("작성을 취소하고 My Room으로 돌아가시겠습니까?")
+            builder.setMessage("작성을 취소하고 메인 화면으로 돌아가시겠습니까?")
                 .setPositiveButton("예") { dialog, which ->
-                    Toast.makeText(applicationContext, "예 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
-
                     // 만들던 luggage의 DB 삭제
+                    dataManager.removeLuggageFromFirebase()
 
-
-                    // 이후에 MyRoom 페이지 연결
-                    // 왜 연결이 안되지????
-//                    val myRoomIntent = Intent(this, MyRoomActivity::class.java)
-//                    startActivity(myRoomIntent)
+                    // MainActivity 페이지 연결
+                    val mainActivityIntent = Intent(this, MainActivity::class.java)
+                    startActivity(mainActivityIntent)
                 }
                 .setNegativeButton("아니요") { dialog, which ->
                     Toast.makeText(applicationContext, "아니요 선택(뒤로가기)", Toast.LENGTH_SHORT).show()
