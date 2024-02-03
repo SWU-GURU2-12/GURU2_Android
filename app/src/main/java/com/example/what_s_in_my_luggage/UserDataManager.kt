@@ -91,17 +91,16 @@ class UserDataManager constructor() {
     }
 
 // Travel Place List
-    fun setTravelPlaceList() {
+    suspend fun setTravelPlaceList() = withContext(Dispatchers.IO) {
         travelPlaceList.clear()
-        refTravelPlace.get().addOnSuccessListener {
-            for (data in it.children) {
-                val place = data.getValue(ListViewItem::class.java)
-                travelPlaceList.add(place!!)
-            }
+        val snapshot = refSavedTemplate.child(userName).get().await()
+        for (data in snapshot.children) {
+            val place = data.getValue(ListViewItem::class.java)
+            travelPlaceList.add(place!!)
         }
     }
 
-    fun getTravelPlaceList(): ArrayList<ListViewItem> {
+    suspend fun getTravelPlaceList(): ArrayList<ListViewItem> {
         if (travelPlaceList.isEmpty()) {
             setTravelPlaceList()
         }
@@ -116,6 +115,13 @@ class UserDataManager constructor() {
         for (data in snapshot.children) {
             savedTemplateList.add(data.getValue(String::class.java)!!)
         }
+    }
+
+    suspend fun getSavedTemplateList(): ArrayList<String> {
+        if (savedTemplateList.isEmpty()) {
+            setSavedTemplateList()
+        }
+        return savedTemplateList
     }
 
     suspend fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
