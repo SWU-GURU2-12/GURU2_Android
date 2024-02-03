@@ -65,9 +65,9 @@ class PackLuggageFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-//        if(context is PackingFrameActivity) {
-//            packingFrameActivity = context
-//        }
+        if(context is PackingFrameActivity) {
+            packingFrameActivity = context
+        }
     }
 
         private fun getItemListAdapter() {

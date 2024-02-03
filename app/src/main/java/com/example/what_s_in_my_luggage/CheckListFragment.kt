@@ -46,30 +46,36 @@ class CheckListFragment : Fragment() {
         careLayout = view.findViewById<LinearLayout>(R.id.careLayout)
         foodLayout = view.findViewById<LinearLayout>(R.id.foodLayout)
 
-        databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
-        databaseRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // dataSnapshot에서 데이터 가져오기
-                val itemList = mutableListOf<String>()
-                for (itemSnapshot in snapshot.children) {
-                    val itemName = itemSnapshot.child("itemName").getValue(String::class.java)
-                    itemName?.let {
-                        itemList.add(it)
-                    }
-                }
-                // TextView 동적으로 생성하여 추가
-                displayChecklist(itemList)
-            }
+        UserDataManager.getInstance(requireContext()).tempLuggage?.itemListInLuggage?.let {
+            displayChecklist(
+                it
+            )
+        }
 
-            override fun onCancelled(error: DatabaseError) {
-                // 오류 처리
-            }
-        })
+//        databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
+//        databaseRef.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                // dataSnapshot에서 데이터 가져오기
+//                val itemList = mutableListOf<String>()
+//                for (itemSnapshot in snapshot.children) {
+//                    val itemName = itemSnapshot.child("itemName").getValue(String::class.java)
+//                    itemName?.let {
+//                        itemList.add(it)
+//                    }
+//                }
+//                // TextView 동적으로 생성하여 추가
+//                displayChecklist(itemList)
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // 오류 처리
+//            }
+//        })
 
         return view
     }
 
-    private fun displayChecklist(itemList: List<String>) {
+    private fun displayChecklist(itemList: MutableList<String>) {
         // 가져온 데이터로 동적으로 TextView 생성하여 추가
         for (item in itemList) {
             val textView = TextView(requireContext())

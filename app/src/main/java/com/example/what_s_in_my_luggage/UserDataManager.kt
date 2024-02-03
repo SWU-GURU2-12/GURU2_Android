@@ -17,6 +17,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 // TODO: 코루틴
 class UserDataManager constructor() {
@@ -174,11 +177,42 @@ class UserDataManager constructor() {
     }
 
 // Pack Luggage & Checklist
+    fun setCurrentTime() {
+        val sdf = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+        val time = Date()
+        val currentTime = sdf.format(time)
+
+        tempLuggage?.currentTime = currentTime
+    }
+
+    fun setItemListInLuggage(item: Items) {
+//        val dataToAdd = mapOf(
+//            "itemName" to item.name
+//        )
+//        val dataToAdd = listOf(
+//            item.name
+//        )
+//
+//        tempLuggage?.itemListInLuggage = dataToAdd
+//        Log.d("tempLuggage information","${tempLuggage?.itemListInLuggage}")
+
+        if (tempLuggage?.itemListInLuggage == null) {
+            tempLuggage?.itemListInLuggage = ArrayList()
+        }
+
+        // 기존 리스트에 새로운 아이템 추가
+        tempLuggage?.itemListInLuggage?.add(item.name)
+
+        Log.d("tempLuggage information", "${tempLuggage?.itemListInLuggage}")
+    }
+
     fun sendDataToFirebase(item: Items) {
         // 전송할 데이터 생성
         val dataToAdd = mapOf(
             "itemName" to item.name
         )
+
+
 
 //        val userName = "NaomiWatts"
 //        val luggageId = "luggage123"
@@ -269,17 +303,21 @@ class UserDataManager constructor() {
 //    }
 
     fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
+        Log.d("capture_1","ok")
 //        val storage = FirebaseStorage.getInstance()
         val storageRef = storage.reference
         val imagesRef = storageRef.child("captures/$fileName.jpg")
+        Log.d("capture_2","ok")
 
         // ByteArrayOutputStream을 사용하여 Bitmap 이미지를 byte 배열로 변환
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
         val data = baos.toByteArray()
+        Log.d("capture_3","ok")
 
         // Firebase Storage에 이미지 업로드
         val uploadTask = imagesRef.putBytes(data)
+        Log.d("capture_4","ok")
 
         uploadTask.addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -292,6 +330,7 @@ class UserDataManager constructor() {
 //                Toast.makeText(applicationContext, "이미지 업로드에 실패하였습니다.", Toast.LENGTH_SHORT).show()
             }
         }
+        Log.d("capture_5","ok")
     }
 
 //    fun setItemsInCheckList(onComplete: (ArrayList<String>) -> Unit) {

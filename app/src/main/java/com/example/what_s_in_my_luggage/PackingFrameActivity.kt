@@ -1,19 +1,25 @@
 package com.example.what_s_in_my_luggage
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
 import com.example.what_s_in_my_luggage.model.Luggage
 
 class PackingFrameActivity : AppCompatActivity() {
 
+//    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_packing_frame)
@@ -23,6 +29,9 @@ class PackingFrameActivity : AppCompatActivity() {
         val btnNext = findViewById<Button>(R.id.btnNext)
         val pageTitle = findViewById<TextView>(R.id.pageTitle)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+
+//        val fragment = supportFragmentManager.findFragmentById(R.id.packingFragment) as? PackLuggageFragment
+//        val luggageLayout = fragment?.view?.findViewById<ConstraintLayout>(R.id.luggageLayout)
 
         // 4. 짐꾸리기 화면 (PackingFrameActivity)
         val fragments: Array<Fragment> = arrayOf(
@@ -48,10 +57,16 @@ class PackingFrameActivity : AppCompatActivity() {
                         fragment.saveTempLuggage()
                     }
                     1 -> { // 짐 꾸리기 -> 짐 꾸리기 리스트
-
+                        val fragment = fragments[currentFragment] as PackLuggageFragment
+                        val luggageLayout = fragment?.view?.findViewById<ConstraintLayout>(R.id.luggageLayout)
+                        if (luggageLayout != null) {
+                            requestCapture(luggageLayout)
+                            Log.d("capture_0","ok")
+                        }
                     }
                     2 -> { // 짐 꾸리기 리스트 -> 템플릿 발행하기
                         btnNext.text = "발행"
+//
                     }
                 }
                 currentFragment++
@@ -105,5 +120,22 @@ class PackingFrameActivity : AppCompatActivity() {
         transaction.replace(R.id.packingFragment, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+    private fun requestCapture(layout: ConstraintLayout) {
+        if (layout == null) {
+            println("::::ERROR:::: captureTargetLayout == NULL")
+            return
+        }
+
+        // 캐시 비트맵 만들기
+        layout.buildDrawingCache()
+        val bitmap: Bitmap = layout.drawingCache
+
+        // Firebase Storage에 이미지 업로드
+        UserDataManager.getInstance(this).setCurrentTime()
+        var time = UserDataManager.getInstance(this).tempLuggage?.currentTime
+        var fileName = "$time\\_capture"
+        var dataManager = UserDataManager.getInstance(this)
+        dataManager.uploadImageToFirebaseStorage(bitmap, fileName)
     }
 }

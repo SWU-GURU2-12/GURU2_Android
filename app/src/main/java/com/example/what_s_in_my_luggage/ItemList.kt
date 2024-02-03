@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.what_s_in_my_luggage.databinding.ActivityItemListBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -108,9 +109,10 @@ class ItemList : AppCompatActivity() {
                 println("adapterProblem_9")
                 val dataManager = UserDataManager.getInstance(context)
 
-                if (dataManager != null) {
-                    dataManager.sendDataToFirebase(clickedItem)
-                }
+//                if (dataManager != null) {
+//                    dataManager.sendDataToFirebase(clickedItem)
+//                }
+                UserDataManager.getInstance(context).setItemListInLuggage(clickedItem)
 
 //                dataManager.sendDataToFirebase(clickedItem)
 //                println("adapterProblem_10")
