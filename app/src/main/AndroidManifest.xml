@@ -35,6 +35,10 @@
         <activity
             android:name=".CommunityActivity"
             android:exported="false" />
+        <activity android:name=".PostActivity"
+            android:exported="false" />
+        <activity android:name=".WritePostActivity"
+            android:exported="false" />
         <activity
             android:name=".MyRoomActivity"
             android:exported="false" />
