@@ -42,7 +42,7 @@ class UserDataManager constructor() {
     private val storage = FirebaseStorage.getInstance()
 
     // user와 관련된 데이터 리스트
-    private var userName = "" // 현재 로그인한 사용자의 이름
+    private var userName = "NaomiWatts" // 현재 로그인한 사용자의 이름
     private var travelPlaceList = arrayListOf<ListViewItem>() // 여행지 리스트
     private var savedTemplateList = arrayListOf<String>() // 내가 저장한 템플릿 (북마크)
     private var luggageList = arrayListOf<String>() // 나의 짐 목록 (마이룸) - LuggageID 저장
@@ -54,12 +54,14 @@ class UserDataManager constructor() {
     var inFlightEssentials = arrayListOf<Items>()
     var clothes = arrayListOf<Items>()
     var otherClothes = arrayListOf<Items>()
-    var care= arrayListOf<Items>()
+    var care = arrayListOf<Items>()
     var food = arrayListOf<Items>()
     var itemsInCheckList = arrayListOf<Items>()
     var luggageNumber = 0
-    var luggageId = ""
+    var luggageId = "" // -> tempLuggage!!.luggageID
 
+    // 임시 데이터
+    var tempLuggage: Luggage? = null
 
     // TODO: 로그인 후 init 할 것.
     fun init(userName: String = "NaomiWatts") {
@@ -75,7 +77,8 @@ class UserDataManager constructor() {
         luggageList.clear()
         postList.clear()
     }
-// User
+
+    // User
     fun getUserName(): String {
         return userName
     }
@@ -101,18 +104,14 @@ class UserDataManager constructor() {
     fun setSavedTemplateList() {
         // savedTemplate 노드의 key 값은 userName
         refSavedTemplate.child(userName).get().addOnSuccessListener {
-            val savedTemplate = it.getValue(SavedTemplate::class.java)
-            if (savedTemplate != null) {
-                for (luggageID in savedTemplate.SavedLuggageIdList) {
-                    savedTemplateList.add(luggageID)
-                    Log.e("SavedTemplate", luggageID)
-                }
+            for (data in it.children) {
+                savedTemplateList.add(data.getValue(String::class.java)!!)
             }
         }
     }
 
-    // add carrier fragment에서 ui에 그리기 위한 데이터
-    fun getSavedTemplateListView(): ArrayList<ListViewItem> {
+    // TODO
+    fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
@@ -129,9 +128,52 @@ class UserDataManager constructor() {
 
     fun addSavedTemplate(luggageID: String) {
         savedTemplateList.add(luggageID)
+        saveSavedTemplateList()
     }
 
-    // Pack Luggage & Checklist
+    fun removeSavedTemplate(luggageID: String) {
+        savedTemplateList.remove(luggageID)
+        saveSavedTemplateList()
+    }
+
+    fun saveSavedTemplateList() {
+        refSavedTemplate.child(userName).setValue(savedTemplateList)
+    }
+
+// Luggage
+    fun setLuggageList() { // todo
+        refLuggage.get().addOnSuccessListener {
+            for (data in it.children) {
+                // data의 key값을 luggagelist에 추가
+                luggageList.add(data.key!!)
+            }
+        }
+    }
+    @JvmName("setTempLuggage1")
+    fun setTempLuggage(luggage: Luggage) {
+        tempLuggage = luggage
+        tempLuggage!!.luggageID = generateLuggageID()
+    }
+
+    @JvmName("getTempLuggage1")
+    fun getTempLuggage(): Luggage? {
+        return tempLuggage
+    }
+
+    fun saveLuggage() {
+        if (tempLuggage == null) return
+        luggageList.add(tempLuggage!!.luggageID)
+        refLuggage.child(tempLuggage!!.luggageID).setValue(tempLuggage)
+    }
+
+    fun generateLuggageID(): String {
+        if(luggageList.isEmpty()) {
+            setLuggageList()
+        }
+        return "luggage${luggageList.size + 1}"
+    }
+
+// Pack Luggage & Checklist
     fun sendDataToFirebase(item: Items) {
         // 전송할 데이터 생성
         val dataToAdd = mapOf(
@@ -301,21 +343,21 @@ class UserDataManager constructor() {
             // 아이템 목록 생성
             allItems = ArrayList(
                 listOf(
-                Items(imageRefs[0], "어댑터"),
-                Items(imageRefs[1], "카메라"),
-                Items(imageRefs[2], "보조배터리"),
-                Items(imageRefs[3], "여권"),
-                Items(imageRefs[4], "개인 가방"),
-                Items(imageRefs[5], "유럽 돈"),
-                Items(imageRefs[6], "겨울 상의"),
-                Items(imageRefs[7], "겨울 하의"),
-                Items(imageRefs[8], "머플러"),
-                Items(imageRefs[9], "모자"),
-                Items(imageRefs[10], "부츠"),
-                Items(imageRefs[11], "화장품"),
-                Items(imageRefs[12], "칫솔&치약"),
-                Items(imageRefs[13], "스킨케어"),
-                Items(imageRefs[14], "컵라면"),
+                    Items(imageRefs[0], "어댑터"),
+                    Items(imageRefs[1], "카메라"),
+                    Items(imageRefs[2], "보조배터리"),
+                    Items(imageRefs[3], "여권"),
+                    Items(imageRefs[4], "개인 가방"),
+                    Items(imageRefs[5], "유럽 돈"),
+                    Items(imageRefs[6], "겨울 상의"),
+                    Items(imageRefs[7], "겨울 하의"),
+                    Items(imageRefs[8], "머플러"),
+                    Items(imageRefs[9], "모자"),
+                    Items(imageRefs[10], "부츠"),
+                    Items(imageRefs[11], "화장품"),
+                    Items(imageRefs[12], "칫솔&치약"),
+                    Items(imageRefs[13], "스킨케어"),
+                    Items(imageRefs[14], "컵라면"),
                 )
             )
 
@@ -366,6 +408,4 @@ class UserDataManager constructor() {
             )
         }
     }
-
-
 }

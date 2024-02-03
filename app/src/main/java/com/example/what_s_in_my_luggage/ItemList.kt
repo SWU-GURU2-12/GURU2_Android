@@ -93,7 +93,6 @@ class ItemList : AppCompatActivity() {
                 layoutParams.bottomToBottom = ConstraintSet.PARENT_ID
                 println("adapterProblem_6")
 
-
                 // ImageView가 luggageLayout에 추가되도록 레이아웃 지정
                 val layout = v.rootView.findViewById<ConstraintLayout>(R.id.luggageLayout)
 //                val nextBtn = v.rootView.findViewById<Button>(R.id.nextBtn)
