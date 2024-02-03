@@ -58,7 +58,7 @@ class UserDataManager constructor() {
     var food = arrayListOf<Items>()
     var itemsInCheckList = arrayListOf<Items>()
     var luggageNumber = 0
-    var luggageId = ""
+    var luggageId = "" // -> tempLuggage!!.luggageID
 
     // 임시 데이터
     var tempLuggage: Luggage? = null
@@ -128,10 +128,12 @@ class UserDataManager constructor() {
 
     fun addSavedTemplate(luggageID: String) {
         savedTemplateList.add(luggageID)
+        saveSavedTemplateList()
     }
 
     fun removeSavedTemplate(luggageID: String) {
         savedTemplateList.remove(luggageID)
+        saveSavedTemplateList()
     }
 
     fun saveSavedTemplateList() {
@@ -139,7 +141,7 @@ class UserDataManager constructor() {
     }
 
 // Luggage
-    fun setLuggageList() {
+    fun setLuggageList() { // todo
         refLuggage.get().addOnSuccessListener {
             for (data in it.children) {
                 // data의 key값을 luggagelist에 추가
