@@ -40,17 +40,11 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
 
         if (tag == "travelPlace") { // travel place
             test = dataManager.getTravelPlaceList()
-            setUpListView(test)
-            setUpSearchView(test)
         } else if (tag == "template") { // template
-            /* test = dataManager.getSavedTemplateList()
-            setUpListView(test)
-            setUpSearchView(test) */
-
-            // TODO: test
-            dataManager.saveSavedTemplateList()
-
+            test = dataManager.getSavedTemplateListView()
         }
+        setUpListView(test)
+        setUpSearchView(test)
 
         return view
     }

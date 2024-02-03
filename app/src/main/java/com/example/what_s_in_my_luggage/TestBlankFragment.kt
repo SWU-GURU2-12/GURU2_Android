@@ -9,14 +9,12 @@ import android.widget.TextView
 
 class TestBlankFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         var view = inflater.inflate(R.layout.fragment_test_blank, container, false)
-
         var textview = view?.findViewById<TextView>(R.id.textView)
 
         // bundle로 받은 데이터

@@ -1,5 +1,6 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,15 +13,9 @@ import com.example.what_s_in_my_luggage.model.Luggage
 
 class PackingFrameActivity : AppCompatActivity() {
 
-    var currentLuggage: Luggage? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_packing_frame)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
 
         // 초기화
         val btnBack = findViewById<Button>(R.id.btnBack)
@@ -48,19 +43,7 @@ class PackingFrameActivity : AppCompatActivity() {
             if (currentFragment < fragments.size - 1) {
                 when (currentFragment) {
                     0 -> { // 캐리어 추가 -> 짐 꾸리기
-                        // add carrier fragment에서 선택한 캐리어 정보를 저장
-                        // TODO: 다른 방법?
-                        val addCarrierFragment = fragments[currentFragment] as AddCarrierFragment
-                        currentLuggage = addCarrierFragment.getLuggage()
 
-                        // TODO: test bundel
-                        val bundle = Bundle()
-                        bundle.putString("userName", currentLuggage?.userName)
-                        bundle.putString("title", "b")
-                        bundle.putString("destination", "c")
-                        bundle.putString("schedule", "d")
-
-                        fragments[currentFragment + 1].arguments = bundle
                     }
                     1 -> { // 짐 꾸리기 -> 짐 꾸리기 리스트
 

@@ -43,7 +43,7 @@ class UserDataManager constructor() {
     private val storage = FirebaseStorage.getInstance()
 
     // user와 관련된 데이터 리스트
-    private var userName = "" // 현재 로그인한 사용자의 이름
+    private var userName = "NaomiWatts" // 현재 로그인한 사용자의 이름
     private var travelPlaceList = arrayListOf<ListViewItem>() // 여행지 리스트
     private var savedTemplateList = arrayListOf<String>() // 내가 저장한 템플릿 (북마크)
     private var luggageList = arrayListOf<String>() // 나의 짐 목록 (마이룸) - LuggageID 저장
@@ -55,10 +55,9 @@ class UserDataManager constructor() {
     var inFlightEssentials = arrayListOf<Items>()
     var clothes = arrayListOf<Items>()
     var otherClothes = arrayListOf<Items>()
-    var care= arrayListOf<Items>()
+    var care = arrayListOf<Items>()
     var food = arrayListOf<Items>()
     var itemsInCheckList = arrayListOf<Items>()
-
 
     // TODO: 로그인 후 init 할 것.
     fun init(userName: String = "NaomiWatts") {
@@ -74,7 +73,8 @@ class UserDataManager constructor() {
         luggageList.clear()
         postList.clear()
     }
-// User
+
+    // User
     fun getUserName(): String {
         return userName
     }
@@ -100,18 +100,14 @@ class UserDataManager constructor() {
     fun setSavedTemplateList() {
         // savedTemplate 노드의 key 값은 userName
         refSavedTemplate.child(userName).get().addOnSuccessListener {
-            val savedTemplate = it.getValue(SavedTemplate::class.java)
-            if (savedTemplate != null) {
-                for (luggageID in savedTemplate.SavedLuggageIdList) {
-                    savedTemplateList.add(luggageID)
-                    Log.e("SavedTemplate", luggageID)
-                }
+            for (data in it.children) {
+                savedTemplateList.add(data.getValue(String::class.java)!!)
             }
         }
     }
 
-    // add carrier fragment에서 ui에 그리기 위한 데이터
-    fun getSavedTemplateListView(): ArrayList<ListViewItem> {
+    // TODO
+    fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
@@ -130,14 +126,15 @@ class UserDataManager constructor() {
         savedTemplateList.add(luggageID)
     }
 
-    fun saveSavedTemplateList() {
-        savedTemplateList = arrayListOf("luggage1", "luggage2", "luggage3")
-
-        // 파이어베이스에 저장
-        refSavedTemplate.child("test").setValue(savedTemplateList)
+    fun removeSavedTemplate(luggageID: String) {
+        savedTemplateList.remove(luggageID)
     }
 
-// Pack Luggage & Checklist
+    fun saveSavedTemplateList() {
+        refSavedTemplate.child(userName).setValue(savedTemplateList)
+    }
+
+    // Pack Luggage & Checklist
     fun sendDataToFirebase(item: Items) {
         // 전송할 데이터 생성
         val dataToAdd = mapOf(
@@ -150,18 +147,21 @@ class UserDataManager constructor() {
     }
 
     fun removeLuggageAndScreenshotFromFirebase(fileName: String) {
-        Log.d("Firebase_debug", "removeLuggageAndScreenshotFromFirebase called with fileName: $fileName")
+        Log.d(
+            "Firebase_debug",
+            "removeLuggageAndScreenshotFromFirebase called with fileName: $fileName"
+        )
 
-        refChecklist.child("seoyoung").child("luggage1").removeValue().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("Firebase_remove", "Luggage data remove successful")
-            } else {
-                Log.e("Firebase_remove", "Luggage data remove failed: ${task.exception}")
-            }
-        }.addOnFailureListener { exception ->
+        refChecklist.child("seoyoung").child("luggage1").removeValue()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("Firebase_remove", "Luggage data remove successful")
+                } else {
+                    Log.e("Firebase_remove", "Luggage data remove failed: ${task.exception}")
+                }
+            }.addOnFailureListener { exception ->
             Log.e("Firebase_remove_error", "Luggage data remove failed: $exception")
         }
-
 
         // Remove screenshot from Firebase Storage
 //        val storage = FirebaseStorage.getInstance()
@@ -255,21 +255,21 @@ class UserDataManager constructor() {
             // 아이템 목록 생성
             allItems = ArrayList(
                 listOf(
-                Items(imageRefs[0], "어댑터"),
-                Items(imageRefs[1], "카메라"),
-                Items(imageRefs[2], "보조배터리"),
-                Items(imageRefs[3], "여권"),
-                Items(imageRefs[4], "개인 가방"),
-                Items(imageRefs[5], "유럽 돈"),
-                Items(imageRefs[6], "겨울 상의"),
-                Items(imageRefs[7], "겨울 하의"),
-                Items(imageRefs[8], "머플러"),
-                Items(imageRefs[9], "모자"),
-                Items(imageRefs[10], "부츠"),
-                Items(imageRefs[11], "화장품"),
-                Items(imageRefs[12], "칫솔&치약"),
-                Items(imageRefs[13], "스킨케어"),
-                Items(imageRefs[14], "컵라면"),
+                    Items(imageRefs[0], "어댑터"),
+                    Items(imageRefs[1], "카메라"),
+                    Items(imageRefs[2], "보조배터리"),
+                    Items(imageRefs[3], "여권"),
+                    Items(imageRefs[4], "개인 가방"),
+                    Items(imageRefs[5], "유럽 돈"),
+                    Items(imageRefs[6], "겨울 상의"),
+                    Items(imageRefs[7], "겨울 하의"),
+                    Items(imageRefs[8], "머플러"),
+                    Items(imageRefs[9], "모자"),
+                    Items(imageRefs[10], "부츠"),
+                    Items(imageRefs[11], "화장품"),
+                    Items(imageRefs[12], "칫솔&치약"),
+                    Items(imageRefs[13], "스킨케어"),
+                    Items(imageRefs[14], "컵라면"),
                 )
             )
 
@@ -320,6 +320,4 @@ class UserDataManager constructor() {
             )
         }
     }
-
-
 }
