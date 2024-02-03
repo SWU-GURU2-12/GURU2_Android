@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.util.Log
 import com.example.what_s_in_my_luggage.model.ListViewItem
 import com.example.what_s_in_my_luggage.model.Luggage
-import com.example.what_s_in_my_luggage.model.SavedTemplate
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,6 +15,8 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
 // TODO: 코루틴
@@ -66,8 +67,6 @@ class UserDataManager constructor() {
     // TODO: 로그인 후 init 할 것.
     fun init(userName: String = "NaomiWatts") {
         this.userName = userName
-        setTravelPlaceList()
-        setSavedTemplateList()
     }
 
     fun clear() {
@@ -93,6 +92,7 @@ class UserDataManager constructor() {
 
 // Travel Place List
     fun setTravelPlaceList() {
+        travelPlaceList.clear()
         refTravelPlace.get().addOnSuccessListener {
             for (data in it.children) {
                 val place = data.getValue(ListViewItem::class.java)
@@ -109,29 +109,30 @@ class UserDataManager constructor() {
     }
 
 // Saved Template List
-    fun setSavedTemplateList() {
+    suspend fun setSavedTemplateList() = withContext(Dispatchers.IO) {
+        savedTemplateList.clear()
         // savedTemplate 노드의 key 값은 userName
-        refSavedTemplate.child(userName).get().addOnSuccessListener {
-            for (data in it.children) {
-                savedTemplateList.add(data.getValue(String::class.java)!!)
-            }
+        val snapshot = refSavedTemplate.child(userName).get().await()
+        for (data in snapshot.children) {
+            savedTemplateList.add(data.getValue(String::class.java)!!)
         }
     }
 
-    // TODO
-    fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
+    suspend fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
-        val temp = arrayListOf<ListViewItem>()
-        for (luggageID in savedTemplateList) {
-            refLuggage.child(luggageID).get().addOnSuccessListener {
-                val luggage = it.getValue(Luggage::class.java)
+
+        return withContext(Dispatchers.IO) {
+            val temp = arrayListOf<ListViewItem>()
+            for (luggageID in savedTemplateList) {
+                val snapshot = refLuggage.child(luggageID).get().await()
+                val luggage = snapshot.getValue(Luggage::class.java)
                 val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
                 temp.add(listViewItem)
             }
+            temp
         }
-        return temp
     }
 
     fun addSavedTemplate(luggageID: String) {
@@ -150,6 +151,7 @@ class UserDataManager constructor() {
 
 // Luggage
     fun setLuggageList() { // todo
+        luggageList.clear()
         refLuggage.get().addOnSuccessListener {
             for (data in it.children) {
                 // data의 key값을 luggagelist에 추가

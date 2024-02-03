@@ -15,6 +15,10 @@ import com.example.what_s_in_my_luggage.model.SavedTemplate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
 
@@ -38,13 +42,18 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         val tag = arguments?.getString("tag")
         var dataManager = UserDataManager.getInstance(requireContext())
 
-        if (tag == "travelPlace") { // travel place
-            test = dataManager.getTravelPlaceList()
-        } else if (tag == "template") { // template
-            test = dataManager.getSavedTemplateListView()
+        var job = CoroutineScope(Dispatchers.Main).launch {
+            if (tag == "travelPlace") { // travel place
+                test = dataManager.getTravelPlaceList()
+            } else if (tag == "template") { // template
+                test = dataManager.getSavedTemplateListView()
+            }
         }
-        setUpListView(test)
-        setUpSearchView(test)
+
+        job.invokeOnCompletion {
+            setUpListView(test)
+            setUpSearchView(test)
+        }
 
         return view
     }
