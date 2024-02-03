@@ -46,7 +46,8 @@ class Checklist : AppCompatActivity() {
 
                         var dataManager = UserDataManager.getInstance(this)
                     if (captureFileName != null) {
-                        dataManager.removeLuggageAndScreenshotFromFirebase(captureFileName)
+                        dataManager.removeLuggageFromFirebase()
+                        dataManager.removeScreenshotFromFirebase(captureFileName)
                     }
 
                     // 짐 꾸리기 페이지로 연결
