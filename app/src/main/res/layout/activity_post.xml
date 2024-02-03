@@ -29,26 +29,11 @@
             android:layout_height="wrap_content"
             android:text="여자끼리 유럽 9박10일 다녀오기"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnBookmark"
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="18dp"
-            android:background="@drawable/ic_star_empty"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
