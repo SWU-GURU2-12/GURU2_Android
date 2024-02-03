@@ -3,73 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/packLuggageActionBarLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="44dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/progressBar_70"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/backBtn"-->
-<!--            android:layout_width="18dp"-->
-<!--            android:layout_height="28dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:background="@color/btnBackground"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.0"-->
-<!--            app:srcCompat="@drawable/icon_left_arrow" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/packLuggageTextView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="sans-serif"-->
-<!--            android:text="짐 꾸리기 리스트"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/bb"-->
-<!--            android:textSize="16sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/nextBtn"-->
-<!--            app:layout_constraintHorizontal_bias="0.552"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/backBtn"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/nextBtn"-->
-<!--            android:layout_width="38dp"-->
-<!--            android:layout_height="28dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@color/btnBackground"-->
-<!--            android:fontFamily="sans-serif"-->
-<!--            android:text="저장"-->
-<!--            android:textAlignment="viewEnd"-->
-<!--            android:textColor="@color/blue"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.0" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/progressBar_70"-->
-<!--        android:layout_width="252dp"-->
-<!--        android:layout_height="4dp"-->
-<!--        android:background="@color/blue"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/packLuggageActionBarLayout" />-->
+    android:layout_height="match_parent"
+    tools:context=".CheckListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -84,7 +19,7 @@
             android:id="@+id/scrollView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/addItemButton"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -328,23 +263,7 @@
 
             </LinearLayout>
 
-
         </ScrollView>
-
-        <Button
-            android:id="@+id/addItemButton"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/blue"
-            android:text="추가"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

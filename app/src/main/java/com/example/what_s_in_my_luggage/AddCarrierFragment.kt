@@ -2,7 +2,6 @@ package com.example.what_s_in_my_luggage
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,8 +14,6 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResultListener
 import com.example.what_s_in_my_luggage.model.Luggage
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
 
 class AddCarrierFragment : Fragment() {
     var packingFrameActivity: PackingFrameActivity? = null

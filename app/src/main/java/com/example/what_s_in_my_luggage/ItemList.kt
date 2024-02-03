@@ -1,5 +1,6 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.ContextMenu
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.what_s_in_my_luggage.databinding.ActivityItemListBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +28,19 @@ class ItemList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         iBinding = ActivityItemListBinding.inflate(layoutInflater)
         setContentView(iBinding.root)
+
+//        dataManager = UserDataManager.getInstance(this)
+////        itemAdapter = ItemListAdapter(emptyList(), this)
+//        if (!isInitialized) {
+//            itemAdapter = ItemListAdapter(emptyList(), this)
+//            isInitialized = true
+//        }
+//        dataManager = UserDataManager.getInstance(this)
+//        Log.d("ItemList", "DataManager initialized: $dataManager")
+//        if (!isInitialized) {
+//            itemAdapter = ItemListAdapter(emptyList(), this)
+//            isInitialized = true
+//        }
     }
 
     companion object {
@@ -35,16 +50,29 @@ class ItemList : AppCompatActivity() {
         var isItemExist = false
         val existTextColor = R.color.blue
         val notExistTextColor = R.color.bb25
+//        lateinit var dataManager: UserDataManager
 
-        fun onImageViewClick(v: View, clickedItem: Items) {
+//        private lateinit var itemAdapter: ItemListAdapter
+        private var isInitialized = false
+        private lateinit var itemAdapter: ItemListAdapter
+
+        fun getItemAdapter(): ItemListAdapter {
+            return itemAdapter
+        }
+
+        fun onImageViewClick(v: View, clickedItem: Items, context: Context) {
             if (v is ImageView) {
                 val clickedDrawable = v.drawable
+                println("adapterProblem_1")
 
                 val newImageView = ImageView(v.context)
+                println("adapterProblem_2")
                 newImageView.setImageDrawable(clickedDrawable)
+                println("adapterProblem_3")
 
                 // 새로 추가될 ImageView의 id 설정
                 newImageView.id = View.generateViewId()
+                println("adapterProblem_4")
 
                 // ImageView의 넓이, 높이, 가운데 정렬 등 옵션 추가
                 val layoutParams = ConstraintLayout.LayoutParams(
@@ -55,6 +83,7 @@ class ItemList : AppCompatActivity() {
                     startToStart = ConstraintSet.PARENT_ID
                     topToTop = ConstraintSet.PARENT_ID
                 }
+                println("adapterProblem_5")
 
                 newImageView.layoutParams = layoutParams
                 layoutParams.width = 300
@@ -63,15 +92,30 @@ class ItemList : AppCompatActivity() {
                 layoutParams.endToEnd = ConstraintSet.PARENT_ID
                 layoutParams.topToTop = ConstraintSet.PARENT_ID
                 layoutParams.bottomToBottom = ConstraintSet.PARENT_ID
+                println("adapterProblem_6")
 
                 // ImageView가 luggageLayout에 추가되도록 레이아웃 지정
                 val layout = v.rootView.findViewById<ConstraintLayout>(R.id.luggageLayout)
-                val nextBtn = v.rootView.findViewById<Button>(R.id.nextBtn)
+//                val nextBtn = v.rootView.findViewById<Button>(R.id.nextBtn)
+                println("adapterProblem_7")
 
                 // ImageView 추가
                 layout.addView(newImageView)
+                println("adapterProblem_8")
                 isItemExist = true
-                nextBtn.setTextColor(v.resources.getColor(existTextColor))
+//                nextBtn.setTextColor(v.resources.getColor(existTextColor))
+
+//                itemAdapter.notifyDataSetChanged()
+                println("adapterProblem_9")
+                val dataManager = UserDataManager.getInstance(context)
+
+//                if (dataManager != null) {
+//                    dataManager.sendDataToFirebase(clickedItem)
+//                }
+                UserDataManager.getInstance(context).setItemListInLuggage(clickedItem)
+
+//                dataManager.sendDataToFirebase(clickedItem)
+//                println("adapterProblem_10")
 
                 // ImageView에 터치 이벤트 리스너 등록
                 newImageView.setOnTouchListener { v, event ->
@@ -80,6 +124,16 @@ class ItemList : AppCompatActivity() {
                     )
                     true
                 }
+                println("adapterProblem_10")
+
+                // refLuggage에서 데이터 가져온 후에 sendDataToFirebase 함수 호출
+//                dataManager.init(userName) // 사용자 정보 초기화
+//                dataManager.sendDataToFirebase(clickedItem)
+                println("adapterProblem_11")
+
+
+                // 데이터 변경 후 어댑터 갱신
+//                itemAdapter.notifyDataSetChanged()
             }
         }
 
