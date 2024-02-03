@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/active_community"
     android:layout_width="360dp"
-    android:layout_height="800dp"
-    android:clipToOutline="true"
+    android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context=".CommunityActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:scrollbars="none">
@@ -22,172 +23,173 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginStart="25dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="55dp"
-                android:text="템플릿을 둘러보세요"
-                android:textSize="22sp"
-                android:gravity="center_vertical" />
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="왓츠인마이백 템플릿"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="22sp"/>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/coPostlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="49dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginBottom="190dp"
+                    android:text="여자끼리 유럽 9박 10일 다녀오기"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnStar"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="192dp"
+                    android:background="@drawable/ic_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageButton
                     android:id="@+id/co1"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="37dp"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginStart="4dp"
                     android:background="@drawable/front"
-                    android:contentDescription="클릭시 발행된 글로 이동" />
-
-                <ImageButton
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_marginTop="37dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/front2" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/black"
-                android:layout_marginStart="22dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="여자끼리 유럽 9박10일 다녀오기"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:gravity="center" />
-
-                <ImageButton
-                    android:layout_marginTop="2dp"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginStart="16dp"
-                    android:id="@+id/btncheck"
-                    android:background="@drawable/ic_star" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
                     android:id="@+id/co2"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="37dp"
-                    android:background="@drawable/front"
-                    android:contentDescription="클릭시 발행된 글로 이동" />
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/front2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageButton
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_marginTop="37dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/front2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/black"
-                android:layout_marginStart="22dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="여자끼리 유럽 9박10일 다녀오기"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:gravity="center" />
-
-                <ImageButton
-                    android:layout_marginTop="2dp"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginStart="16dp"
-                    android:id="@+id/btncheck2"
-                    android:background="@drawable/ic_star" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/co3"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="37dp"
-                    android:background="@drawable/front"
-                    android:contentDescription="클릭시 발행된 글로 이동" />
-
-                <ImageButton
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_marginTop="37dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/front2" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@color/black"
-                android:layout_marginStart="22dp">
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="여자끼리 유럽 9박10일 다녀오기"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:gravity="center" />
+                    android:layout_marginStart="26dp"
+                    android:layout_marginBottom="190dp"
+                    android:text="제주도 한달 여행기"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageButton
-                    android:layout_marginTop="2dp"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:layout_marginStart="16dp"
-                    android:id="@+id/btncheck3"
-                    android:background="@drawable/ic_star_empty" />
+                    android:layout_marginStart="23dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="192dp"
+                    android:background="@drawable/ic_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            </LinearLayout>
+                <ImageButton
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/front3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageButton
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/front2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginBottom="190dp"
+                    android:text="일본 3박 4일 여행"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="192dp"
+                    android:background="@drawable/ic_star"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageButton
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/front"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/front2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
-
     </ScrollView>
 
+    <fragment
+        android:id="@+id/bottomNavigationFragment"
+        android:name="com.example.what_s_in_my_luggage.BottomNavigationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
 </LinearLayout>

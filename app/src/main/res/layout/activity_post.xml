@@ -171,7 +171,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/airplanetilt" />
+                            android:background="@drawable/AirplaneTilt" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -228,7 +228,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/calendarblank" />
+                            android:background="@drawable/CalendarBlank" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -293,7 +293,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/readcvlogo" />
+                            android:background="@drawable/ReadCvLogo" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -350,14 +350,14 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/suitcaselogo" />
+                            android:background="@drawable/SuitcaseLogo" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="11dp"
+                            android:layout_marginStart="13dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="8dp"
                             android:text="캐리어 이름"
                             android:textColor="#FE9896"
                             android:textSize="16sp"
