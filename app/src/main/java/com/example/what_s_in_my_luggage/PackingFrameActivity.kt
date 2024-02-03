@@ -43,7 +43,8 @@ class PackingFrameActivity : AppCompatActivity() {
             if (currentFragment < fragments.size - 1) {
                 when (currentFragment) {
                     0 -> { // 캐리어 추가 -> 짐 꾸리기
-
+                        val fragment = fragments[currentFragment] as AddCarrierFragment
+                        fragment.saveTempLuggage()
                     }
                     1 -> { // 짐 꾸리기 -> 짐 꾸리기 리스트
 

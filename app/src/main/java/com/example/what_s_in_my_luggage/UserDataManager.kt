@@ -60,6 +60,9 @@ class UserDataManager constructor() {
     var luggageNumber = 0
     var luggageId = ""
 
+    // 임시 데이터
+    var tempLuggage: Luggage? = null
+
     // TODO: 로그인 후 init 할 것.
     fun init(userName: String = "NaomiWatts") {
         this.userName = userName
@@ -135,7 +138,40 @@ class UserDataManager constructor() {
         refSavedTemplate.child(userName).setValue(savedTemplateList)
     }
 
-    // Pack Luggage & Checklist
+// Luggage
+    fun setLuggageList() {
+        refLuggage.get().addOnSuccessListener {
+            for (data in it.children) {
+                // data의 key값을 luggagelist에 추가
+                luggageList.add(data.key!!)
+            }
+        }
+    }
+    @JvmName("setTempLuggage1")
+    fun setTempLuggage(luggage: Luggage) {
+        tempLuggage = luggage
+        tempLuggage!!.luggageID = generateLuggageID()
+    }
+
+    @JvmName("getTempLuggage1")
+    fun getTempLuggage(): Luggage? {
+        return tempLuggage
+    }
+
+    fun saveLuggage() {
+        if (tempLuggage == null) return
+        luggageList.add(tempLuggage!!.luggageID)
+        refLuggage.child(tempLuggage!!.luggageID).setValue(tempLuggage)
+    }
+
+    fun generateLuggageID(): String {
+        if(luggageList.isEmpty()) {
+            setLuggageList()
+        }
+        return "luggage${luggageList.size + 1}"
+    }
+
+// Pack Luggage & Checklist
     fun sendDataToFirebase(item: Items) {
         // 전송할 데이터 생성
         val dataToAdd = mapOf(

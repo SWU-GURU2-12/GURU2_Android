@@ -17,13 +17,12 @@ class TestBlankFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_test_blank, container, false)
         var textview = view?.findViewById<TextView>(R.id.textView)
 
-        // bundle로 받은 데이터
-        val userName = arguments?.getString("userName")
-        val title = arguments?.getString("title")
-        val destination = arguments?.getString("destination")
-        val schedule = arguments?.getString("schedule")
+        // test 데이터
+        var dataManager = UserDataManager.getInstance(requireContext())
+        var temp = dataManager.getTempLuggage()
 
-        textview?.text = "userName: $userName,\n title: $title,\n destination: $destination,\n schedule: $schedule"
+        textview?.text = "test: ${temp?.luggageID}, \n${temp?.userName}"
+
 
         return view
     }
