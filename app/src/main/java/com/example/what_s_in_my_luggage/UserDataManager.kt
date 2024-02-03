@@ -91,16 +91,24 @@ class UserDataManager constructor() {
     }
 
 // Travel Place List
-    suspend fun setTravelPlaceList() = withContext(Dispatchers.IO) {
+    fun setTravelPlaceList() {
         travelPlaceList.clear()
-        val snapshot = refSavedTemplate.child(userName).get().await()
-        for (data in snapshot.children) {
-            val place = data.getValue(ListViewItem::class.java)
-            travelPlaceList.add(place!!)
-        }
+
+        refTravelPlace.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+                    val place = data.getValue(ListViewItem::class.java)
+                    travelPlaceList.add(place!!)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase_error", "!!! Travel Place List: ${error.message}")
+            }
+        })
     }
 
-    suspend fun getTravelPlaceList(): ArrayList<ListViewItem> {
+    fun getTravelPlaceList(): ArrayList<ListViewItem> {
         if (travelPlaceList.isEmpty()) {
             setTravelPlaceList()
         }
@@ -108,37 +116,51 @@ class UserDataManager constructor() {
     }
 
 // Saved Template List
-    suspend fun setSavedTemplateList() = withContext(Dispatchers.IO) {
+    fun setSavedTemplateList() {
         savedTemplateList.clear()
-        // savedTemplate 노드의 key 값은 userName
-        val snapshot = refSavedTemplate.child(userName).get().await()
-        for (data in snapshot.children) {
-            savedTemplateList.add(data.getValue(String::class.java)!!)
-        }
+
+        // savedTemplate 노드의 key 값은
+
+        refSavedTemplate.child(userName).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+                    savedTemplateList.add(data.getValue(String::class.java)!!)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase_error", "!!! Saved Template List: ${error.message}")
+            }
+        })
     }
 
-    suspend fun getSavedTemplateList(): ArrayList<String> {
+    fun getSavedTemplateList(): ArrayList<String> {
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
         return savedTemplateList
     }
 
-    suspend fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
+    fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
 
-        return withContext(Dispatchers.IO) {
-            val temp = arrayListOf<ListViewItem>()
-            for (luggageID in savedTemplateList) {
-                val snapshot = refLuggage.child(luggageID).get().await()
-                val luggage = snapshot.getValue(Luggage::class.java)
-                val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
-                temp.add(listViewItem)
-            }
-            temp
+        val temp = arrayListOf<ListViewItem>()
+        for (luggageID in savedTemplateList) {
+            refLuggage.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val luggage = snapshot.getValue(Luggage::class.java)
+                    val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
+                    temp.add(listViewItem)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("Firebase_error", "!!! Luggage : ${error.message}")
+                }
+            })
         }
+        return temp
     }
 
     fun addSavedTemplate(luggageID: String) {

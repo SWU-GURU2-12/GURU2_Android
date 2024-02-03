@@ -43,27 +43,15 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         val tag = arguments?.getString("tag")
         var dataManager = UserDataManager.getInstance(requireContext())
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                if (tag == "travelPlace") { // travel place
-                    test = dataManager.getTravelPlaceList()
-                    Log.e("!!!!!!!!!!!!!", "get travel place list")
-                } else if (tag == "template") { // template
-                    test = dataManager.getSavedTemplateListView()
-                    Log.e("!!!!!!!!!!!!!", "get saved template list view")
-                }
 
-            } catch (e: Exception) {
-                Log.e("!!!!!!!!!!!!!", "!!!!!!!!!!!!!Error: $e")
-            }
-            // UI 업데이트
-            withContext(Dispatchers.Main) {
-                setUpListView(test)
-                setUpSearchView(test)
-            }
+        if (tag == "travelPlace") { // travel place
+            test = dataManager.getTravelPlaceList()
+        } else if (tag == "template") { // template
+            test = dataManager.getSavedTemplateListView()
         }
 
-
+        setUpListView(test)
+        setUpSearchView(test)
 
         return view
     }
