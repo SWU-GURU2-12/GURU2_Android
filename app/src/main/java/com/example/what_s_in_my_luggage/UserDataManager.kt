@@ -15,8 +15,6 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
 // TODO: 코루틴
@@ -63,6 +61,7 @@ class UserDataManager constructor() {
 
     // 임시 데이터
     var tempLuggage: Luggage? = null
+    var savedTemplateListView = arrayListOf<ListViewItem>()
 
     // TODO: 로그인 후 init 할 것.
     fun init(userName: String = "NaomiWatts") {
@@ -109,17 +108,12 @@ class UserDataManager constructor() {
     }
 
     fun getTravelPlaceList(): ArrayList<ListViewItem> {
-        if (travelPlaceList.isEmpty()) {
-            setTravelPlaceList()
-        }
         return travelPlaceList
     }
 
 // Saved Template List
     fun setSavedTemplateList() {
         savedTemplateList.clear()
-
-        // savedTemplate 노드의 key 값은
 
         refSavedTemplate.child(userName).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -135,24 +129,23 @@ class UserDataManager constructor() {
     }
 
     fun getSavedTemplateList(): ArrayList<String> {
-        if (savedTemplateList.isEmpty()) {
-            setSavedTemplateList()
-        }
         return savedTemplateList
     }
 
-    fun getSavedTemplateListView(): ArrayList<ListViewItem> { // add carrier fragment에서 ui에 그리기 위한 데이터
+    fun setSavedTemplateListView() { // add carrier fragment에서 ui에 그리기 위한 데이터
         if (savedTemplateList.isEmpty()) {
             setSavedTemplateList()
         }
 
-        val temp = arrayListOf<ListViewItem>()
+        if (savedTemplateListView.isNotEmpty()) return
+        Log.e("Firebase_error", "!!! setSavedTemplateListView is empty")
+
         for (luggageID in savedTemplateList) {
             refLuggage.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val luggage = snapshot.getValue(Luggage::class.java)
                     val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
-                    temp.add(listViewItem)
+                    savedTemplateListView.add(listViewItem)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -160,7 +153,17 @@ class UserDataManager constructor() {
                 }
             })
         }
-        return temp
+    }
+
+    @JvmName("getTempLuggage1")
+    fun getSavedTemplateListView(): ArrayList<ListViewItem> {
+        if (savedTemplateListView.isEmpty())
+        {
+            setSavedTemplateListView()
+            return savedTemplateListView
+        }
+        Log.e("Firebase_error", "!!! getSavedTemplateListView is empty")
+        return savedTemplateListView
     }
 
     fun addSavedTemplate(luggageID: String) {
