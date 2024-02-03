@@ -171,7 +171,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/AirplaneTilt" />
+                            android:background="@drawable/airplanetilt" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -228,7 +228,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/CalendarBlank" />
+                            android:background="@drawable/calendarblank" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -293,7 +293,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ReadCvLogo" />
+                            android:background="@drawable/readcvlogo" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -350,7 +350,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/SuitcaseLogo" />
+                            android:background="@drawable/suitcaselogo" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -609,7 +609,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-            
+
             <ImageView
                 android:layout_width="240dp"
                 android:layout_height="50dp"
