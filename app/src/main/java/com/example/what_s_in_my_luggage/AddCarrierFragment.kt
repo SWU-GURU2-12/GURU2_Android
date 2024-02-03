@@ -2,6 +2,7 @@ package com.example.what_s_in_my_luggage
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -77,8 +78,6 @@ class AddCarrierFragment : Fragment() {
         template.setOnClickListener {
             showDialogListView("template")
         }
-
-        // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
 
         return view
     }

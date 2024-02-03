@@ -2,6 +2,7 @@ package com.example.what_s_in_my_luggage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -16,6 +17,10 @@ class PackingFrameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_packing_frame)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         // 초기화
         val btnBack = findViewById<Button>(R.id.btnBack)
@@ -48,6 +53,14 @@ class PackingFrameActivity : AppCompatActivity() {
                         val addCarrierFragment = fragments[currentFragment] as AddCarrierFragment
                         currentLuggage = addCarrierFragment.getLuggage()
 
+                        // TODO: test bundel
+                        val bundle = Bundle()
+                        bundle.putString("userName", currentLuggage?.userName)
+                        bundle.putString("title", "b")
+                        bundle.putString("destination", "c")
+                        bundle.putString("schedule", "d")
+
+                        fragments[currentFragment + 1].arguments = bundle
                     }
                     1 -> { // 짐 꾸리기 -> 짐 꾸리기 리스트
 
@@ -78,6 +91,13 @@ class PackingFrameActivity : AppCompatActivity() {
                     1 -> { // 짐 꾸리기 -> 캐리어 추가
 
                     }
+                    0 -> { // 캐리어 추가 -> main activity로 이동
+                        // main activity로 이동
+                        // 다른 액티비티로 전환
+                        finish()
+                        val intent = Intent(this, MainActivity ::class.java)
+                        startActivity(intent)
+                    }
                 }
                 currentFragment--
                 supportFragmentManager.popBackStack()
@@ -101,5 +121,4 @@ class PackingFrameActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 }
