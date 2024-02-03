@@ -130,7 +130,14 @@ class UserDataManager constructor() {
         savedTemplateList.add(luggageID)
     }
 
-    // Pack Luggage & Checklist
+    fun saveSavedTemplateList() {
+        savedTemplateList = arrayListOf("luggage1", "luggage2", "luggage3")
+
+        // 파이어베이스에 저장
+        refSavedTemplate.child("test").setValue(savedTemplateList)
+    }
+
+// Pack Luggage & Checklist
     fun sendDataToFirebase(item: Items) {
         // 전송할 데이터 생성
         val dataToAdd = mapOf(

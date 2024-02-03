@@ -46,6 +46,10 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
             /* test = dataManager.getSavedTemplateList()
             setUpListView(test)
             setUpSearchView(test) */
+
+            // TODO: test
+            dataManager.saveSavedTemplateList()
+
         }
 
         return view
