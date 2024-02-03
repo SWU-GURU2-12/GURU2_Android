@@ -78,8 +78,6 @@ class AddCarrierFragment : Fragment() {
             showDialogListView("template")
         }
 
-        // TODO: next button => 가는 날, 오는 날 계산 (가는 날 < 오는 날)
-
         return view
     }
 

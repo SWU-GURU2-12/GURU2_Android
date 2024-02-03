@@ -48,6 +48,14 @@ class PackingFrameActivity : AppCompatActivity() {
                         val addCarrierFragment = fragments[currentFragment] as AddCarrierFragment
                         currentLuggage = addCarrierFragment.getLuggage()
 
+                        // TODO: test bundel
+                        val bundle = Bundle()
+                        bundle.putString("userName", currentLuggage?.userName)
+                        bundle.putString("title", "b")
+                        bundle.putString("destination", "c")
+                        bundle.putString("schedule", "d")
+
+                        fragments[currentFragment + 1].arguments = bundle
                     }
                     1 -> { // 짐 꾸리기 -> 짐 꾸리기 리스트
 
