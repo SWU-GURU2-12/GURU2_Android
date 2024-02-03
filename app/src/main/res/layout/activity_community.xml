@@ -20,22 +20,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="왓츠인마이백 템플릿"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="22sp"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="왓츠인마이러기지 템플릿"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/coPostlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="49dp"
+                android:layout_marginTop="15dp"
                 android:layout_gravity="center">
 
                 <TextView
@@ -45,18 +55,17 @@
                     android:layout_marginBottom="190dp"
                     android:text="여자끼리 유럽 9박 10일 다녀오기"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/btnStar"
+                    android:id="@+id/btn_star"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="192dp"
-                    android:background="@drawable/ic_star"
+                    android:background="@drawable/ic_star_empty"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -68,7 +77,8 @@
                     android:background="@drawable/front"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <ImageButton
                     android:id="@+id/co2"
@@ -78,38 +88,39 @@
                     android:background="@drawable/front2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_gravity="center">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:layout_marginBottom="190dp"
-                    android:text="제주도 한달 여행기"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginBottom="190dp"
+                        android:text="제주도 한달 여행기"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginStart="23dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="192dp"
-                    android:background="@drawable/ic_star"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    <ImageButton
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginStart="23dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="192dp"
+                        android:background="@drawable/ic_star_empty"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageButton
                     android:layout_width="190dp"
@@ -124,7 +135,7 @@
                     android:layout_width="190dp"
                     android:layout_height="190dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@drawable/front2"
+                    android:background="@drawable/front4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +146,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp"
                 android:layout_gravity="center">
 
                 <TextView
@@ -145,8 +155,7 @@
                     android:layout_marginBottom="190dp"
                     android:text="일본 3박 4일 여행"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -156,7 +165,7 @@
                     android:layout_marginStart="23dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="192dp"
-                    android:background="@drawable/ic_star"
+                    android:background="@drawable/ic_star_empty"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -164,7 +173,7 @@
                     android:layout_width="190dp"
                     android:layout_height="190dp"
                     android:layout_marginStart="4dp"
-                    android:background="@drawable/front"
+                    android:background="@drawable/front6"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -173,7 +182,7 @@
                     android:layout_width="190dp"
                     android:layout_height="190dp"
                     android:layout_marginEnd="4dp"
-                    android:background="@drawable/front2"
+                    android:background="@drawable/front5"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
