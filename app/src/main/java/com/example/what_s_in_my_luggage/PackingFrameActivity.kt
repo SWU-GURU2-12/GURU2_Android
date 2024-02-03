@@ -1,6 +1,5 @@
 package com.example.what_s_in_my_luggage
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -92,6 +91,13 @@ class PackingFrameActivity : AppCompatActivity() {
                     1 -> { // 짐 꾸리기 -> 캐리어 추가
 
                     }
+                    0 -> { // 캐리어 추가 -> main activity로 이동
+                        // main activity로 이동
+                        // 다른 액티비티로 전환
+                        finish()
+                        val intent = Intent(this, MainActivity ::class.java)
+                        startActivity(intent)
+                    }
                 }
                 currentFragment--
                 supportFragmentManager.popBackStack()
@@ -115,5 +121,4 @@ class PackingFrameActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 }
