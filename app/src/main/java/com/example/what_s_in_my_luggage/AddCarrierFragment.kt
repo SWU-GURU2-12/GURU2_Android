@@ -135,12 +135,14 @@ class AddCarrierFragment : Fragment() {
         txtTemplate.setTextColor(Color.BLACK)
     }
 
-    fun getLuggage(): Luggage {
+    fun saveTempLuggage() {
         var userName = UserDataManager.getInstance(requireContext()).getUserName()
         var title = carrierName.text.toString()
         var destination = txtTravelPlace.text.toString()
         var schedule = btnDepartureCal.text.toString() + " - " + btnArrivalCal.text.toString()
-        return Luggage("temp", userName, title, destination, schedule)
+
+        var tempLuggage = Luggage("temp", userName, title, destination, schedule)
+        UserDataManager.getInstance(requireContext()).setTempLuggage(tempLuggage)
     }
 
 }
