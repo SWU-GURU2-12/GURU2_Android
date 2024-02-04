@@ -19,6 +19,10 @@ import com.example.what_s_in_my_luggage.model.Luggage
 
 class PackingFrameActivity : AppCompatActivity() {
 
+    interface OnPostPublishedListener {
+        fun onPostPublished(postId: String)
+    }
+
 //    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +49,8 @@ class PackingFrameActivity : AppCompatActivity() {
             "짐 꾸리기",
             "짐 꾸리기",
             "짐 꾸리기 리스트",
-            "템플릿 발행하기"
-        )
+            "템플릿 발행하기")
+
 
         // 버튼
         btnNext.setOnClickListener() {
@@ -122,6 +126,14 @@ class PackingFrameActivity : AppCompatActivity() {
         replaceFragment(fragments[currentFragment])
         pageTitle.text = titleList[currentFragment]
         progressBar.progress = (currentFragment + 1) * (100/fragments.size)
+    }
+
+    fun onPostPublished(postId: String) {
+        // 발행된 글의 ID를 사용하여 PostDisplayActivity로 이동하는 인텐트 생성
+        val intent = Intent(this, PostDisplayActivity::class.java).apply {
+            putExtra("postId", postId)
+        }
+        startActivity(intent)
     }
 
     fun replaceFragment(fragment: Fragment) {

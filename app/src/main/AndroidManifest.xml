@@ -39,6 +39,8 @@
             android:exported="false" />
         <activity android:name=".WritePostFragment"
             android:exported="false" />
+        <activity android:name=".PostDisplayActivity"
+            android:exported="false" />
         <activity
             android:name=".MyRoomActivity"
             android:exported="false" />
@@ -48,12 +50,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".PackLuggage"
-            android:exported="false"/>
-        <activity
-            android:name=".Checklist"
-            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="false"/>
