@@ -1,10 +1,13 @@
 package com.example.what_s_in_my_luggage
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class StoredActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,5 +25,23 @@ class StoredActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.bottomNavigationFragment, bottomNavFragment) // XML에서 정의된 ID로 변경
             .commit()
+
+        val coPostlayout2 = findViewById<ConstraintLayout>(R.id.coPostlayout2)
+        val imageButton3 = findViewById<ImageButton>(R.id.imageButton3)
+        val imageButton4 = findViewById<ImageButton>(R.id.imageButton4)
+
+        // 글 클릭시 발행한 글로 넘어가기
+        coPostlayout2.setOnClickListener {
+            val intent = Intent(this, PostActivity::class.java)
+            startActivity(intent)
+        }
+        imageButton3.setOnClickListener {
+            val intent = Intent(this, PostActivity::class.java)
+            startActivity(intent)
+        }
+        imageButton4.setOnClickListener {
+            val intent = Intent(this, PostActivity::class.java)
+            startActivity(intent)
+        }
     }
-}
+    }

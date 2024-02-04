@@ -37,7 +37,7 @@
             android:exported="false" />
         <activity android:name=".PostActivity"
             android:exported="false" />
-        <activity android:name=".WritePostActivity"
+        <activity android:name=".WritePostFragment"
             android:exported="false" />
         <activity
             android:name=".MyRoomActivity"

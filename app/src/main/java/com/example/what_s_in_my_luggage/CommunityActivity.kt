@@ -22,20 +22,20 @@ class CommunityActivity : AppCompatActivity() {
         // 바텀 네비게이션 설정
         setupBottomNavigation()
 
-        val coPostlayout = findViewById<ConstraintLayout>(R.id.coPostlayout)
-        val co1 = findViewById<ImageButton>(R.id.co1)
-        val co2 = findViewById<ImageButton>(R.id.co2)
+        val coPostlayout2 = findViewById<ConstraintLayout>(R.id.coPostlayout2)
+        val imageButton3 = findViewById<ImageButton>(R.id.imageButton3)
+        val imageButton4 = findViewById<ImageButton>(R.id.imageButton4)
 
         // 첫 번째 글 클릭시 발행한 글로 넘어가기
-        coPostlayout.setOnClickListener {
+        coPostlayout2.setOnClickListener {
             val intent = Intent(this, PostActivity::class.java)
             startActivity(intent)
         }
-        co1.setOnClickListener {
+        imageButton3.setOnClickListener {
             val intent = Intent(this, PostActivity::class.java)
             startActivity(intent)
         }
-        co2.setOnClickListener {
+        imageButton4.setOnClickListener {
             val intent = Intent(this, PostActivity::class.java)
             startActivity(intent)
         }
