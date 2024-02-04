@@ -12,9 +12,11 @@ class Luggage {
 
     var itemListInLuggage: MutableList<String>? = null
     var currentTime: String = ""
+    var imageURL: String? = null
 
     var title: String = ""
     var content: String = ""
+
 
 
     constructor()

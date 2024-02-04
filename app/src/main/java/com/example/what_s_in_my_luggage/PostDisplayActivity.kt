@@ -21,7 +21,7 @@ class PostDisplayActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_post_display) // 레이아웃 파일 이름 확인 및 필요 시 변경
+        setContentView(R.layout.activity_post_display) // 레이아웃 파일 이름 확인 및 필요 시 변경
 
         databaseRef = FirebaseDatabase.getInstance().getReference("posts")
 

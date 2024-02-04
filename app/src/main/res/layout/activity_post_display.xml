@@ -57,7 +57,7 @@
                 android:layout_marginStart="60dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="60dp"
-                android:background="@drawable/front3"
+                android:background="@drawable/img_3girls"
                 android:clipToOutline="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_marginTop="32dp"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
-                tools:text="나의 여행 캐리어를 소개합니다." />
+                tools:text="여자끼리 유럽 9박 10일 다녀오기" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/content"
@@ -97,9 +97,9 @@
                         android:layout_width="287dp"
                         android:layout_height="242dp"
                         android:layout_marginBottom="16dp"
-                        android:text="버킷리스트였던 제주도 한달살이 다녀왔어요.
-                        \n\n너무 즐거웠던 제주도!\n한달살이다보니까 짐 챙기는 게 중요하더라구요.
-                        \n\n\n제가 챙겼던 짐 리스트 공유합니다!"
+                        android:text="안녕하세요! \n저는 저번주에 유럽에 다녀온 나오미입니다.\n\n첫 유럽이기도 하고
+                \n대학교에서 만나서 짱친이 된 친구들 3명과 함께 떠난\n여행이라서 기억에 많이 남는데요 \n.\n. \n.
+                \n아무튼! 야무지게 챙긴 저의 캐리어를 공개합니다."
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -180,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="9dp"
-                            android:text="제주도"
+                            android:text="스위스 취리히"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -235,11 +235,11 @@
 
                         <TextView
                             android:id="@+id/clpost"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
+                            android:layout_width="103dp"
+                            android:layout_height="41dp"
+                            android:layout_marginStart="12dp"
                             android:layout_marginTop="9dp"
-                            android:text="24.01.04 목 ---- \n----> 24.02.04 일"
+                            android:text="24.02.04 목 ---- \n----> 24.02.15 목"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -362,7 +362,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="9dp"
-                            android:text="제주도 친구"
+                            android:text="28인치 캐리어와\n솜사탕 가방"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
