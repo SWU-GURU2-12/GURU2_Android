@@ -245,27 +245,24 @@ class UserDataManager constructor() {
     }
 
     fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
-        val storageRef = storage.reference
-        val imagesRef = storageRef.child("captures/$fileName.jpg")
-
-        // ByteArrayOutputStream을 사용하여 Bitmap 이미지를 byte 배열로 변환
+        val storageRef = FirebaseStorage.getInstance().reference.child("images/$fileName")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
-        // Firebase Storage에 이미지 업로드
-        val uploadTask = imagesRef.putBytes(data)
-
-        uploadTask.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // 업로드 성공
-                Log.d("Firebase_upload", "Image upload successful")
-            } else {
-                // 업로드 실패
-                Log.e("Firebase_upload", "Image upload failed: ${task.exception}")
+        val uploadTask = storageRef.putBytes(data)
+        uploadTask.addOnSuccessListener {
+            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                val imageUrl = uri.toString()
+                // 현재 짐(Luggage) 객체에 이미지 URL 저장
+                tempLuggage?.imageURL = imageUrl
+                // 필요한 경우 데이터베이스에 imageURL을 업데이트하는 로직 추가
             }
+        }.addOnFailureListener {
+            // Handle unsuccessful uploads
         }
     }
+
 
     fun removeScreenshotFromFirebase(fileName: String) {
         val storageRef = storage.reference

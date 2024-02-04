@@ -22,7 +22,7 @@ class AddCarrierFragment : Fragment() {
     private lateinit var btnArrivalCal: Button
     private lateinit var travelPlace: CardView
     private lateinit var template: CardView
-    private lateinit var carrierName : EditText
+    private lateinit var carrierName: EditText
     private lateinit var txtTravelPlace: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +87,7 @@ class AddCarrierFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if(context is PackingFrameActivity) {
+        if (context is PackingFrameActivity) {
             packingFrameActivity = context
         }
     }
@@ -98,7 +98,10 @@ class AddCarrierFragment : Fragment() {
         val bundle = Bundle()
         bundle.putInt("button", viewid)
         dialogCalendar.arguments = bundle
-        dialogCalendar.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        dialogCalendar.setStyle(
+            DialogFragment.STYLE_NORMAL,
+            R.style.RoundCornerBottomSheetDialogTheme
+        )
         dialogCalendar.show(parentFragmentManager, "datePicker")
     }
 
@@ -107,7 +110,10 @@ class AddCarrierFragment : Fragment() {
         val bundle = Bundle()
         bundle.putString("tag", tag)
         dialogTemplate.arguments = bundle
-        dialogTemplate.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundCornerBottomSheetDialogTheme)
+        dialogTemplate.setStyle(
+            DialogFragment.STYLE_NORMAL,
+            R.style.RoundCornerBottomSheetDialogTheme
+        )
         dialogTemplate.show(parentFragmentManager, "template")
     }
 
@@ -118,6 +124,7 @@ class AddCarrierFragment : Fragment() {
                 btnDepartureCal.text = date
                 btnDepartureCal.setTextColor(Color.BLACK)
             }
+
             R.id.btnArrivalCal -> {
                 btnArrivalCal.text = date
                 btnArrivalCal.setTextColor(Color.BLACK)
@@ -141,14 +148,23 @@ class AddCarrierFragment : Fragment() {
         var userName = UserDataManager.getInstance(requireContext()).getUserName()
         var carriername = carrierName.text.toString()
         var destination = txtTravelPlace.text.toString()
-        
+
         var title = ""
         var content = ""
 
         var schedule = btnDepartureCal.text.toString() + "\n -    " + btnArrivalCal.text.toString()
 
-        var tempLuggage = Luggage("temp", userName, carriername, destination, schedule, title, content)
+        // imageURL 파라미터에 null을 전달하여 객체 생성
+        var tempLuggage = Luggage(
+            "temp",
+            userName,
+            carriername,
+            destination,
+            schedule,
+            title,
+            content,
+            null
+        ) // imageURL에 null 추가
         UserDataManager.getInstance(requireContext()).setTempLuggage(tempLuggage)
     }
-
 }
