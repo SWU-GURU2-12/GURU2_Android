@@ -202,8 +202,16 @@ class UserDataManager constructor() {
 
         // 기존 리스트에 새로운 아이템 추가
         tempLuggage?.itemListInLuggage?.add(item.name)
+    }
 
+    fun removeItemListInLuggage() {
+        tempLuggage?.itemListInLuggage?.clear()
         Log.d("tempLuggage information", "${tempLuggage?.itemListInLuggage}")
+    }
+
+    fun removeCurrentTime() {
+        tempLuggage?.currentTime = ""
+        Log.d("tempLuggage information", "${tempLuggage?.currentTime}")
     }
 
     fun sendDataToFirebase(item: Items) {
@@ -268,7 +276,7 @@ class UserDataManager constructor() {
 
     fun removeScreenshotFromFirebase(fileName: String) {
         val storageRef = storage.reference
-        val imagesRef = storageRef.child("captures/$fileName.jpg")
+        val imagesRef = storageRef.child("captures/${fileName}\\_capture.jpg")
 
         imagesRef.delete().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -279,6 +287,8 @@ class UserDataManager constructor() {
         }.addOnFailureListener { exception ->
             Log.e("Firebase_delete_error", "Screenshot delete failed: $exception")
         }
+
+        removeCurrentTime()
     }
 
 //    fun removeLuggageAndScreenshotFromFirebase(fileName: String) {
