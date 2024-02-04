@@ -39,7 +39,7 @@ class PostDisplayActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, MyRoomActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
