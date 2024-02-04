@@ -91,6 +91,7 @@ class PackingFrameActivity : AppCompatActivity() {
                     3 -> { // 템플릿 발행하기 -> 짐 꾸미기 리스트
                         btnNext.text = "다음"
                         // 발행하기 fragment의 string data 초기화
+                        // main activity로 이동
                     }
                     2 -> { // 짐 꾸미기 리스트 -> 짐 꾸미기
                         UserDataManager.getInstance(this).tempLuggage?.currentTime?.let { it1 ->

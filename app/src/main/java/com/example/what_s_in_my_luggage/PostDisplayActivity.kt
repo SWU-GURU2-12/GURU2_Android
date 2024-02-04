@@ -22,6 +22,14 @@ class PostDisplayActivity : AppCompatActivity() {
     private lateinit var carrierNameTextView: TextView
     private lateinit var imageURL: ImageView
 
+    // check list
+    private lateinit var electronics : TextView
+    private lateinit var otherCloth : TextView
+    private lateinit var inflight : TextView
+    private lateinit var care : TextView
+    private lateinit var cloths : TextView
+    private lateinit var food : TextView
+
     lateinit var btnBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +55,9 @@ class PostDisplayActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Error: Post ID is missing", Toast.LENGTH_LONG).show()
         }
+
+        // check list
+        setCheckList()
     }
 
     private fun initializeViews() {
@@ -56,6 +67,49 @@ class PostDisplayActivity : AppCompatActivity() {
         scheduleTextView = findViewById(R.id.clpost)
         carrierNameTextView = findViewById(R.id.cnpost)
         imageURL = findViewById(R.id.carrierpost)
+
+        // check list
+        electronics = findViewById(R.id.electronics)
+        otherCloth = findViewById(R.id.otherCloth)
+        inflight = findViewById(R.id.inflight)
+        care = findViewById(R.id.care)
+        cloths = findViewById(R.id.cloths)
+        food = findViewById(R.id.food)
+    }
+
+    private fun setCheckList() {
+        electronics.text = ""
+        otherCloth.text = ""
+        inflight.text = ""
+        care.text = ""
+        cloths.text = ""
+        food.text = ""
+
+        var dataManager = UserDataManager.getInstance(this)
+        var checklist = dataManager.tempLuggage?.itemListInLuggage
+
+        for (item in checklist!!) {
+            when (item) {
+                "어댑터", "카메라", "보조배터리" -> {
+                    electronics.text = electronics.text.toString() + item + "\n"
+                }
+                "여권", "개인 가방", "유럽 돈" -> {
+                    inflight.text = inflight.text.toString() + item + "\n"
+                }
+                "겨울 상의", "겨울 하의" -> {
+                    cloths.text = cloths.text.toString() + item + "\n"
+                }
+                "머플러", "모자", "부츠" -> {
+                    otherCloth.text = otherCloth.text.toString() + item + "\n"
+                }
+                "화장품", "칫솔&치약", "스킨케어" -> {
+                    care.text = care.text.toString() + item + "\n"
+                }
+                "컵라면" -> {
+                    food.text = food.text.toString() + item + "\n"
+                }
+            }
+        }
     }
 
     private fun loadPost(postId: String) {
