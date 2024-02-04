@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="328dp"
+        android:layout_height="44dp"
+        android:background="@drawable/frame5"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/btnBookmark"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/ic_star_empty" />
+
+        <TextView
+            android:id="@+id/postTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="여자끼리 유럽 9박 10일 다녀오기"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imgRandom"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_weight="1"
+            android:background="@drawable/front2" />
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/imgCarrier"
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_weight="1"
+            android:background="@drawable/front2" />
+    </LinearLayout>
+</LinearLayout>
