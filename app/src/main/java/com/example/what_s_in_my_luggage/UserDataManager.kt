@@ -37,7 +37,7 @@ class UserDataManager constructor() {
     // Database
     private val database = Firebase.database
     private val refUsers = database.getReference("users")
-    private val refLuggage = database.getReference("luggage")
+    private val refPosts = database.getReference("posts")
     private val refTravelPlace = database.getReference("travelPlace")
     private val refSavedTemplate = database.getReference("savedTemplate")
     private val refChecklist = database.getReference("checklist")
@@ -48,7 +48,7 @@ class UserDataManager constructor() {
     private var travelPlaceList = arrayListOf<ListViewItem>() // 여행지 리스트
     private var savedTemplateList = arrayListOf<String>() // 내가 저장한 템플릿 (북마크)
     private var luggageList = arrayListOf<String>() // 나의 짐 목록 (마이룸) - LuggageID 저장
-    private var postList = arrayListOf<String>() // 발행한 글 목록 - postID 저장
+    private var postList = arrayListOf<String>() // 발행한 글 목록 - luggageID 저장
 
     // 발행하기와 관련된 데이터
 
@@ -145,7 +145,7 @@ class UserDataManager constructor() {
         Log.e("Firebase_error", "!!! setSavedTemplateListView is empty")
 
         for (luggageID in savedTemplateList) {
-            refLuggage.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
+            refPosts.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val luggage = snapshot.getValue(Luggage::class.java)
                     val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
@@ -187,7 +187,7 @@ class UserDataManager constructor() {
     // Luggage
     fun setLuggageList() { // todo
         luggageList.clear()
-        refLuggage.get().addOnSuccessListener {
+        refPosts.get().addOnSuccessListener {
             for (data in it.children) {
                 // data의 key값을 luggagelist에 추가
                 luggageList.add(data.key!!)
@@ -208,7 +208,7 @@ class UserDataManager constructor() {
     fun saveLuggage() {
         if (tempLuggage == null) return
         luggageList.add(tempLuggage!!.luggageID)
-        refLuggage.child(tempLuggage!!.luggageID).setValue(tempLuggage)
+        refPosts.child(tempLuggage!!.luggageID).setValue(tempLuggage)
     }
 
     fun generateLuggageID(): String {
