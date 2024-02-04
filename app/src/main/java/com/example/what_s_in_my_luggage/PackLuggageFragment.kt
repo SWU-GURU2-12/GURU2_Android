@@ -19,6 +19,7 @@ class PackLuggageFragment : Fragment() {
     private lateinit var itemListRecyclerView: RecyclerView
 //    private lateinit var itemAdapter: ItemListAdapter
     private lateinit var allItemsBtn: Button
+    private lateinit var recommendationBtn: Button
     private lateinit var electronicsBtn: Button
     private lateinit var inFlightEssentialsBtn: Button
     private lateinit var clothesBtn: Button
@@ -45,6 +46,7 @@ class PackLuggageFragment : Fragment() {
 
         itemListRecyclerView = view.findViewById<RecyclerView>(R.id.itemListRecyclerView)
         allItemsBtn = view.findViewById<Button>(R.id.allItemsBtn)
+        recommendationBtn = view.findViewById<Button>(R.id.recommendationBtn)
         electronicsBtn = view.findViewById<Button>(R.id.electronicsBtn)
         inFlightEssentialsBtn = view.findViewById<Button>(R.id.inFlightEssentialsBtn)
         clothesBtn = view.findViewById<Button>(R.id.clothesBtn)
@@ -89,6 +91,10 @@ class PackLuggageFragment : Fragment() {
             itemListRecyclerView.adapter = ItemListAdapter(UserDataManager.getInstance(requireContext()).allItems, contextForGlide)
         }
         Log.d("itemlist_4","ok")
+
+        recommendationBtn.setOnClickListener {
+            itemListRecyclerView.adapter = ItemListAdapter(UserDataManager.getInstance(requireContext()).recommendation, contextForGlide)
+        }
 
         electronicsBtn.setOnClickListener {
             itemListRecyclerView.adapter = ItemListAdapter(UserDataManager.getInstance(requireContext()).electronics, contextForGlide)

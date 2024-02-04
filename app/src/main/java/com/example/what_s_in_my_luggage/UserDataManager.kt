@@ -454,11 +454,11 @@ class UserDataManager constructor() {
 
             recommendation = ArrayList(
                 listOf(
-                    Items(imageRefs[0], "여권"),
-                    Items(imageRefs[1], "유럽 돈"),
-                    Items(imageRefs[2], "어댑터"),
-                    Items(imageRefs[3], "보조배터리"),
-                    Items(imageRefs[4], "칫솔&치약"),
+                    Items(imageRefs[3], "여권"),
+                    Items(imageRefs[5], "유럽 돈"),
+                    Items(imageRefs[0], "어댑터"),
+                    Items(imageRefs[2], "보조배터리"),
+                    Items(imageRefs[12], "칫솔&치약"),
                 )
             )
 
