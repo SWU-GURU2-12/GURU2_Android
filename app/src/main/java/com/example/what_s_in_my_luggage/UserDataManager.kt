@@ -48,7 +48,10 @@ class UserDataManager constructor() {
     private var travelPlaceList = arrayListOf<ListViewItem>() // 여행지 리스트
     private var savedTemplateList = arrayListOf<String>() // 내가 저장한 템플릿 (북마크)
     private var luggageList = arrayListOf<String>() // 나의 짐 목록 (마이룸) - LuggageID 저장
-    private var postList = arrayListOf<String>() // 발행한 글 목록 - postID 저장 TODO: 임시
+    private var postList = arrayListOf<String>() // 발행한 글 목록 - postID 저장
+
+    // 발행하기와 관련된 데이터
+
 
     // checklist와 관련된 데이터 리스트
     var allItems = arrayListOf<Items>()

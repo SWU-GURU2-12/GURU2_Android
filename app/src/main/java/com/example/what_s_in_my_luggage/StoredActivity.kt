@@ -13,11 +13,6 @@ import androidx.fragment.app.Fragment
 
 class StoredActivity : AppCompatActivity() {
     lateinit var linearLayout: LinearLayout
-    var luggageID = "luggage0"
-
-    // Fragment PostPreviewCardFragment{7831e76} (53f688c6-4c07-4099-8736-85ba3c8409fd) not attached to a context.
-    // 문제 해결
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +34,10 @@ class StoredActivity : AppCompatActivity() {
         linearLayout = findViewById(R.id.linearLayout)
 
         // 기본 post preview card 추가 (테스트용)
-        var first = addPostPreviewCard("luggage1", "제주도 한 달 살기", true, R.drawable.front3, R.drawable.front4)
-        var second = addPostPreviewCard("luggage2", "여자끼리 유럽 9박 10일 다녀오기", true, R.drawable.front3, R.drawable.front4)
+        addPostPreviewCard("luggage1", "제주도 한 달 살기", true, R.drawable.front3, R.drawable.front4)
+        addPostPreviewCard("luggage2", "여자끼리 유럽 9박 10일 다녀오기", true, R.drawable.front3, R.drawable.front4)
+
+        // TODO: saved template list를 추가
     }
 
     fun addPostPreviewCard(luggageID: String, postTitle: String, bookmark: Boolean, img1: Int, img2: Int) : PostPreviewCardFragment {
@@ -61,6 +58,8 @@ class StoredActivity : AppCompatActivity() {
     }
 
     fun removePostPreviewCard(postPreviewCard: PostPreviewCardFragment) {
+        var dataManager = UserDataManager.getInstance(this)
+        dataManager.removeSavedTemplate(postPreviewCard.arguments?.getString("luggageID") ?: "luggage0")
         supportFragmentManager.beginTransaction().apply {
             remove(postPreviewCard)
         }.commit()

@@ -54,6 +54,9 @@ class PostPreviewCardFragment() : Fragment() {
             if (btnBookmark.drawable.constantState == resources.getDrawable(R.drawable.ic_star_empty).constantState) {
                 btnBookmark.setImageResource(R.drawable.ic_star)
                 dataManager.addSavedTemplate(luggageID) // 데이터 저장
+                // community activity -> stored activity에 추가
+                var dataManager = UserDataManager.getInstance(context)
+                dataManager.addSavedTemplate(luggageID)
             } else {
                 btnBookmark.setImageResource(R.drawable.ic_star_empty)
                 dataManager.removeSavedTemplate(luggageID) // 데이터 삭제
