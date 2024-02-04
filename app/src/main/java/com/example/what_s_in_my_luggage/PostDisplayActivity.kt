@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.Toast
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.what_s_in_my_luggage.model.Luggage
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -17,7 +18,7 @@ class PostDisplayActivity : AppCompatActivity() {
     private lateinit var destinationTextView: TextView
     private lateinit var scheduleTextView: TextView
     private lateinit var carrierNameTextView: TextView
-    private lateinit var carrierImageView: ImageView
+    private lateinit var imageURL: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,7 @@ class PostDisplayActivity : AppCompatActivity() {
         destinationTextView = findViewById(R.id.dtpost)
         scheduleTextView = findViewById(R.id.clpost)
         carrierNameTextView = findViewById(R.id.cnpost)
-        carrierImageView = findViewById(R.id.carrierpost)
+        imageURL = findViewById(R.id.carrierpost)
     }
 
     private fun loadPost(postId: String) {
@@ -55,8 +56,11 @@ class PostDisplayActivity : AppCompatActivity() {
                 destinationTextView.text = post.destination
                 scheduleTextView.text = post.schedule
                 carrierNameTextView.text = post.carriername
+
                 // 이미지 URL이 있다면 Glide를 사용하여 이미지 뷰에 로드
-                // itemListInLuggage 처리 로직 추가
+                post.imageURL?.let { url ->
+                    Glide.with(this@PostDisplayActivity).load(url).into(imageURL)
+                }
             }
         }.addOnFailureListener {
             Toast.makeText(this, "Failed to load post", Toast.LENGTH_SHORT).show()
