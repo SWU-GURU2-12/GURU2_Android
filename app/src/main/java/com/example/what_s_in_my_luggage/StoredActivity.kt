@@ -35,7 +35,6 @@ class StoredActivity : AppCompatActivity() {
 
         // 기본 post preview card 추가 (테스트용)
         addPostPreviewCard("luggage1", "제주도 한 달 살기", true, R.drawable.front3, R.drawable.front4)
-        addPostPreviewCard("luggage2", "여자끼리 유럽 9박 10일 다녀오기", true, R.drawable.front3, R.drawable.front4)
 
         // TODO: saved template list를 추가
     }

@@ -79,7 +79,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
-                android:hint="나만의 별명을 지어주세요"
+                android:hint="나만의 별명을 입력해주세요"
                 android:inputType="text"
                 android:textColorHint="#99373C40"
                 android:textSize="16sp"
