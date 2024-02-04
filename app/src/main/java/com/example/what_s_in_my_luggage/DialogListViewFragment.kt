@@ -34,11 +34,11 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         val tag = arguments?.getString("tag")
         var dataManager = UserDataManager.getInstance(requireContext())
 
-
         if (tag == "travelPlace") { // travel place
             datas = dataManager.getTravelPlaceList()
         } else if (tag == "template") { // template
             datas = dataManager.getSavedTemplateListView()
+            searchView.queryHint = "템플릿을 검색하세요"
         }
 
         // list view 구성
