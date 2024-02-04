@@ -267,7 +267,8 @@ class UserDataManager constructor() {
         if (postList.isEmpty()) {
             setLuggageList()
         }
-        return "luggage${postList.size + 1}"
+        var id = "luggage${postList.size + 1}"
+        return "luggage1"
     }
 
 

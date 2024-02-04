@@ -34,7 +34,7 @@ class StoredActivity : AppCompatActivity() {
         linearLayout = findViewById(R.id.linearLayout)
 
         // 기본 post preview card 추가 (테스트용)
-        addPostPreviewCard("luggage1", "제주도 한 달 살기", true, R.drawable.front3, R.drawable.front4)
+        addPostPreviewCard("luggage2", "제주도 한 달 살기", true, R.drawable.front3, R.drawable.front4)
 
         // TODO: saved template list를 추가
     }
@@ -57,8 +57,6 @@ class StoredActivity : AppCompatActivity() {
     }
 
     fun removePostPreviewCard(postPreviewCard: PostPreviewCardFragment) {
-        var dataManager = UserDataManager.getInstance(this)
-        dataManager.removeSavedTemplate(postPreviewCard.arguments?.getString("luggageID") ?: "luggage0")
         supportFragmentManager.beginTransaction().apply {
             remove(postPreviewCard)
         }.commit()

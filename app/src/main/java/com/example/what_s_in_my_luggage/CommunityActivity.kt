@@ -28,8 +28,8 @@ class CommunityActivity : AppCompatActivity() {
         linearLayout = findViewById(R.id.linearLayout)
 
         // 기본 post preview card 추가 (테스트용)
-        addPostPreviewCard("luggage1", "제주도 한 달 살기", false, R.drawable.front3, R.drawable.front4)
-        addPostPreviewCard("luggage2", "일본 3박 4일 여행", false, R.drawable.front6, R.drawable.front5)
+        addPostPreviewCard("luggage2", "제주도 한 달 살기", false, R.drawable.front3, R.drawable.front4)
+        addPostPreviewCard("luggage3", "일본 3박 4일 여행", false, R.drawable.front6, R.drawable.front5)
     
         // TODO: 모든 post를 추가
 
