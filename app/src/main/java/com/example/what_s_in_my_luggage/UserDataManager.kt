@@ -52,6 +52,7 @@ class UserDataManager constructor() {
 
     // checklist와 관련된 데이터 리스트
     var allItems = arrayListOf<Items>()
+    var recommendation = arrayListOf<Items>()
     var electronics = arrayListOf<Items>()
     var inFlightEssentials = arrayListOf<Items>()
     var clothes = arrayListOf<Items>()
@@ -438,6 +439,16 @@ class UserDataManager constructor() {
                     Items(imageRefs[12], "칫솔&치약"),
                     Items(imageRefs[13], "스킨케어"),
                     Items(imageRefs[14], "컵라면"),
+                )
+            )
+
+            recommendation = ArrayList(
+                listOf(
+                    Items(imageRefs[0], "여권"),
+                    Items(imageRefs[1], "유럽 돈"),
+                    Items(imageRefs[2], "어댑터"),
+                    Items(imageRefs[3], "보조배터리"),
+                    Items(imageRefs[4], "칫솔&치약"),
                 )
             )
 
