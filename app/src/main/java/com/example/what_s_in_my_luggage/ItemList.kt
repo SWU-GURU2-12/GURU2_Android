@@ -86,8 +86,8 @@ class ItemList : AppCompatActivity() {
                 println("adapterProblem_5")
 
                 newImageView.layoutParams = layoutParams
-                layoutParams.width = 300
-                layoutParams.height = 300
+                layoutParams.width = 100
+                layoutParams.height = 100
                 layoutParams.startToStart = ConstraintSet.PARENT_ID
                 layoutParams.endToEnd = ConstraintSet.PARENT_ID
                 layoutParams.topToTop = ConstraintSet.PARENT_ID
