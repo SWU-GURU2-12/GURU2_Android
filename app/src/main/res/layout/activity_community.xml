@@ -111,6 +111,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/coPostlayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -145,7 +146,7 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/ic_star_empty"
+                        android:background="@drawable/ic_star"
                         app:layout_constraintBottom_toBottomOf="@id/tvTripTitle2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -156,6 +157,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageButton
+                    android:id="@+id/imageButton3"
                     android:layout_width="156dp"
                     android:layout_height="156dp"
                     android:layout_marginTop="16dp"

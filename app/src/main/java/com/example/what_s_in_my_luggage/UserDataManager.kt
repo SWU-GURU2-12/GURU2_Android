@@ -93,7 +93,7 @@ class UserDataManager constructor() {
         return userName
     }
 
-// Travel Place List
+    // Travel Place List
     fun setTravelPlaceList() {
         travelPlaceList.clear()
 
@@ -115,7 +115,7 @@ class UserDataManager constructor() {
         return travelPlaceList
     }
 
-// Saved Template List
+    // Saved Template List
     fun setSavedTemplateList() {
         savedTemplateList.clear()
 
@@ -184,7 +184,7 @@ class UserDataManager constructor() {
         refSavedTemplate.child(userName).setValue(savedTemplateList)
     }
 
-// Luggage
+    // Luggage
     fun setLuggageList() { // todo
         luggageList.clear()
         refLuggage.get().addOnSuccessListener {
@@ -218,7 +218,7 @@ class UserDataManager constructor() {
         return "luggage${luggageList.size + 1}"
     }
 
-// Pack Luggage & Checklist
+    // Pack Luggage & Checklist
     fun setCurrentTime() {
         val sdf = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
         val time = Date()
