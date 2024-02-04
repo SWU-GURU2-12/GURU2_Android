@@ -30,9 +30,6 @@ class PackingFrameActivity : AppCompatActivity() {
         val pageTitle = findViewById<TextView>(R.id.pageTitle)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
-//        val fragment = supportFragmentManager.findFragmentById(R.id.packingFragment) as? PackLuggageFragment
-//        val luggageLayout = fragment?.view?.findViewById<ConstraintLayout>(R.id.luggageLayout)
-
         // 4. 짐꾸리기 화면 (PackingFrameActivity)
         val fragments: Array<Fragment> = arrayOf(
             AddCarrierFragment(), // 캐리어 추가
@@ -73,7 +70,6 @@ class PackingFrameActivity : AppCompatActivity() {
                 progressBar.progress = (currentFragment + 1) * (100/fragments.size)
             }
             else { // 발행하기 activity로 이동
-
                 val fragment = fragments[currentFragment] as WritePostFragment
                 fragment.savePostToFirebase()
             }
@@ -88,17 +84,11 @@ class PackingFrameActivity : AppCompatActivity() {
                     }
                     2 -> { // 짐 꾸미기 리스트 -> 짐 꾸미기
                         UserDataManager.getInstance(this).tempLuggage?.currentTime?.let { it1 ->
-                            Log.d("removeremove_1","ok")
-                            Log.d("removeremove_tempLuggage information_1", "${UserDataManager.getInstance(this).tempLuggage?.currentTime}")
                             UserDataManager.getInstance(this).removeScreenshotFromFirebase(
                                 it1
                             )
-                            Log.d("removeremove_2","ok")
-                            Log.d("removeremove_tempLuggage information_2", "${UserDataManager.getInstance(this).tempLuggage?.currentTime}")
                         }
                         UserDataManager.getInstance(this).removeItemListInLuggage()
-//                        UserDataManager.getInstance(this).removeCurrentTime()
-//                        UserDataManager.getInstance(this).removeItemListInLuggage()
                     }
                     1 -> { // 짐 꾸리기 -> 캐리어 추가
 
@@ -133,6 +123,7 @@ class PackingFrameActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
     private fun requestCapture(layout: ConstraintLayout) {
         if (layout == null) {
             println("::::ERROR:::: captureTargetLayout == NULL")

@@ -18,8 +18,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class CheckListFragment : Fragment() {
-    var packingFrameActivity: PackingFrameActivity? = null
-
     private lateinit var electronicsLayout: LinearLayout
     private lateinit var inFlightEssentialsLayout: LinearLayout
     private lateinit var clothesLayout: LinearLayout
@@ -30,7 +28,6 @@ class CheckListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -51,26 +48,6 @@ class CheckListFragment : Fragment() {
                 it
             )
         }
-
-//        databaseRef = FirebaseDatabase.getInstance().getReference("checklist").child("seoyoung").child("luggage1")
-//        databaseRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                // dataSnapshot에서 데이터 가져오기
-//                val itemList = mutableListOf<String>()
-//                for (itemSnapshot in snapshot.children) {
-//                    val itemName = itemSnapshot.child("itemName").getValue(String::class.java)
-//                    itemName?.let {
-//                        itemList.add(it)
-//                    }
-//                }
-//                // TextView 동적으로 생성하여 추가
-//                displayChecklist(itemList)
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                // 오류 처리
-//            }
-//        })
 
         return view
     }

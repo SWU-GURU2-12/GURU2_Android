@@ -10,8 +10,6 @@ import com.example.what_s_in_my_luggage.databinding.ActivityItemListBinding
 
 class ItemListAdapter(var list: List<Items>, private val context: Context): RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder>() {
 
-//    var dataManager = UserDataManager.getInstance(context)
-
     inner class ItemListViewHolder(val binding: ActivityItemListBinding): RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -29,7 +27,6 @@ class ItemListAdapter(var list: List<Items>, private val context: Context): Recy
     }
 
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
-//        holder.binding.itemImageView.setImageResource(list[position].image)
         val storageReference = list[position].image
 
         // StorageReference에서 downloadUrl 가져오기

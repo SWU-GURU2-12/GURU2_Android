@@ -59,9 +59,6 @@ class UserDataManager constructor() {
     var otherClothes = arrayListOf<Items>()
     var care = arrayListOf<Items>()
     var food = arrayListOf<Items>()
-    var itemsInCheckList = arrayListOf<Items>()
-    var luggageNumber = 0
-    var luggageId = "" // -> tempLuggage!!.luggageID
 
     // 임시 데이터
     var tempLuggage: Luggage? = null
@@ -227,17 +224,11 @@ class UserDataManager constructor() {
         tempLuggage?.currentTime = currentTime
     }
 
-    fun setItemListInLuggage(item: Items) {
-//        val dataToAdd = mapOf(
-//            "itemName" to item.name
-//        )
-//        val dataToAdd = listOf(
-//            item.name
-//        )
-//
-//        tempLuggage?.itemListInLuggage = dataToAdd
-//        Log.d("tempLuggage information","${tempLuggage?.itemListInLuggage}")
+    fun removeCurrentTime() {
+        tempLuggage?.currentTime = ""
+    }
 
+    fun setItemListInLuggage(item: Items) {
         if (tempLuggage?.itemListInLuggage == null) {
             tempLuggage?.itemListInLuggage = ArrayList()
         }
@@ -248,71 +239,28 @@ class UserDataManager constructor() {
 
     fun removeItemListInLuggage() {
         tempLuggage?.itemListInLuggage?.clear()
-        Log.d("tempLuggage information", "${tempLuggage?.itemListInLuggage}")
     }
 
-    fun removeCurrentTime() {
-        tempLuggage?.currentTime = ""
-        Log.d("tempLuggage information", "${tempLuggage?.currentTime}")
-    }
+    fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
+        val storageRef = storage.reference
+        val imagesRef = storageRef.child("captures/$fileName.jpg")
 
-    fun sendDataToFirebase(item: Items) {
-        // 전송할 데이터 생성
-        val dataToAdd = mapOf(
-            "itemName" to item.name
-        )
+        // ByteArrayOutputStream을 사용하여 Bitmap 이미지를 byte 배열로 변환
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+        val data = baos.toByteArray()
 
+        // Firebase Storage에 이미지 업로드
+        val uploadTask = imagesRef.putBytes(data)
 
-
-//        val userName = "NaomiWatts"
-//        val luggageId = "luggage123"
-//
-//        // 경로 생성 또는 참조
-//        val checklistRef = refChecklist.child(userName).child(luggageId)
-//
-//        // 경로가 없으면 생성
-//        checklistRef.setValue(null)  // 빈 값으로 설정하여 경로 생성
-//
-//        // 데이터 추가
-//        checklistRef.push().setValue(dataToAdd)
-//            .addOnSuccessListener {
-//                Log.d("Firebase", "Data added successfully")
-//            }
-//            .addOnFailureListener { e ->
-//                Log.e("Firebase", "Error adding data: $e")
-//            }
-
-        refChecklist.child("NaomiWatts").child("luggage123").push().setValue(dataToAdd)
-
-//        refLuggage.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//
-//                for (luggageSnapshot in dataSnapshot.children) {
-//                    val userNameValue = luggageSnapshot.child("userName").getValue(String::class.java)
-//
-//                    if (userNameValue == "NaomiWatts") {
-//                        luggageId = luggageSnapshot.child("luggageID").getValue(String::class.java)!!
-//                        refChecklist.child("NaomiWatts").child("$luggageId").push().setValue(dataToAdd)
-//                        break
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                println("Error fetching luggage data: ${databaseError.message}")
-//            }
-//        })
-    }
-
-    fun removeLuggageFromFirebase() {
-        refChecklist.child("seoyoung").child("luggage1").removeValue().addOnCompleteListener { task ->
+        uploadTask.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Log.d("Firebase_remove", "Luggage data remove successful")
+                // 업로드 성공
+                Log.d("Firebase_upload", "Image upload successful")
             } else {
-                Log.e("Firebase_remove", "Luggage data remove failed: ${task.exception}")
+                // 업로드 실패
+                Log.e("Firebase_upload", "Image upload failed: ${task.exception}")
             }
-        }.addOnFailureListener { exception ->
-            Log.e("Firebase_remove_error", "Luggage data remove failed: $exception")
         }
     }
 
@@ -332,88 +280,6 @@ class UserDataManager constructor() {
 
         removeCurrentTime()
     }
-
-//    fun removeLuggageAndScreenshotFromFirebase(fileName: String) {
-//
-//
-//
-//        // Remove screenshot from Firebase Storage
-////        val storage = FirebaseStorage.getInstance()
-//        val storageRef = storage.reference
-//        val imagesRef = storageRef.child("captures/$fileName.jpg")
-//
-//        imagesRef.delete().addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                Log.d("Firebase_delete", "Screenshot delete successful")
-//            } else {
-//                Log.e("Firebase_delete", "Screenshot delete failed: ${task.exception}")
-//            }
-//        }.addOnFailureListener { exception ->
-//            Log.e("Firebase_delete_error", "Screenshot delete failed: $exception")
-//
-//        }
-//    }
-
-    fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
-        Log.d("capture_1","ok")
-//        val storage = FirebaseStorage.getInstance()
-        val storageRef = storage.reference
-        val imagesRef = storageRef.child("captures/$fileName.jpg")
-        Log.d("capture_2","ok")
-
-        // ByteArrayOutputStream을 사용하여 Bitmap 이미지를 byte 배열로 변환
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
-        val data = baos.toByteArray()
-        Log.d("capture_3","ok")
-
-        // Firebase Storage에 이미지 업로드
-        val uploadTask = imagesRef.putBytes(data)
-        Log.d("capture_4","ok")
-
-        uploadTask.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // 업로드 성공
-                Log.d("Firebase_upload", "Image upload successful")
-//                Toast.makeText(applicationContext, "이미지가 Firebase Storage에 저장되었습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                // 업로드 실패
-                Log.e("Firebase_upload", "Image upload failed: ${task.exception}")
-//                Toast.makeText(applicationContext, "이미지 업로드에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-        Log.d("capture_5","ok")
-    }
-
-//    fun setItemsInCheckList(onComplete: (ArrayList<String>) -> Unit) {
-//        val itemsList = arrayListOf<String>()
-//        refChecklist.child("seoyoung").child("luggage1")
-//            .addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    snapshot.children.forEach { itemSnapshot ->
-//                        val itemName = itemSnapshot.child("itemName").getValue(String::class.java)
-//                        itemName?.let {
-////                            val item = Items(it)
-//                            itemsList.add(it)
-//                        }
-//                    }
-//                    onComplete(itemsList)
-//                }
-////                    // dataSnapshot에서 데이터 가져오기
-////                    val itemList = mutableListOf<String>()
-////                    for (itemSnapshot in snapshot.children) {
-////                        val itemName = itemSnapshot.child("itemName").getValue(String::class.java)
-////                        itemName?.let {
-////                            itemList.add(it)
-////                        }
-////                    }
-//
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    // 오류 처리
-//                }
-//            })
-//    }
 
     fun setItemLists() {
         // 백그라운드 스레드에서 데이터베이스에서 아이템 정보를 가져오기
