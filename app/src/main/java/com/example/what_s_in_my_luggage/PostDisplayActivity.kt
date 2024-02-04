@@ -1,6 +1,8 @@
 package com.example.what_s_in_my_luggage
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.Toast
@@ -20,9 +22,18 @@ class PostDisplayActivity : AppCompatActivity() {
     private lateinit var carrierNameTextView: TextView
     private lateinit var imageURL: ImageView
 
+    lateinit var btnBack: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_display) // 레이아웃 파일 이름 확인 및 필요 시 변경
+
+        btnBack = findViewById(R.id.btnBack)
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, MyRoomActivity::class.java)
+            startActivity(intent)
+        }
 
         databaseRef = FirebaseDatabase.getInstance().getReference("posts")
 
