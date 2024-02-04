@@ -10,11 +10,10 @@ import android.widget.SearchView
 import androidx.fragment.app.setFragmentResult
 import com.example.what_s_in_my_luggage.model.ListViewItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
 
 class DialogListViewFragment : BottomSheetDialogFragment() {
 
+    private lateinit var listAdapter: DialogListViewAdapter
     private lateinit var searchView: SearchView
     private lateinit var listView: ListView
     var selected: String = ""
@@ -31,25 +30,33 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
         listView = view.findViewById<ListView>(R.id.listView)
 
         // 데이터 가져오기
-        var test = arrayListOf<ListViewItem>()
+        var datas = arrayListOf<ListViewItem>()
         val tag = arguments?.getString("tag")
         var dataManager = UserDataManager.getInstance(requireContext())
 
+
         if (tag == "travelPlace") { // travel place
-            test = dataManager.getTravelPlaceList()
+            datas = dataManager.getTravelPlaceList()
         } else if (tag == "template") { // template
-            test = dataManager.getSavedTemplateListView()
+            datas = dataManager.getSavedTemplateListView()
         }
-        setUpListView(test)
-        setUpSearchView(test)
+
+        // list view 구성
+        listAdapter = DialogListViewAdapter()
+        listView.adapter = listAdapter
+
+        for (item in datas) {
+            // Log.d("test", "item: ${item.title}, ${item.subTitle}")
+            listAdapter.add(item)
+        }
+        setUpListView(datas)
+        setUpSearchView(datas)
 
         return view
     }
 
     fun setUpListView(test: ArrayList<ListViewItem>) {
-        // list view 구성
-        val listAdapter = DialogListViewAdapter(test)
-        listView.adapter = listAdapter
+        listAdapter.refresh(test)
 
         // item을 클릭햇을 때
         listView.setOnItemClickListener { parent, view, position, id ->
@@ -88,8 +95,12 @@ class DialogListViewFragment : BottomSheetDialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        setFragmentResult("selectPlace", Bundle().apply {
-            putString("place", selected)
+        var tag = arguments?.getString("tag")
+
+        if (tag == null) return
+
+        setFragmentResult("${tag}", Bundle().apply {
+            putString("dialogListView", selected)
         })
     }
 }

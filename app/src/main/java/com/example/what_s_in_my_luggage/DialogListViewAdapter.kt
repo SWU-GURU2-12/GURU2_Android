@@ -7,7 +7,9 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.what_s_in_my_luggage.model.ListViewItem
 
-class DialogListViewAdapter(private val items: MutableList<ListViewItem>) : BaseAdapter() {
+class DialogListViewAdapter() : BaseAdapter() {
+    var items = ArrayList<ListViewItem>()
+
     override fun getCount(): Int = items.size
 
     override fun getItem(position: Int): ListViewItem = items[position]
@@ -29,5 +31,16 @@ class DialogListViewAdapter(private val items: MutableList<ListViewItem>) : Base
         subTitle.text = item.subTitle
         
         return view
+    }
+
+    fun add(item: ListViewItem) {
+        items.add(item)
+        notifyDataSetChanged()
+    }
+
+    fun refresh(items: ArrayList<ListViewItem>) {
+        this.items.clear()
+        this.items.addAll(items)
+        notifyDataSetChanged()
     }
 }
