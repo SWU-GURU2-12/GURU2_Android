@@ -61,12 +61,10 @@ class PackingFrameActivity : AppCompatActivity() {
                         val luggageLayout = fragment?.view?.findViewById<ConstraintLayout>(R.id.luggageLayout)
                         if (luggageLayout != null) {
                             requestCapture(luggageLayout)
-                            Log.d("capture_0","ok")
                         }
                     }
                     2 -> { // 짐 꾸리기 리스트 -> 템플릿 발행하기
                         btnNext.text = "발행"
-//
                     }
                 }
                 currentFragment++
@@ -75,6 +73,7 @@ class PackingFrameActivity : AppCompatActivity() {
                 progressBar.progress = (currentFragment + 1) * (100/fragments.size)
             }
             else { // 발행하기 activity로 이동
+
                 val fragment = fragments[currentFragment] as WritePostFragment
                 fragment.savePostToFirebase()
             }
@@ -85,9 +84,21 @@ class PackingFrameActivity : AppCompatActivity() {
                 when (currentFragment) {
                     3 -> { // 템플릿 발행하기 -> 짐 꾸미기 리스트
                         btnNext.text = "다음"
+                        // 발행하기 fragment의 string data 초기화
                     }
                     2 -> { // 짐 꾸미기 리스트 -> 짐 꾸미기
-
+                        UserDataManager.getInstance(this).tempLuggage?.currentTime?.let { it1 ->
+                            Log.d("removeremove_1","ok")
+                            Log.d("removeremove_tempLuggage information_1", "${UserDataManager.getInstance(this).tempLuggage?.currentTime}")
+                            UserDataManager.getInstance(this).removeScreenshotFromFirebase(
+                                it1
+                            )
+                            Log.d("removeremove_2","ok")
+                            Log.d("removeremove_tempLuggage information_2", "${UserDataManager.getInstance(this).tempLuggage?.currentTime}")
+                        }
+                        UserDataManager.getInstance(this).removeItemListInLuggage()
+//                        UserDataManager.getInstance(this).removeCurrentTime()
+//                        UserDataManager.getInstance(this).removeItemListInLuggage()
                     }
                     1 -> { // 짐 꾸리기 -> 캐리어 추가
 

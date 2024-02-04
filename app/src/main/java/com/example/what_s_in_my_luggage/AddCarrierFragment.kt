@@ -34,14 +34,19 @@ class AddCarrierFragment : Fragment() {
             val button = bundle.getInt("button")
             setDate(button, date!!)
         }
-        setFragmentResultListener("selectPlace") { key, bundle ->
-            val place = bundle.getString("place")
+        setFragmentResultListener("travelPlace") { key, bundle ->
+            val place = bundle.getString("dialogListView")
             setTravelPlace(place!!)
         }
-        setFragmentResultListener("selectTemplate") { key, bundle ->
-            val template = bundle.getString("luggageID")
+        setFragmentResultListener("template") { key, bundle ->
+            val template = bundle.getString("dialogListView")
             setTemplate(template!!)
         }
+
+        // data 초기화
+        var dataManager = UserDataManager.getInstance(requireContext())
+        dataManager.setTravelPlaceList()
+        dataManager.setSavedTemplateList()
     }
 
     override fun onCreateView(
@@ -51,7 +56,7 @@ class AddCarrierFragment : Fragment() {
     ): View? {
         // fragment_add_carrier.xml과 연결하여 return 함
         var view = inflater.inflate(R.layout.fragment_add_carrier, container, false)
-        
+
         // 초기화
         btnDepartureCal = view.findViewById<Button>(R.id.btnDepartureCal)
         btnArrivalCal = view.findViewById<Button>(R.id.btnArrivalCal)
@@ -136,9 +141,11 @@ class AddCarrierFragment : Fragment() {
         var userName = UserDataManager.getInstance(requireContext()).getUserName()
         var carriername = carrierName.text.toString()
         var destination = txtTravelPlace.text.toString()
-        var schedule = btnDepartureCal.text.toString() + " - " + btnArrivalCal.text.toString()
+        
         var title = ""
         var content = ""
+
+        var schedule = btnDepartureCal.text.toString() + "\n -    " + btnArrivalCal.text.toString()
 
         var tempLuggage = Luggage("temp", userName, carriername, destination, schedule, title, content)
         UserDataManager.getInstance(requireContext()).setTempLuggage(tempLuggage)
