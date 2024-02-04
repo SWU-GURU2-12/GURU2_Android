@@ -236,7 +236,7 @@
                         <TextView
                             android:id="@+id/clpost"
                             android:layout_width="103dp"
-                            android:layout_height="41dp"
+                            android:layout_height="60dp"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="9dp"
                             android:text="24.02.04 목 ---- \n----> 24.02.15 목"

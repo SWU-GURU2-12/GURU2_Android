@@ -139,7 +139,10 @@ class AddCarrierFragment : Fragment() {
     }
 
     fun setTemplate(temp: String) {
+        var temp = temp
         val txtTemplate = template.findViewById<TextView>(R.id.txtTemplate)
+        if (temp == "")
+            temp = "기본 템플릿"
         txtTemplate.text = temp
         txtTemplate.setTextColor(Color.BLACK)
     }
@@ -152,7 +155,7 @@ class AddCarrierFragment : Fragment() {
         var title = ""
         var content = ""
 
-        var schedule = btnDepartureCal.text.toString() + "\n -    " + btnArrivalCal.text.toString()
+        var schedule = btnDepartureCal.text.toString() + "\n  -\n" + btnArrivalCal.text.toString()
 
         // imageURL 파라미터에 null을 전달하여 객체 생성
         var tempLuggage = Luggage(
