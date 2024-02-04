@@ -86,7 +86,7 @@ class UserDataManager constructor() {
         return userName
     }
 
-// Travel Place List
+    // Travel Place List
     fun setTravelPlaceList() {
         refTravelPlace.get().addOnSuccessListener {
             for (data in it.children) {
@@ -103,7 +103,7 @@ class UserDataManager constructor() {
         return travelPlaceList
     }
 
-// Saved Template List
+    // Saved Template List
     fun setSavedTemplateList() {
         // savedTemplate 노드의 key 값은 userName
         refSavedTemplate.child(userName).get().addOnSuccessListener {
@@ -143,7 +143,7 @@ class UserDataManager constructor() {
         refSavedTemplate.child(userName).setValue(savedTemplateList)
     }
 
-// Luggage
+    // Luggage
     fun setLuggageList() { // todo
         refLuggage.get().addOnSuccessListener {
             for (data in it.children) {
@@ -176,7 +176,7 @@ class UserDataManager constructor() {
         return "luggage${luggageList.size + 1}"
     }
 
-// Pack Luggage & Checklist
+    // Pack Luggage & Checklist
     fun setCurrentTime() {
         val sdf = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
         val time = Date()

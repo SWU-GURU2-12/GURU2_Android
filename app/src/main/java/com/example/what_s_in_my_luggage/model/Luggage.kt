@@ -6,20 +6,27 @@ class Luggage {
     var luggageID: String = ""
     var userName: String = ""
 
-    var title: String = "" // 캐리어 이름
+    var carriername: String = "" // 캐리어 이름
     var destination: String = ""
     var schedule: String = ""
 
     var itemListInLuggage: MutableList<String>? = null
     var currentTime: String = ""
 
+    var title: String = ""
+    var content: String = ""
+
+
     constructor()
 
-    constructor(carrierId: String, userName: String, title: String, destination: String, schedule: String) {
+    constructor(carrierId: String, userName: String, carriername: String, destination: String, schedule: String, title: String, content: String) {
         this.luggageID = carrierId
         this.userName = userName
-        this.title = title
+        this.carriername = carriername
         this.destination = destination
         this.schedule = schedule
+        this.title = title
+        this.content = content
+
+        }
     }
-}

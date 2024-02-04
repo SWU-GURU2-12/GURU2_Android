@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="WritePostActivity">
+    tools:context="WritePostFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/widget"
@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/titlepost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="제주도 한달살기"
@@ -92,6 +93,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/contentpost"
                         android:layout_width="287dp"
                         android:layout_height="242dp"
                         android:layout_marginBottom="16dp"

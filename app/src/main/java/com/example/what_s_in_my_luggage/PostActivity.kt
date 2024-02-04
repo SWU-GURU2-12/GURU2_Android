@@ -7,7 +7,6 @@ import androidx.activity.OnBackPressedCallback
 
 class PostActivity : AppCompatActivity() {
 
-    private var backPressedTime = 0L
     lateinit var btnBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {

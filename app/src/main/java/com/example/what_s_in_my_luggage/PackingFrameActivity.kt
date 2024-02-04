@@ -37,8 +37,8 @@ class PackingFrameActivity : AppCompatActivity() {
         val fragments: Array<Fragment> = arrayOf(
             AddCarrierFragment(), // 캐리어 추가
             PackLuggageFragment(), // 짐 꾸리기
-            CheckListFragment()
-            // 템플릿 발행하기
+            CheckListFragment(),
+            WritePostFragment() // 템플릿 발행하기
         )
         var currentFragment = 0
         val titleList: Array<String> = arrayOf(
@@ -75,7 +75,8 @@ class PackingFrameActivity : AppCompatActivity() {
                 progressBar.progress = (currentFragment + 1) * (100/fragments.size)
             }
             else { // 발행하기 activity로 이동
-
+                val fragment = fragments[currentFragment] as WritePostFragment
+                fragment.savePostToFirebase()
             }
         }
 

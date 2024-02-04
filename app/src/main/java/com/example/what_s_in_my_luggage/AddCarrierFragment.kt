@@ -134,11 +134,13 @@ class AddCarrierFragment : Fragment() {
 
     fun saveTempLuggage() {
         var userName = UserDataManager.getInstance(requireContext()).getUserName()
-        var title = carrierName.text.toString()
+        var carriername = carrierName.text.toString()
         var destination = txtTravelPlace.text.toString()
         var schedule = btnDepartureCal.text.toString() + " - " + btnArrivalCal.text.toString()
+        var title = ""
+        var content = ""
 
-        var tempLuggage = Luggage("temp", userName, title, destination, schedule)
+        var tempLuggage = Luggage("temp", userName, carriername, destination, schedule, title, content)
         UserDataManager.getInstance(requireContext()).setTempLuggage(tempLuggage)
     }
 
