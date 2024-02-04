@@ -66,7 +66,6 @@ class PackingFrameActivity : AppCompatActivity() {
                     }
                     2 -> { // 짐 꾸리기 리스트 -> 템플릿 발행하기
                         btnNext.text = "발행"
-//
                     }
                 }
                 currentFragment++
@@ -75,7 +74,7 @@ class PackingFrameActivity : AppCompatActivity() {
                 progressBar.progress = (currentFragment + 1) * (100/fragments.size)
             }
             else { // 발행하기 activity로 이동
-
+                
             }
         }
 
@@ -84,6 +83,7 @@ class PackingFrameActivity : AppCompatActivity() {
                 when (currentFragment) {
                     3 -> { // 템플릿 발행하기 -> 짐 꾸미기 리스트
                         btnNext.text = "다음"
+                        // 발행하기 fragment의 string data 초기화
                     }
                     2 -> { // 짐 꾸미기 리스트 -> 짐 꾸미기
 
