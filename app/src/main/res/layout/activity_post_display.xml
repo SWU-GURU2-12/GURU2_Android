@@ -42,7 +42,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:scrollbars="none"
-        android:layout_marginTop="104dp">
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="-172dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,8 +138,8 @@
                     android:layout_width="156dp"
                     android:layout_height="156dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
                     app:cardElevation="8dp"
                     tools:layout_editor_absoluteX="25dp">
 
@@ -154,11 +155,11 @@
                         app:layout_constraintStart_toStartOf="parent">
 
                         <ImageView
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/airplanetilt"/>
+                            android:background="@drawable/airplanetilt"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -212,11 +213,11 @@
 
                         <ImageView
                             android:id="@+id/imageView"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/calendarblank" />
+                            android:background="@drawable/calendarblank"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -261,8 +262,8 @@
                     android:layout_width="156dp"
                     android:layout_height="156dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
                     app:cardElevation="8dp"
                     tools:layout_editor_absoluteX="25dp">
 
@@ -278,11 +279,11 @@
                         app:layout_constraintStart_toStartOf="parent">
 
                         <ImageView
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/readcvlogo" />
+                            android:background="@drawable/readcvlogo"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -335,11 +336,11 @@
 
                         <ImageView
                             android:id="@+id/imageView4"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/suitcaselogo" />
+                            android:background="@drawable/suitcaselogo"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -413,13 +414,12 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/carriertop"
-                    />
+                    android:background="@drawable/carriertop" />
 
 
                 <ImageView
@@ -435,8 +435,8 @@
                 android:layout_width="328dp"
                 android:layout_height="504dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 app:cardElevation="8dp"
                 tools:layout_editor_absoluteX="25dp">
 
@@ -595,7 +595,6 @@
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
