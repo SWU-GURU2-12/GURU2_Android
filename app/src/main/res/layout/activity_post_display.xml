@@ -394,7 +394,7 @@
                 android:layout_width="328dp"
                 android:layout_height="419dp"
                 android:layout_gravity="center"
-                android:background="@drawable/carrier2" />
+                android:background="@color/white" />
 
             <ImageView
                 android:layout_width="360dp"

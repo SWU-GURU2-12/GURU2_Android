@@ -300,7 +300,7 @@ class UserDataManager constructor() {
     fun uploadImageToFirebaseStorage(bitmap: Bitmap, fileName: String) {
         val storageRef = FirebaseStorage.getInstance().reference.child("images/$fileName")
         val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val data = baos.toByteArray()
 
         val uploadTask = storageRef.putBytes(data)
