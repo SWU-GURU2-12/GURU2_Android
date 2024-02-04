@@ -38,38 +38,48 @@ class WritePostFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if(context is PackingFrameActivity) {
+        if (context is PackingFrameActivity) {
             packingFrameActivity = context
         }
+
+
     }
 
     fun savePostToFirebase() {
         val title = etTitle.text.toString().trim()
         val content = etContent.text.toString().trim()
-        // 여기서 추가 정보를 받아오는 로직 필요
-        val destination = "" // AddCarrierFragment에서 받아온 정보
-        val schedule = "" // AddCarrierFragment에서 받아온 정보
-        val carriername = "" // AddCarrierFragment에서 받아온 정보
-        val luggageID = ""
-        val userName = ""
+
+        // UserDataManager에서 임시 데이터 가져오기
+        val tempLuggage = UserDataManager.getInstance(requireContext()).tempLuggage
+        val destination = tempLuggage?.destination ?: ""
+        val schedule = tempLuggage?.schedule ?: ""
+        val carrierName = tempLuggage?.carriername ?: ""
+        val userName = UserDataManager.getInstance(requireContext()).getUserName()
+        val itemList = tempLuggage?.itemListInLuggage ?: mutableListOf()
 
         if (title.isNotEmpty()) {
             val postId = databaseRef.push().key
-            val luggage = Luggage(title, content, destination, schedule, carriername, luggageID, userName)
+            val luggage = Luggage().apply {
+                this.title = title
+                this.content = content
+                this.destination = destination
+                this.schedule = schedule
+                this.carriername = carrierName
+                this.userName = userName
+                // itemListInLuggage가 List<String> 타입이면 아래처럼 설정
+                this.itemListInLuggage = itemList
+            }
 
             postId?.let {
-                databaseRef.child("posts").child(it).setValue(luggage)
-                    .addOnCompleteListener {
-                        Toast.makeText(context, "글이 발행되었습니다.", Toast.LENGTH_SHORT).show()
-                        // 성공시 처리 로직, 예를 들어 Fragment를 종료하거나 다른 화면으로 이동
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(context, "글 발행에 실패했습니다.", Toast.LENGTH_SHORT).show()
-                        // 실패시 처리 로직
+                databaseRef.child("posts").child(postId!!).setValue(luggage)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            (activity as? PackingFrameActivity)?.onPostPublished(postId)
+                        } else {
+                            Toast.makeText(context, "글 발행에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
             }
-        } else {
-            Toast.makeText(context, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
     }
 }
