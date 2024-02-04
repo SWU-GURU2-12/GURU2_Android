@@ -28,7 +28,7 @@
             android:id="@+id/titlepost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="제주도 한달살기"
+            android:text="여자끼리 유럽 9박 10일 다녀오기"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -71,7 +71,7 @@
                 android:layout_marginTop="32dp"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
-                tools:text="여자끼리 유럽 9박 10일 다녀오기" />
+                tools:text="나의 여행 캐리어를 소개합니다." />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/content"
@@ -237,7 +237,7 @@
                         <TextView
                             android:id="@+id/clpost"
                             android:layout_width="103dp"
-                            android:layout_height="41dp"
+                            android:layout_height="60dp"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="9dp"
                             android:text="24.02.04 목 ---- \n----> 24.02.15 목"
@@ -395,7 +395,7 @@
                 android:layout_width="328dp"
                 android:layout_height="419dp"
                 android:layout_gravity="center"
-                android:background="@drawable/carrier2" />
+                android:background="@color/white" />
 
             <ImageView
                 android:layout_width="360dp"

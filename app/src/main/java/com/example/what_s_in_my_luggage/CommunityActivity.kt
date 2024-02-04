@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class CommunityActivity : AppCompatActivity() {
     lateinit var linearLayout: LinearLayout
@@ -29,6 +32,7 @@ class CommunityActivity : AppCompatActivity() {
         addPostPreviewCard("luggage2", "일본 3박 4일 여행", false, R.drawable.front6, R.drawable.front5)
     
         // TODO: 모든 post를 추가
+
     }
 
     fun addPostPreviewCard(luggageID: String, postTitle: String, bookmark: Boolean, img1: Int, img2: Int) : PostPreviewCardFragment {
