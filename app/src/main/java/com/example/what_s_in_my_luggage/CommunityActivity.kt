@@ -40,6 +40,7 @@ class CommunityActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun setupBottomNavigation() {
         val sharedPrefs = getSharedPreferences("BottomNavPrefs", Context.MODE_PRIVATE)
         val selectedButtonId = sharedPrefs.getInt("SELECTED_BUTTON_ID", R.id.btnNaviMyroom)

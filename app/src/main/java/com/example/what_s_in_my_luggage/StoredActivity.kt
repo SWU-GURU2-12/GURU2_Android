@@ -7,9 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 
 class StoredActivity : AppCompatActivity() {
+    lateinit var linearLayout: LinearLayout
+    var luggageID = "luggage0"
+
+    // Fragment PostPreviewCardFragment{7831e76} (53f688c6-4c07-4099-8736-85ba3c8409fd) not attached to a context.
+    // 문제 해결
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stored)
@@ -26,22 +35,34 @@ class StoredActivity : AppCompatActivity() {
             .replace(R.id.bottomNavigationFragment, bottomNavFragment) // XML에서 정의된 ID로 변경
             .commit()
 
-        val coPostlayout2 = findViewById<ConstraintLayout>(R.id.coPostlayout2)
-        val imageButton3 = findViewById<ImageButton>(R.id.imageButton3)
-        val imageButton4 = findViewById<ImageButton>(R.id.imageButton4)
+        // 초기화
+        linearLayout = findViewById(R.id.linearLayout)
 
-        // 글 클릭시 발행한 글로 넘어가기
-        coPostlayout2.setOnClickListener {
-            val intent = Intent(this, PostActivity::class.java)
-            startActivity(intent)
-        }
-        imageButton3.setOnClickListener {
-            val intent = Intent(this, PostActivity::class.java)
-            startActivity(intent)
-        }
-        imageButton4.setOnClickListener {
-            val intent = Intent(this, PostActivity::class.java)
-            startActivity(intent)
-        }
+        // 기본 post preview card 추가 (테스트용)
+        var first = addPostPreviewCard("luggage1", "제주도 한 달 살기", true, R.drawable.front3, R.drawable.front4)
+        var second = addPostPreviewCard("luggage2", "여자끼리 유럽 9박 10일 다녀오기", true, R.drawable.front3, R.drawable.front4)
     }
+
+    fun addPostPreviewCard(luggageID: String, postTitle: String, bookmark: Boolean, img1: Int, img2: Int) : PostPreviewCardFragment {
+        val postPreviewCard = PostPreviewCardFragment()
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.linearLayout, postPreviewCard)
+        }.commit()
+
+        // 데이터 전달
+        postPreviewCard.arguments = Bundle().apply {
+            putString("luggageID", luggageID)
+            putString("postTitle", postTitle)
+            putBoolean("isBookmarked", bookmark)
+            putInt("imgFront", img1)
+            putInt("imgBack", img2)
+        }
+        return postPreviewCard
     }
+
+    fun removePostPreviewCard(postPreviewCard: PostPreviewCardFragment) {
+        supportFragmentManager.beginTransaction().apply {
+            remove(postPreviewCard)
+        }.commit()
+    }
+}
