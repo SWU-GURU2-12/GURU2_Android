@@ -24,12 +24,10 @@ class PackLuggageFragment : Fragment() {
     private lateinit var otherClothesBtn: Button
     private lateinit var careBtn: Button
     private lateinit var foodBtn: Button
-    private lateinit var itemAdapter: ItemListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

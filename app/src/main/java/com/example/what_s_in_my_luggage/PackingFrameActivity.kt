@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.ListFragment
@@ -57,6 +58,11 @@ class PackingFrameActivity : AppCompatActivity() {
                         val fragment = fragments[currentFragment] as PackLuggageFragment
                         val luggageLayout = fragment?.view?.findViewById<ConstraintLayout>(R.id.luggageLayout)
                         if (luggageLayout != null) {
+                            if (UserDataManager.getInstance(this).tempLuggage?.itemListInLuggage.isNullOrEmpty()) {
+                                // itemListInLuggage가 비어있으면 아무 동작 안하게 처리
+                                Toast.makeText(applicationContext, "아이템을 한 개 이상 추가해주세요.", Toast.LENGTH_SHORT).show()
+                                return@setOnClickListener
+                            }
                             requestCapture(luggageLayout)
                         }
                     }
