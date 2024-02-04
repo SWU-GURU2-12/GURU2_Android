@@ -37,7 +37,7 @@ class UserDataManager constructor() {
     // Database
     private val database = Firebase.database
     private val refUsers = database.getReference("users")
-    private val refLuggage = database.getReference("luggage")
+    private val refPosts = database.getReference("posts")
     private val refTravelPlace = database.getReference("travelPlace")
     private val refSavedTemplate = database.getReference("savedTemplate")
     private val refChecklist = database.getReference("checklist")
@@ -47,11 +47,11 @@ class UserDataManager constructor() {
     private var userName = "NaomiWatts" // 현재 로그인한 사용자의 이름
     private var travelPlaceList = arrayListOf<ListViewItem>() // 여행지 리스트
     private var savedTemplateList = arrayListOf<String>() // 내가 저장한 템플릿 (북마크)
-    private var luggageList = arrayListOf<String>() // 나의 짐 목록 (마이룸) - LuggageID 저장
-    private var postList = arrayListOf<String>() // 발행한 글 목록 - postID 저장
+    private var postList = arrayListOf<String>() // 발행한 글 목록 (마이룸) - LuggageID 저장
 
     // 발행하기와 관련된 데이터
-
+    private var allPosts = arrayListOf<Luggage>() // 모든 발행한 글 목록
+    private var savedPosts = arrayListOf<Luggage>() // 저장한 글 목록
 
     // checklist와 관련된 데이터 리스트
     var allItems = arrayListOf<Items>()
@@ -76,11 +76,10 @@ class UserDataManager constructor() {
         userName = ""
         travelPlaceList.clear()
         savedTemplateList.clear()
-        luggageList.clear()
         postList.clear()
     }
 
-// User
+    // User
     fun generateUser() {
         addSavedTemplate("기본 템플릿")
     }
@@ -114,26 +113,46 @@ class UserDataManager constructor() {
     fun getTravelPlaceList(): ArrayList<ListViewItem> {
         return travelPlaceList
     }
-
+    
     // Saved Template List
     fun setSavedTemplateList() {
         savedTemplateList.clear()
 
-        refSavedTemplate.child(userName).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (data in snapshot.children) {
-                    savedTemplateList.add(data.getValue(String::class.java)!!)
+        refSavedTemplate.child(userName)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (data in snapshot.children) {
+                        savedTemplateList.add(data.getValue(String::class.java)!!)
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase_error", "!!! Saved Template List: ${error.message}")
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("Firebase_error", "!!! Saved Template List: ${error.message}")
+                }
+            })
     }
 
-    fun getSavedTemplateList(): ArrayList<String> {
-        return savedTemplateList
+    fun getSavedTemplateList(): ArrayList<Luggage> {
+        val luggageList = arrayListOf<Luggage>()
+
+        for (luggageID in savedTemplateList) {
+            refPosts.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val luggage = snapshot.getValue(Luggage::class.java)
+                    luggageList.add(luggage!!)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e("Firebase_error", "!!! Luggage : ${error.message}")
+                }
+            })
+        }
+
+        return luggageList
+    }
+
+    fun isSavedTemplate(luggageID: String): Boolean {
+        return savedTemplateList.contains(luggageID)
     }
 
     fun setSavedTemplateListView() { // add carrier fragment에서 ui에 그리기 위한 데이터
@@ -145,7 +164,7 @@ class UserDataManager constructor() {
         Log.e("Firebase_error", "!!! setSavedTemplateListView is empty")
 
         for (luggageID in savedTemplateList) {
-            refLuggage.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
+            refPosts.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val luggage = snapshot.getValue(Luggage::class.java)
                     val listViewItem = ListViewItem(luggage!!.title, luggage.userName)
@@ -161,8 +180,7 @@ class UserDataManager constructor() {
 
     @JvmName("getTempLuggage1")
     fun getSavedTemplateListView(): ArrayList<ListViewItem> {
-        if (savedTemplateListView.isEmpty())
-        {
+        if (savedTemplateListView.isEmpty()) {
             setSavedTemplateListView()
             return savedTemplateListView
         }
@@ -184,16 +202,17 @@ class UserDataManager constructor() {
         refSavedTemplate.child(userName).setValue(savedTemplateList)
     }
 
-    // Luggage
+    //Post (Luggage)
     fun setLuggageList() { // todo
-        luggageList.clear()
-        refLuggage.get().addOnSuccessListener {
+        postList.clear()
+        refPosts.get().addOnSuccessListener {
             for (data in it.children) {
                 // data의 key값을 luggagelist에 추가
-                luggageList.add(data.key!!)
+                postList.add(data.key!!)
             }
         }
     }
+
     @JvmName("setTempLuggage1")
     fun setTempLuggage(luggage: Luggage) {
         tempLuggage = luggage
@@ -207,16 +226,50 @@ class UserDataManager constructor() {
 
     fun saveLuggage() {
         if (tempLuggage == null) return
-        luggageList.add(tempLuggage!!.luggageID)
-        refLuggage.child(tempLuggage!!.luggageID).setValue(tempLuggage)
+        postList.add(tempLuggage!!.luggageID)
+        refPosts.child(tempLuggage!!.luggageID).setValue(tempLuggage)
+    }
+    fun getLuggage(luggageID: String): Luggage? {
+        var luggage: Luggage? = null
+
+        refPosts.child(luggageID).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                luggage = snapshot.getValue(Luggage::class.java)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase_error", "!!! Luggage : ${error.message}")
+            }
+        })
+        return luggage
+    }
+
+    fun getAllLuggage(): ArrayList<Luggage> {
+        val luggageList = arrayListOf<Luggage>()
+
+        refPosts.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+                    val luggage = data.getValue(Luggage::class.java)
+                    luggageList.add(luggage!!)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase_error", "!!! Luggage : ${error.message}")
+            }
+        })
+
+        return luggageList
     }
 
     fun generateLuggageID(): String {
-        if(luggageList.isEmpty()) {
+        if (postList.isEmpty()) {
             setLuggageList()
         }
-        return "luggage${luggageList.size + 1}"
+        return "luggage${postList.size + 1}"
     }
+
 
     // Pack Luggage & Checklist
     fun setCurrentTime() {
