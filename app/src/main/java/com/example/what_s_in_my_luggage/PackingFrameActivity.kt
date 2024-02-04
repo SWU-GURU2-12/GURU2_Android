@@ -90,11 +90,14 @@ class PackingFrameActivity : AppCompatActivity() {
         }
 
         btnBack.setOnClickListener() {
-            if (currentFragment > 0) {
+            if (currentFragment >= 0) {
                 when (currentFragment) {
                     3 -> { // 템플릿 발행하기 -> 짐 꾸미기 리스트
                         btnNext.text = "다음"
-                        // 발행하기 fragment의 string data 초기화
+                        // main activity로 이동
+                        val intent = Intent(this, MainActivity ::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                     2 -> { // 짐 꾸미기 리스트 -> 짐 꾸미기
                         UserDataManager.getInstance(this).tempLuggage?.currentTime?.let { it1 ->
@@ -105,14 +108,18 @@ class PackingFrameActivity : AppCompatActivity() {
                         UserDataManager.getInstance(this).removeItemListInLuggage()
                     }
                     1 -> { // 짐 꾸리기 -> 캐리어 추가
+                        Log.e("PackingFrameActivity", "1")
 
                     }
                     0 -> { // 캐리어 추가 -> main activity로 이동
                         // main activity로 이동
                         // 다른 액티비티로 전환
-                        finish()
+                        Log.e("PackingFrameActivity", "0")
                         val intent = Intent(this, MainActivity ::class.java)
                         startActivity(intent)
+                        Log.e("PackingFrameActivity", "click back button to main activity")
+                        finish()
+                        return@setOnClickListener
                     }
                 }
                 currentFragment--
