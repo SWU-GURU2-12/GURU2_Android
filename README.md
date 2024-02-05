@@ -30,7 +30,7 @@ Firebase Realtime Database
 2023.01.18 ~ 2023.02.04 (18 days)
 
 ### Developers
-	- 디지털미디어학과 변혜빈
-	- 소프트웨어융합학과 백서영
-	- 정보보호학과 최유진
-	- 정보보호학과 오설
+디지털미디어학과 [변혜빈](https://github.com/hye2021)
+소프트웨어융합학과 [백서영](https://github.com/sysysysyb)
+정보보호학과 [최유진](https://github.com/ujin6666)
+정보보호학과 [오설](https://github.com/oxeox22)
